@@ -3,11 +3,8 @@ package com.example.lonua.category.service;
 import com.example.lonua.category.model.PostRegReq;
 import com.example.lonua.category.model.entity.Category;
 import com.example.lonua.category.repository.CategoryRepository;
-import com.example.lonua.exception.ErrorCode;
+import com.example.lonua.exception.errorCode.ErrorCode;
 import com.example.lonua.exception.exception.CategoryException;
-import com.example.lonua.exception.exception.GradeException;
-import com.example.lonua.grade.model.PostCreateReq;
-import com.example.lonua.grade.model.entity.Grade;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

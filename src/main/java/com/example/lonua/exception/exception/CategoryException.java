@@ -1,7 +1,6 @@
 package com.example.lonua.exception.exception;
 
-import com.example.lonua.category.model.entity.Category;
-import com.example.lonua.exception.ErrorCode;
+import com.example.lonua.exception.errorCode.ErrorCode;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 

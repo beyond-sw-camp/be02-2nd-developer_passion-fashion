@@ -1,7 +1,6 @@
 package com.example.lonua.grade.service;
 
-import com.example.lonua.brand.repository.BrandRepository;
-import com.example.lonua.exception.ErrorCode;
+import com.example.lonua.exception.errorCode.ErrorCode;
 import com.example.lonua.exception.exception.GradeException;
 import com.example.lonua.grade.model.PostCreateReq;
 import com.example.lonua.grade.model.entity.Grade;
