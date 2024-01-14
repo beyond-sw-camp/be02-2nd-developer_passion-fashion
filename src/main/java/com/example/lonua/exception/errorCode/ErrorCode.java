@@ -1,4 +1,4 @@
-package com.example.lonua.exception;
+package com.example.lonua.exception.errorCode;
 
 import lombok.Getter;
 import org.springframework.http.HttpStatus;

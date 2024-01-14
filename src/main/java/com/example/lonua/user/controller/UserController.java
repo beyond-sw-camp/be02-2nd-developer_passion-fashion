@@ -8,7 +8,10 @@ import com.example.lonua.user.model.entity.request.PostUserLoginReq;
 import com.example.lonua.user.model.entity.request.PatchUserUpdateReq;
 import com.example.lonua.user.service.EmailVerifyService;
 import com.example.lonua.user.service.UserService;
+
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
@@ -19,9 +22,12 @@ import org.springframework.web.bind.annotation.*;
 public class UserController {
 
     private final UserService userService;
+
     private final EmailVerifyService emailVerifyService;
 
+
     // 회원가입
+    @ApiOperation(value = "회원가입")
     @RequestMapping(method = RequestMethod.POST, value = "/signup")
     public ResponseEntity signup(@RequestBody PostSignUpReq postSignUpReq) {
         BaseRes baseRes = userService.signup(postSignUpReq);
@@ -50,20 +56,21 @@ public class UserController {
 
 
     // 로그인
+    @ApiOperation(value = "회원 로그인")
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public ResponseEntity login(@RequestBody PostUserLoginReq postUserLoginReq) {
 
         BaseRes baseRes = userService.login(postUserLoginReq);
         return ResponseEntity.ok().body(baseRes);
     }
-
+    @ApiOperation(value = "회원 목록")
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public ResponseEntity list() {
 
         BaseRes baseRes = userService.list();
         return ResponseEntity.ok().body(baseRes);
     }
-
+    @ApiOperation(value = "회원 조회")
     @RequestMapping(method = RequestMethod.GET, value = "/read")
     public ResponseEntity read() {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());

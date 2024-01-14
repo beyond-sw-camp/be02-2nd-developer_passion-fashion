@@ -3,7 +3,11 @@ package com.example.lonua.brand.controller;
 import com.example.lonua.brand.model.request.PatchUpdateBrandReq;
 import com.example.lonua.brand.model.request.PostRegisterBrandReq;
 import com.example.lonua.brand.service.BrandService;
+<<<<<<< HEAD
 import com.example.lonua.config.BaseRes;
+=======
+import io.swagger.annotations.ApiOperation;
+>>>>>>> feature/swagger
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -18,6 +22,7 @@ public class BrandController {
         this.brandService = brandService;
     }
 
+    @ApiOperation(value = "판매자 등록")
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     public ResponseEntity register(
             @RequestPart(value = "brand") PostRegisterBrandReq postRegisterBrandReq,
