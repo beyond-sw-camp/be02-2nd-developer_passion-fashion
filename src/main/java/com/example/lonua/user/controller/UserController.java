@@ -33,17 +33,18 @@ public class UserController {
     }
 
     // 로그인
+    @ApiOperation(value = "회원 로그인")
     @RequestMapping(method = RequestMethod.POST, value = "/login")
     public ResponseEntity login(@RequestBody PostUserLoginReq postUserLoginReq) {
         return ResponseEntity.ok().body(userService.login(postUserLoginReq));
     }
-
+    @ApiOperation(value = "회원 목록")
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public ResponseEntity list() {
 
         return ResponseEntity.ok().body(userService.list());
     }
-
+    @ApiOperation(value = "회원 조회")
     @RequestMapping(method = RequestMethod.GET, value = "/read")
     public ResponseEntity read() {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());

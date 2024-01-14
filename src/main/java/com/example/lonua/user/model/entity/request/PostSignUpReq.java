@@ -23,7 +23,7 @@ public class PostSignUpReq {
 
     @NotNull
     @Length(min=8,max=200)
-    @ApiModelProperty(value = "사용자 PW", example = "qwer1234@", required = true)
+    @ApiModelProperty(value = "사용자 PW(최소 길이:8)", example = "qwer1234@", required = true)
     private String userPw;
 
     @NotNull
@@ -64,12 +64,12 @@ public class PostSignUpReq {
     private String preferStyle;
 
     @NotNull
-    @Range(min = 1,max = 5)
-    @ApiModelProperty(value = "사용자 상의 사이즈", example = "1~5", required = true)
+    @Range(min = 1,max = 3)
+    @ApiModelProperty(value = "사용자 상의 사이즈(1~3)", example = "1", required = true)
     private Integer upperType;
 
     @NotNull
-    @Range(min = 1,max = 5)
-    @ApiModelProperty(value = "사용자 하의 사이즈", example = "1~5", required = true)
+    @Range(min = 1,max = 3)
+    @ApiModelProperty(value = "사용자 하의 사이즈1~3)", example = "1", required = true)
     private Integer lowerType;
 }
