@@ -4,6 +4,7 @@ import com.example.lonua.user.model.entity.User;
 import com.example.lonua.user.model.entity.request.PostSignUpReq;
 import com.example.lonua.user.model.entity.request.PostUserLoginReq;
 import com.example.lonua.user.service.UserService;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,11 +18,13 @@ public class UserController {
 
     private final UserService userService;
 
+    
     public UserController(UserService userService) {
         this.userService = userService;
     }
 
     // 회원가입
+    @ApiOperation(value = "회원가입")
     @RequestMapping(method = RequestMethod.POST, value = "/signup")
     public ResponseEntity signup(PostSignUpReq postSignUpReq) {
         userService.signup(postSignUpReq);

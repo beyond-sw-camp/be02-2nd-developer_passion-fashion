@@ -23,7 +23,7 @@ public class SwaggerConfig {
                 )
                 .paths(PathSelectors.any()) ///?
                 .build()
-                .apiInfo(apiInfo("스프링 수업", "v1.0"));
+                .apiInfo(apiInfo("LOUNA", "v1.0"));
     }
 
     private ApiInfo apiInfo(String title, String version) {
@@ -31,7 +31,7 @@ public class SwaggerConfig {
                 title,
                 "스프링 문서화 수업 별거 없음",
                 version,
-                "http://www.alittlevanilla.kro.kr/",
+                "https://github.com/hyungdoyou/be02-pre-personalproject-lonua.git",
                 new Contact("블로그 주소", "https://blog.naver.com/ghdalswl77", "ghdalswl77@naver.com"),
                 "Licenses",
                 "http://www.alittlevanilla.kro.kr/",
