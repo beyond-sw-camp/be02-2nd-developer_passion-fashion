@@ -11,8 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 public class PostRegisterBrandRes {
 
-    private Integer brandIdx;
-
     private String brandName;
 
     private String brandIntroduction;

@@ -1,7 +1,5 @@
 package com.example.lonua.orders.model.response;
 
-
-import com.example.lonua.product.model.response.GetReadOrdersProductRes;
 import lombok.*;
 
 @Getter
@@ -11,6 +9,11 @@ import lombok.*;
 @Builder
 public class GetListOrdersRes {
 
-    private Integer ordersIdx;
-    private GetReadOrdersProductRes getReadOrdersProductRes;
+    private String brandName;
+    private String productName;
+    private String productImage;
+    private Integer price;
+    private String createdAt;
+
+
 }

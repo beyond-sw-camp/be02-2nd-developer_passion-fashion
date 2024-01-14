@@ -2,11 +2,20 @@ package com.example.lonua.question.model.entity;
 
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.user.model.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Question {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer questionIdx;

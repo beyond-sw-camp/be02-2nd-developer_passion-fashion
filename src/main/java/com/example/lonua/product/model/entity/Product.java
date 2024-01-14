@@ -5,13 +5,17 @@ import com.example.lonua.cart.model.entity.Cart;
 import com.example.lonua.category.model.entity.Category;
 import com.example.lonua.likes.model.entity.Likes.Likes;
 import com.example.lonua.orders.model.entity.Orders;
+import com.example.lonua.orders.model.entity.OrdersProduct;
+import com.example.lonua.product.model.request.PatchUpdateProductReq;
 import com.example.lonua.question.model.entity.Question;
 import com.example.lonua.review.model.entity.Review;
 import com.example.lonua.style.model.entity.Style;
 import lombok.*;
+import org.hibernate.annotations.BatchSize;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,22 +31,26 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer productIdx;
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Cart> cartList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Likes> likesList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
-    private List<Orders> ordersList = new ArrayList<>();
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Question> questionList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
     private List<Review> reviewList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "product")
-    private List<ProductIntrod> productIntrodList = new ArrayList<>();
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<ProductImage> productImageList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<ProductIntrodImage> productIntrodImageList = new ArrayList<>();
+
+    @OneToMany(mappedBy = "product", fetch = FetchType.LAZY)
+    private List<OrdersProduct> ordersProductList = new ArrayList<>();
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Brand_idx")
@@ -56,11 +64,11 @@ public class Product {
     @JoinColumn(name = "Style_idx")
     private Style style;
 
+    @OneToOne(mappedBy = "product", fetch = FetchType.LAZY)
+    private ProductCount productCount;
+
     @Column(nullable = false, length = 45)
     private String productName;
-
-    @Column(nullable = false, length = 200, unique = true)
-    private String productImage;
 
     @Column(nullable = false)
     private Integer quantity;
@@ -80,23 +88,21 @@ public class Product {
     private Float hemLength;  // 밑단 길이
     private Float totalBottomLength;  // 하의 총 길이
 
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
+    private String createdAt;
+    private String updatedAt;
 
     @Column(nullable = false)
-    private Integer status;
+    private Boolean status;
 
-    @Version // 낙관적 락을 걸어 주기 위한 것
-    private Integer likeCount; // "격리성" 실습을 위한 좋아요 수
-    public void increaseLikeCount() {
-        this.likeCount = this.likeCount + 1;
+    public void update(PatchUpdateProductReq patchUpdateProductReq) {
+        if (patchUpdateProductReq.getProductName() != null) {
+            this.productName = patchUpdateProductReq.getProductName();
+        }
+        if (patchUpdateProductReq.getQuantity() != null) {
+            this.quantity = patchUpdateProductReq.getQuantity();
+        }
+        if (patchUpdateProductReq.getPrice() != null) {
+            this.price = patchUpdateProductReq.getPrice();
+        }
     }
-
-    private Integer upperType1Count;  // 상체 마름
-    private Integer upperType2Count;  // 상체 보통
-    private Integer upperType3Count;  // 상체 비만
-
-    private Integer lowerType1Count;  // 하체 마름
-    private Integer lowerType2Count;  // 하체 보통
-    private Integer lowerType3Count;  // 하체 비만
 }

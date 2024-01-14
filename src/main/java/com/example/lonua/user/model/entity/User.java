@@ -7,12 +7,14 @@ import com.example.lonua.likes.model.entity.Likes.Likes;
 import com.example.lonua.orders.model.entity.Orders;
 import com.example.lonua.question.model.entity.Question;
 import com.example.lonua.review.model.entity.Review;
+import io.swagger.models.auth.In;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 
 @Entity
@@ -49,29 +51,27 @@ public class User implements UserDetails {
     @OneToMany(mappedBy = "user")
     private List<Review> reviewList = new ArrayList<>();
 
+
     @Column(nullable = false, length = 45, unique = true)
-    private String userId;
+    private String userEmail;
 
     @Column(nullable = false, length = 200)
-    private String userPw;
+    private String userPassword;
 
     @Column(nullable = false)
     private String authority;
 
     @Column(nullable = false, length = 45)
-    private String userName;
+    private String name;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 10)   // 1900-01-01
     private String userBirth;
 
-    @Column(nullable = false, length = 1)
+    @Column(nullable = false, length = 1)    // M or G
     private String userGender;
 
-    @Column(nullable = false, length = 45, unique = true)
+    @Column(nullable = false, length = 13, unique = true)   // 010-0000-0000
     private String userPhoneNumber;
-
-    @Column(nullable = false, length = 45, unique = true)
-    private String userEmail;
 
     @Column(nullable = false, length = 45)
     private String userAddr;
@@ -89,13 +89,14 @@ public class User implements UserDetails {
     private Integer userMileage;
 
     @Column(nullable = false)
-    private LocalDateTime createdAt;
+    private String createdAt;
 
     @Column(nullable = false)
-    private LocalDateTime updatedAt;
+    private String updatedAt;
 
     @Column(nullable = false)
-    private Integer status;
+    private Boolean status;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -123,12 +124,30 @@ public class User implements UserDetails {
     }
     @Override
     public String getUsername(){
-        return userId;
+        return userEmail;
     }
 
     @Override
     public String getPassword(){
-        return userPw;
+        return userPassword;
+    }
+
+    public void update(String userAddr, String userPhoneNumber, String preferStyle, Integer upperType, Integer lowerType) {
+        if (userAddr != null) {
+            this.userAddr = userAddr;
+        }
+        if (userPhoneNumber != null) {
+            this.userPhoneNumber = userPhoneNumber;
+        }
+        if (preferStyle != null) {
+            this.preferStyle = preferStyle;
+        }
+        if (upperType != null) {
+            this.upperType = upperType;
+        }
+        if (lowerType != null) {
+            this.lowerType = lowerType;
+        }
     }
 
 

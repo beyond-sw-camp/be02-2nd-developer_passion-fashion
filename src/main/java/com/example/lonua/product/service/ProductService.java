@@ -2,140 +2,58 @@ package com.example.lonua.product.service;
 
 import com.example.lonua.brand.model.entity.Brand;
 import com.example.lonua.category.model.entity.Category;
+import com.example.lonua.config.BaseRes;
 import com.example.lonua.exception.ErrorCode;
 import com.example.lonua.exception.exception.CategoryException;
-import com.example.lonua.product.model.entity.ProductIntrod;
+import com.example.lonua.product.model.entity.ProductCount;
+import com.example.lonua.product.model.entity.ProductImage;
+import com.example.lonua.product.model.entity.ProductIntrodImage;
+import com.example.lonua.product.model.request.PatchUpdateProductReq;
 import com.example.lonua.product.model.request.PostRegisterProductReq;
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.product.model.response.GetListProductRes;
 import com.example.lonua.product.model.response.GetReadProductRes;
-import com.example.lonua.product.model.response.GetProductIntrodRes;
+import com.example.lonua.product.model.response.PatchUpdateProductRes;
 import com.example.lonua.product.model.response.PostRegisterProductRes;
-import com.example.lonua.product.repository.ProductIntrodRepository;
+import com.example.lonua.product.repository.ProductCountRepository;
+import com.example.lonua.product.repository.ProductImageRepository;
+import com.example.lonua.product.repository.ProductIntrodImageRepository;
 import com.example.lonua.product.repository.ProductRepository;
 import com.example.lonua.style.model.entity.Style;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.io.File;
-import java.io.IOException;
-import java.time.LocalDate;
+import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.UUID;
+
 
 @Service
+@RequiredArgsConstructor
 public class ProductService {
 
-    @Value("${project.upload.product-path}")
-    private String uploadProductPath;
-
-//    @Value("${project.upload.product-introduction-path}")
-//    private String uploadProductIntroductionPath;
     private final ProductRepository productRepository;
-    private final ProductIntrodRepository productIntrodRepository;
-
-    public ProductService(ProductRepository productRepository, ProductIntrodRepository productIntrodRepository) {
-        this.productRepository = productRepository;
-        this.productIntrodRepository = productIntrodRepository;
-    }
-
-    public String makeProductFolder(){
-        String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-        String productFolderPath = str.replace("/", File.separator);
-
-        File uploadProductPathFolder = new File(uploadProductPath, productFolderPath);
-
-        if(uploadProductPathFolder.exists() == false) {
-            uploadProductPathFolder.mkdirs();
-        }
-
-        // 폴더 경로를 반환한다.
-        return productFolderPath;
-    }
-
-    public String saveProductFile(MultipartFile productFile) {
-        String originalName = productFile.getOriginalFilename();
-
-        String productFolderPath = makeProductFolder();
-
-        String uuid = UUID.randomUUID().toString();
-
-        String saveProductFileName = productFolderPath+ File.separator + uuid + "_" + originalName;
-        // 해당 경로에 파일을 생성한다.
-        File saveProductFile = new File(uploadProductPath, saveProductFileName);
-
-        try {
-            productFile.transferTo(saveProductFile);
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return saveProductFileName;
-    }
+    private final ProductImageService productImageService;
+    private final ProductIntrodImageService productIntrodImageService;
+    private final ProductCountRepository productCountRepository;
+    private final ProductIntrodImageRepository productIntrodImageRepository;
+    private final ProductImageRepository productImageRepository;
 
 
-//public String makeFolder(String originalName){
-//    String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
-//    String folderPath = str.replace("/", File.separator);
-//
-//    if(originalName.contains("설명")) {
-//        File uploadProductIntroductionPathFolder = new File(uploadProductIntroductionPath, folderPath);
-//
-//        if(uploadProductIntroductionPathFolder.exists() == false) {
-//            uploadProductIntroductionPathFolder.mkdirs();
-//        }
-//        return folderPath;
-//    } else {
-//        File uploadProductPathFolder = new File(uploadProductPath, folderPath);
-//
-//        if(uploadProductPathFolder.exists() == false) {
-//            uploadProductPathFolder.mkdirs();
-//        }
-//        // 폴더 경로를 반환한다.
-//        return folderPath;
-//    }
-//}
-//
-//    public String saveFile(MultipartFile file) {
-//        String originalName = file.getOriginalFilename();
-//
-//        String folderPath = makeFolder(originalName);
-//
-//        String uuid = UUID.randomUUID().toString();
-//
-//        if(originalName.contains("설명")) {
-//            String saveFileName = folderPath+ File.separator + uuid + "_" + originalName;
-//            File saveFile = new File(uploadProductIntroductionPath, saveFileName);
-//            try {
-//                file.transferTo(saveFile);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            return saveFileName;
-//        } else {
-//            String saveFileName = folderPath+ File.separator + uuid + "_" + originalName;
-//            File saveFile = new File(uploadProductPath, saveFileName);
-//            try {
-//                file.transferTo(saveFile);
-//            } catch (IOException e) {
-//                throw new RuntimeException(e);
-//            }
-//            return saveFileName;
-//        }
-//    }
+    @Transactional
+    public BaseRes register(PostRegisterProductReq postRegisterProductReq, MultipartFile[] productFiles, MultipartFile[] productIntrodFiles) {
 
-
-    public PostRegisterProductRes register(PostRegisterProductReq postRegisterProductReq) {
         Optional<Product> result = productRepository.findByProductName(postRegisterProductReq.getProductName());
         if(result.isPresent()) {
-            throw new CategoryException(ErrorCode.DUPLICATED_PRODUCT, String.format("Product is %s", postRegisterProductReq.getProductName()));
+            throw new CategoryException(ErrorCode.DUPLICATED_PRODUCT, String.format("Product Name is %s", postRegisterProductReq.getProductName()));
         }
-
-        String saveProductFileName = saveProductFile(postRegisterProductReq.getProductImage());
 
         Product product = Product.builder()
                 .brand(Brand.builder()
@@ -148,7 +66,6 @@ public class ProductService {
                         .styleIdx(postRegisterProductReq.getStyle_idx())
                         .build())
                 .productName(postRegisterProductReq.getProductName())
-                .productImage(saveProductFileName.replace(File.separator, "/"))
                 .quantity(postRegisterProductReq.getQuantity())
                 .price(postRegisterProductReq.getPrice())
                 .shoulderWidth(postRegisterProductReq.getShoulderWidth())
@@ -161,86 +78,122 @@ public class ProductService {
                 .crotchLength(postRegisterProductReq.getCrotchLength())
                 .hemLength(postRegisterProductReq.getHemLength())
                 .totalBottomLength(postRegisterProductReq.getTotalBottomLength())
+                .createdAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
+                .updatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
+                .status(false)
+                .build();
+
+        product = productRepository.save(product);
+
+        productCountRepository.save(ProductCount.builder()
+                .product(product)
+                .likeCount(0)
                 .upperType1Count(0)
                 .upperType2Count(0)
                 .upperType3Count(0)
                 .lowerType1Count(0)
                 .lowerType2Count(0)
                 .lowerType3Count(0)
-                .createdAt(LocalDateTime.now())
-                .updatedAt(LocalDateTime.now())
-                .status(1)
+                .build());
+
+        List<String> productImageList = productImageService.registerProductImage(product, productFiles);
+        List<String> productIntrodImageList = productIntrodImageService.registerProductIntrodImage(product, productIntrodFiles);
+
+        PostRegisterProductRes postRegisterProductRes = PostRegisterProductRes.builder()
+                .productIdx(product.getProductIdx())
+                .productName(product.getProductName())
+                .quantity(product.getQuantity())
+                .price(product.getPrice())
+                .shoulderWidth(product.getShoulderWidth())
+                .chestSize(product.getChestSize())
+                .armLength(product.getArmLength())
+                .topLength(product.getTopLength())
+                .waistline(product.getWaistline())
+                .hipCircumference(product.getHipCircumference())
+                .thighCircumference(product.getThighCircumference())
+                .crotchLength(product.getCrotchLength())
+                .hemLength(product.getHemLength())
+                .totalBottomLength(product.getTotalBottomLength())
+                .productImage(productImageList)
+                .productIntroductionImage(productIntrodImageList)
                 .build();
 
-        Product regProduct = productRepository.save(product);
-
-        PostRegisterProductRes response = PostRegisterProductRes.builder()
-                .productIdx(regProduct.getProductIdx())
-                .productName(regProduct.getProductName())
-                .productImage(regProduct.getProductImage())
-                .quantity(regProduct.getQuantity())
-                .price(regProduct.getPrice())
-                .shoulderWidth(regProduct.getShoulderWidth())
-                .chestSize(regProduct.getChestSize())
-                .armLength(regProduct.getArmLength())
-                .topLength(regProduct.getTopLength())
-                .waistline(regProduct.getWaistline())
-                .hipCircumference(regProduct.getHipCircumference())
-                .thighCircumference(regProduct.getThighCircumference())
-                .crotchLength(regProduct.getCrotchLength())
-                .hemLength(regProduct.getHemLength())
-                .totalBottomLength(regProduct.getTotalBottomLength())
+        BaseRes baseRes = BaseRes.builder()
+                .code(200)
+                .isSuccess(true)
+                .message("상품 등록 성공")
+                .result(postRegisterProductRes)
                 .build();
 
-        return response;
+        return baseRes;
     }
 
-    // 상품 리스트 출력
-    public List<GetListProductRes> list() {
+    // 상품 리스트 출력(페이지 별)
 
-        List<Product> result = productRepository.findAll();
+//    @Transactional(readOnly = true)
+    public BaseRes list(Integer page, Integer size) {
+
+        // 페이징 기능 사용(QueryDSL)
+        Pageable pageable = PageRequest.of(page-1, size);
+        Page<Product> productList = productRepository.findList(pageable);
 
         List<GetListProductRes> getListProductResList = new ArrayList<>();
 
-        for(Product product : result) {
+        for(Product product : productList) {
+
+            List<ProductImage> productImageList = product.getProductImageList();
+            ProductImage productImage = productImageList.get(0);
+            String image = productImage.getProductImage();
+            // 상품의 이미지중 첫번 째 이미지만 뽑아옴
+
             GetListProductRes getListProductRes = GetListProductRes.builder()
-                    .brandName(product.getBrand().getBrandName())
-                    .productIdx(product.getProductIdx())
-                    .productName(product.getProductName())
-                    .productImage(product.getProductImage())
-                    .price(product.getPrice())
-                    .build();
+                        .brandName(product.getBrand().getBrandName())
+                        .productIdx(product.getProductIdx())
+                        .productName(product.getProductName())
+                        .productImage(image)
+                        .price(product.getPrice())
+                        .likeCount(product.getProductCount().getLikeCount())
+                        .build();
 
             getListProductResList.add(getListProductRes);
         }
-        return getListProductResList;
+        BaseRes baseRes = BaseRes.builder()
+                .code(200)
+                .isSuccess(true)
+                .message("요청 성공")
+                .result(getListProductResList)
+                .build();
+
+        return baseRes;
     }
 
-    // 상품 1개 출력
-    public GetReadProductRes read(Integer productIdx) {
-        Optional<Product> result = productRepository.findByProductIdx(productIdx);
-
+    // 상품 세부 정보 조회(read 역할)
+//    @Transactional(readOnly = true)
+    @Transactional
+    public BaseRes read(Integer idx) {
+        Optional<Product> result = productRepository.findProduct(idx);
 
         if(result.isPresent()) {
             Product product = result.get();
 
-            List<GetProductIntrodRes> getProductIntrodResList = new ArrayList<>();
-            List<ProductIntrod> productIntrodList = product.getProductIntrodList();
+            List<ProductImage> productImageList = product.getProductImageList();
+            List<ProductIntrodImage> productIntrodImageList = product.getProductIntrodImageList();
 
-            for(ProductIntrod productIntrod : productIntrodList) {
-                GetProductIntrodRes getProductIntrodRes = GetProductIntrodRes.builder()
-                        .productIntrodImage(productIntrod.getProductIntrodImage())
-                        .build();
-
-                getProductIntrodResList.add(getProductIntrodRes);
+            List<String> productImages = new ArrayList<>();
+            for(ProductImage productImage : productImageList) {
+                productImages.add(productImage.getProductImage());
             }
 
-            GetReadProductRes response = GetReadProductRes.builder()
+            List<String> productIntrodImages = new ArrayList<>();
+            for(ProductIntrodImage productIntrodImage : productIntrodImageList) {
+                productIntrodImages.add(productIntrodImage.getProductIntrodImage());
+            }
+
+            GetReadProductRes getReadProductRes = GetReadProductRes.builder()
                     .productIdx(product.getProductIdx())
-                    .brandName(product.getBrand().getBrandName())
                     .productName(product.getProductName())
-                    .productImage(product.getProductImage())
-                    .getProductIntrodResList(getProductIntrodResList)
+                    .productImages(productImages)
+                    .productIntrodImages(productIntrodImages)
                     .price(product.getPrice())
                     .shoulderWidth(product.getShoulderWidth())
                     .chestSize(product.getChestSize())
@@ -252,11 +205,129 @@ public class ProductService {
                     .crotchLength(product.getCrotchLength())
                     .hemLength(product.getHemLength())
                     .totalBottomLength(product.getTotalBottomLength())
+                    .brandName(product.getBrand().getBrandName())
+                    .brandImage(product.getBrand().getBrandImage())
+                    .brandPhoneNumber(product.getBrand().getPhoneNumber())
+                    .businessAddress(product.getBrand().getBusinessAddress())
+                    .businessRegistration(product.getBrand().getBusinessRegistration())
+                    .returnAddress(product.getBrand().getReturnAddress())
+                    .returnCost(product.getBrand().getReturnCost())
+                    .returnCourier(product.getBrand().getReturnCourier())
+                    .likeCount(product.getProductCount().getLikeCount())
                     .build();
 
-            return response;
+            BaseRes baseRes = BaseRes.builder()
+                    .code(200)
+                    .isSuccess(true)
+                    .message("요청 성공")
+                    .result(getReadProductRes)
+                    .build();
+
+            return baseRes;
         } else {
-            return null;
+            BaseRes baseRes = BaseRes.builder()
+                    .code(400)
+                    .isSuccess(false)
+                    .message("요청 실패")
+                    .result("잘못된 요청입니다.")
+                    .build();
+
+            return baseRes;
         }
     }
+
+    public BaseRes update(PatchUpdateProductReq patchUpdateProductReq) {
+        Optional<Product> result = productRepository.findByProductIdx(patchUpdateProductReq.getProductIdx());
+
+        if(result.isPresent()) {
+            Product product = result.get();
+
+            product.update(patchUpdateProductReq);
+            product.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+            productRepository.save(product);
+
+            PatchUpdateProductRes patchUpdateProductRes = PatchUpdateProductRes.builder()
+                    .productName(product.getProductName())
+                    .quantity(product.getQuantity())
+                    .price(product.getPrice())
+                    .build();
+
+            BaseRes baseRes = BaseRes.builder()
+                    .code(200)
+                    .isSuccess(true)
+                    .message("수정 요청 성공")
+                    .result(patchUpdateProductRes)
+                    .build();
+
+            return baseRes;
+        } else {
+            BaseRes baseRes = BaseRes.builder()
+                    .code(400)
+                    .isSuccess(false)
+                    .message("수정 요청 실패")
+                    .result("요청을 수행할 수 없습니다.")
+                    .build();
+
+            return baseRes;
+        }
+    }
+
+    @Transactional
+    public BaseRes delete(Integer idx) {
+        Integer result1 = productImageRepository.deleteAllByProduct_ProductIdx(idx);
+        Integer result2 = productIntrodImageRepository.deleteAllByProduct_ProductIdx(idx);
+        Integer result3 = productCountRepository.deleteByProduct_ProductIdx(idx);
+        Integer result4 = productRepository.deleteByProductIdx(idx);
+
+        if(!result1.equals(0) && !result2.equals(0) && !result3.equals(0)&& !result4.equals(0)) {
+            return BaseRes.builder()
+                    .code(200)
+                    .isSuccess(true)
+                    .message("요청 성공")
+                    .result("상품이 삭제되었습니다.")
+                    .build();
+        } else {
+            return BaseRes.builder()
+                    .code(400)
+                    .isSuccess(false)
+                    .message("요청 실패")
+                    .result("상품을 찾을 수 없습니다.")
+                    .build();
+        }
+    }
+    @Transactional
+    public BaseRes categoryProductlist(Integer categoryIdx, Integer page, Integer size) {
+
+        // 페이징 기능 사용(QueryDSL)
+        Pageable pageable = PageRequest.of(page-1, size);
+        Page<Product> productList = productRepository.findCategoryList(pageable, categoryIdx);
+
+        List<GetListProductRes> getListProductResList = new ArrayList<>();
+        for(Product product : productList) {
+
+            List<ProductImage> productImageList = product.getProductImageList();
+            ProductImage productImage = productImageList.get(0);
+            String image = productImage.getProductImage();
+            // 상품의 이미지중 첫번 째 이미지만 뽑아옴
+
+            GetListProductRes getListProductRes = GetListProductRes.builder()
+                    .brandName(product.getBrand().getBrandName())
+                    .productIdx(product.getProductIdx())
+                    .productName(product.getProductName())
+                    .productImage(image)
+                    .price(product.getPrice())
+                    .likeCount(product.getProductCount().getLikeCount())
+                    .build();
+
+            getListProductResList.add(getListProductRes);
+        }
+
+        return BaseRes.builder()
+                .code(200)
+                .isSuccess(true)
+                .message("요청 성공")
+                .result(getListProductResList)
+                .build();
+    }
 }
+

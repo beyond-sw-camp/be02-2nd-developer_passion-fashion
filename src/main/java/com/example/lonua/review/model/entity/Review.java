@@ -2,11 +2,21 @@ package com.example.lonua.review.model.entity;
 
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.user.model.entity.User;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.time.Instant;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 @Entity
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class Review {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,11 +40,11 @@ public class Review {
     private Integer evaluation;
 
     @Column(nullable = false)
-    private Date createdAt;
+    private String createdAt;
 
     @Column(nullable = false)
-    private Date updatedAt;
+    private String updatedAt;
 
     @Column(nullable = false)
-    private String status;
+    private Boolean status;
 }
