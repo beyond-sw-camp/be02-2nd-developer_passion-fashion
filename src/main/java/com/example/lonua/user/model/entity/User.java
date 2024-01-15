@@ -77,7 +77,7 @@ public class User implements UserDetails {
     @Column(nullable = false, length = 45)
     private String userAddr;
 
-    @Column(length = 10)
+    @Column(length = 7)
     private String preferStyle;
 
     @Column(nullable = false)

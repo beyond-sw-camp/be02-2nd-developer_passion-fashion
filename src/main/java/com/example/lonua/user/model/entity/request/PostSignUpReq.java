@@ -61,7 +61,8 @@ public class PostSignUpReq {
     private String userAddr;
 
     @NotNull
-    @Length(max=10)
+    @Length(max=7)
+    @Pattern(regexp = "^(캐주얼|시크|댄디|스트릿|비지니스캐주얼|힙합|페미닌|오피스|스포츠)$")
     @ApiModelProperty(value = "선호 스타일", example = "캐주얼", required = true)
     private String preferStyle;
 
