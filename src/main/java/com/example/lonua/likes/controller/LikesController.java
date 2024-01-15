@@ -5,6 +5,7 @@ import com.example.lonua.config.BaseRes;
 import com.example.lonua.likes.model.request.PostCancelLikesReq;
 import com.example.lonua.likes.service.LikesService;
 import com.example.lonua.user.model.entity.User;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -18,6 +19,7 @@ public class LikesController {
 
     private final LikesService likesService;
 
+    @ApiOperation(value = "좋아요 누른 상품 등록하기")
     @RequestMapping(method = RequestMethod.GET, value = "/{idx}")
     public ResponseEntity createLikes(@PathVariable Integer idx) {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -34,7 +36,7 @@ public class LikesController {
                         .result("좋아요를 추가하였습니다.")
                 .build());
     }
-
+    @ApiOperation(value = "좋아요 누른 상품 목록 조회하기")
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     public ResponseEntity list() {
         User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
@@ -43,8 +45,9 @@ public class LikesController {
         return ResponseEntity.ok().body(baseRes);
     }
 
+    @ApiOperation(value = "좋아요 누른 상품 삭제하기")
     @RequestMapping(method = RequestMethod.POST, value = "/cancel")
-    public ResponseEntity in(@RequestBody PostCancelLikesReq postCancelLikesReq) {
+    public ResponseEntity in(@RequestBody PostCancelLikesReq postCancelLikesReq) { // 메소드 이름의 상태가?
         User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         BaseRes baseRes = likesService.cancle(user, postCancelLikesReq);
 

@@ -29,7 +29,7 @@ public class SwaggerConfig {
     private ApiInfo apiInfo(String title, String version) {
         return new ApiInfo(
                 title,
-                "스프링 문서화 수업 별거 없음",
+                "패션 쇼핑몰 LONUA",
                 version,
                 "https://github.com/hyungdoyou/be02-pre-personalproject-lonua.git",
                 new Contact("블로그 주소", "https://blog.naver.com/ghdalswl77", "ghdalswl77@naver.com"),

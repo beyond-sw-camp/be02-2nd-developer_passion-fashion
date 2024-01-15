@@ -16,11 +16,11 @@ import javax.validation.constraints.NotNull;
 public class PostRegisterReq {
     @NotNull
     @Min(value = 1)
-    @ApiModelProperty(value = "상품 idx", example = "1", required = true)
+    @ApiModelProperty(value = "장바구니에 담을 상품 idx", example = "1", required = true)
     private Integer productIdx;
 
     @NotNull
     @Min(value = 1)
-    @ApiModelProperty(value = "유저 idx", example = "1", required = true)
+    @ApiModelProperty(value = "장바구니를 이용하는 유저 idx", example = "1", required = true)
     private Integer userIdx;
 }
