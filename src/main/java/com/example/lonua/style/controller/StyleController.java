@@ -26,7 +26,7 @@ public class StyleController {
 
     private final StyleService styleService;
 
-    @ApiOperation(value = "스타일 등록", response = BaseRes.class, notes = "스타일 등록을 진행합니다.")
+    @ApiOperation(value = "스타일 등록", response = BaseRes.class, notes = "관리자가 스타일을 등록한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.POST, value = "/register")
@@ -37,7 +37,7 @@ public class StyleController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "스타일 전체 목록 조회", response = BaseRes.class, notes = "스타일 전체 목록 조회를 진행합니다.")
+    @ApiOperation(value = "스타일 전체 목록 조회", response = BaseRes.class, notes = "관리자가 스타일 전체 목록을 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/list")
@@ -47,7 +47,7 @@ public class StyleController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "스타일 수정", response = BaseRes.class, notes = "스타일을 수정을 진행합니다.")
+    @ApiOperation(value = "스타일 수정", response = BaseRes.class, notes = "관리자가 등록된 스타일을 수정한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
@@ -57,7 +57,7 @@ public class StyleController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "스타일 삭제", response = BaseRes.class, notes = "스타일 삭제를 진행합니다.")
+    @ApiOperation(value = "스타일 삭제", response = BaseRes.class, notes = "관리자가 등록된 스타일을 삭제한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{idx}")
