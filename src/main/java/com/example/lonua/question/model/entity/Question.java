@@ -29,7 +29,7 @@ public class Question {
     @JoinColumn(name = "User_idx")
     private User user;
 
-    @Column(nullable = false, length = 45)
+    @Column(nullable = false, length = 7)
     private String questionType;
 
     @Column(nullable = false, length = 45)

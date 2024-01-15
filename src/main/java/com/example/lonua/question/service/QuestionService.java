@@ -105,16 +105,26 @@ public class QuestionService {
 
         if (result.isPresent()) {
             Question question = result.get();
-            question.update(patchUpdateQuestionReq);
-            question.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
-            questionRepository.save(question);
+            if(question.getHasAnswer() != true) {
+                question.update(patchUpdateQuestionReq);
+                question.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+                questionRepository.save(question);
 
-            return BaseRes.builder()
-                    .code(200)
-                    .isSuccess(true)
-                    .message("질문 수정 성공")
-                    .result(patchUpdateQuestionReq)
-                    .build();
+                return BaseRes.builder()
+                        .code(200)
+                        .isSuccess(true)
+                        .message("질문 수정 성공")
+                        .result(patchUpdateQuestionReq)
+                        .build();
+            } else {
+                return BaseRes.builder()
+                        .code(400)
+                        .isSuccess(false)
+                        .message("질문을 수정할 수 없습니다.")
+                        .result("질문에 대한 답변이 등록되어 수정할 수 없습니다.")
+                        .build();
+            }
+
         } else {
             return BaseRes.builder()
                     .code(400)
