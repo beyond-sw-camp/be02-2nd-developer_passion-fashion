@@ -3,7 +3,7 @@ package com.example.lonua.category.service;
 import com.example.lonua.category.model.request.PostCategoryReq;
 import com.example.lonua.category.model.entity.Category;
 import com.example.lonua.category.repository.CategoryRepository;
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.exception.ErrorCode;
 import com.example.lonua.exception.exception.CategoryException;
 import lombok.RequiredArgsConstructor;

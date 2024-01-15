@@ -1,7 +1,7 @@
 package com.example.lonua.review.controller;
 
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.review.model.request.PostReviewReq;
 import com.example.lonua.review.service.ReviewService;
 import lombok.RequiredArgsConstructor;

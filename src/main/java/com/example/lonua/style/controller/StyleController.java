@@ -1,6 +1,6 @@
 package com.example.lonua.style.controller;
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.style.model.entity.request.PatchUpdateStyleReq;
 import com.example.lonua.style.model.entity.request.PostRegisterStyleReq;
 import com.example.lonua.style.service.StyleService;

@@ -1,6 +1,6 @@
 package com.example.lonua.style.service;
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.exception.ErrorCode;
 import com.example.lonua.exception.exception.StyleException;
 import com.example.lonua.style.model.entity.request.PatchUpdateStyleReq;

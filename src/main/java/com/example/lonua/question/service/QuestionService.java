@@ -1,6 +1,6 @@
 package com.example.lonua.question.service;
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.question.model.entity.Question;
 import com.example.lonua.question.model.request.PatchUpdateQuestionReq;

@@ -1,9 +1,8 @@
 package com.example.lonua.product.controller;
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.request.PatchUpdateProductReq;
 import com.example.lonua.product.model.request.PostRegisterProductReq;
-import com.example.lonua.product.model.response.PostRegisterProductRes;
 import com.example.lonua.product.service.ProductService;
 import com.example.lonua.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -33,7 +32,7 @@ public class ProductController {
 
     // 페이징 별 상품 조회
     @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
-    public ResponseEntity list(Integer page, Integer size) {
+    public ResponseEntity list(@PathVariable Integer page, @PathVariable Integer size) {
 
         BaseRes baseRes = productService.list(page, size);
         return ResponseEntity.ok().body(baseRes);

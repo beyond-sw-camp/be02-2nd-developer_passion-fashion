@@ -1,8 +1,7 @@
 package com.example.lonua.coupon.service;
 
 
-import com.example.lonua.branch.model.entity.Branch;
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.coupon.model.entity.Coupon;
 import com.example.lonua.coupon.model.request.DeleteRemoveReq;
 import com.example.lonua.coupon.model.request.GetReadReq;

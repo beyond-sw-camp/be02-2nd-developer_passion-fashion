@@ -1,4 +1,4 @@
-package com.example.lonua.config;
+package com.example.lonua.common;
 
 import lombok.*;
 

@@ -11,7 +11,7 @@ import com.example.lonua.branch.model.response.PatchUpdateRes;
 import com.example.lonua.branch.model.response.PostRegisterRes;
 import com.example.lonua.branch.repository.BranchRepository;
 import com.example.lonua.brand.model.entity.Brand;
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

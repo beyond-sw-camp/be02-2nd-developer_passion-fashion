@@ -1,6 +1,6 @@
 package com.example.lonua.user.controller;
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.user.model.entity.User;
 import com.example.lonua.user.model.entity.request.GetEmailVerifyReq;
 import com.example.lonua.user.model.entity.request.PostSignUpReq;
@@ -34,7 +34,7 @@ public class UserController {
 
     // 메일 이증
     @RequestMapping(method = RequestMethod.GET, value = "/verify")
-    public ResponseEntity verify(GetEmailVerifyReq getEmailVerifyReq) {
+    public ResponseEntity verify(@RequestBody GetEmailVerifyReq getEmailVerifyReq) {
         if (emailVerifyService.verify(getEmailVerifyReq)) {
             BaseRes baseRes = userService.updateStatus(getEmailVerifyReq.getEmail()); // 이메일 인증이 완료되면 회원의 status를 바꿔줌
             return ResponseEntity.ok().body(baseRes);
@@ -47,7 +47,6 @@ public class UserController {
                     .build());
         }
     }
-
 
     // 로그인
     @RequestMapping(method = RequestMethod.POST, value = "/login")

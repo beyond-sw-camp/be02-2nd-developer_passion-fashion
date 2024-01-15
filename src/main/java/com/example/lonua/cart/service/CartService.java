@@ -6,7 +6,7 @@ import com.example.lonua.cart.model.request.PostRegisterReq;
 import com.example.lonua.cart.model.response.GetListRes;
 import com.example.lonua.cart.model.response.PostRegisterRes;
 import com.example.lonua.cart.repository.CartRepository;
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +19,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor

@@ -1,17 +1,14 @@
 package com.example.lonua.orders.controller;
 
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.orders.model.request.PostCreateOrdersReq;
 import com.example.lonua.orders.service.OrdersService;
 import com.example.lonua.user.model.entity.User;
-import com.siot.IamportRestClient.exception.IamportResponseException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
-
-import java.io.IOException;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,8 +26,8 @@ public class OrdersController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/list")
-    public ResponseEntity list(Integer page, Integer size){
+    @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
+    public ResponseEntity list(@PathVariable Integer page, @PathVariable Integer size){
         User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         BaseRes baseRes = ordersService.list(user, page, size);
 

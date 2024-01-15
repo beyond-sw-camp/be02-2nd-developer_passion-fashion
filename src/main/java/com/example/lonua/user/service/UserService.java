@@ -1,11 +1,9 @@
 package com.example.lonua.user.service;
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.exception.ErrorCode;
 import com.example.lonua.exception.exception.UserException;
 import com.example.lonua.grade.model.entity.Grade;
-import com.example.lonua.orders.model.entity.Orders;
-import com.example.lonua.product.model.response.GetReadOrdersProductRes;
 import com.example.lonua.user.config.utils.JwtUtils;
 import com.example.lonua.user.model.entity.request.PostUserLoginReq;
 import com.example.lonua.user.model.entity.request.PostSignUpReq;
@@ -264,7 +262,7 @@ public class UserService{
         if(result.isPresent()) {
             User user = result.get();
 
-            user.update(patchUserUpdateReq.getUserAddr(), patchUserUpdateReq.getUserPhoneNumber(), patchUserUpdateReq.getPreferStyle(), patchUserUpdateReq.getUpperType(), patchUserUpdateReq.getLowerType());
+            user.update(patchUserUpdateReq);
             user.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
             userRepository.save(user);
 
