@@ -20,7 +20,7 @@ import org.springframework.web.multipart.MultipartFile;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("product")
-@Api(tags = "Product API")
+@Api(tags = "상품 기능",value = "상품을 관리할 수 있는 API")
 public class ProductController {
 
     private final ProductService productService;
@@ -57,6 +57,7 @@ public class ProductController {
     }
 
     // 상품 정보 수정
+    @ApiOperation(value = "물품 상세 정보 수정")
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
     public ResponseEntity update(@RequestBody PatchUpdateProductReq patchUpdateProductReq) {
 
@@ -65,6 +66,7 @@ public class ProductController {
     }
 
     // 상품 삭제
+    @ApiOperation(value = "물품 삭제")
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{idx}")
     public ResponseEntity delete(@PathVariable Integer idx) {
 
@@ -74,6 +76,7 @@ public class ProductController {
 
     //----------------------검색 기능-------------------------
     // 1. 카테고리 별 상품 리스트 검색(최신 등록 순)
+    @ApiOperation(value = "물품 카테고리 별 검색 기능")
     @RequestMapping(method = RequestMethod.GET, value = "/categorylist/{categoryIdx}/{page}/{size}")
     public ResponseEntity list(@PathVariable Integer categoryIdx, @PathVariable Integer page, @PathVariable Integer size) {
 

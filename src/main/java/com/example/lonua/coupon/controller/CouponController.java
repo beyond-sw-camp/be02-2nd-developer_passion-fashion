@@ -10,6 +10,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import retrofit2.http.POST;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -17,9 +20,10 @@ import org.springframework.web.bind.annotation.RestController;
 public class CouponController {
 
     private final CouponService couponService;
-    @ApiOperation(value = "쿠폰 등록하기")
+
+    @ApiOperation(value = "쿠폰 등록하기",httpMethod = "POST")
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-    ResponseEntity registerCoupon(PostRegisterReq request) {
+    ResponseEntity registerCoupon(@Valid PostRegisterReq request) {
         return ResponseEntity.ok().body(couponService.create(request));
     }
     @ApiOperation(value = "쿠폰 목록 가져오기")
@@ -29,12 +33,12 @@ public class CouponController {
     }
     @ApiOperation(value = "쿠폰 하나 가져오기")
     @RequestMapping(method = RequestMethod.GET, value = "/read")
-    ResponseEntity readCoupon(GetReadReq request) {
+    ResponseEntity readCoupon(@Valid GetReadReq request) {
         return ResponseEntity.ok().body(couponService.read(request));
     }
     @ApiOperation(value = "쿠폰 하나 삭제하기")
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
-    ResponseEntity deleteCoupon(DeleteRemoveReq request) {
+    ResponseEntity deleteCoupon(@Valid DeleteRemoveReq request) {
         return ResponseEntity.ok().body(couponService.delete(request));
     }
 }
