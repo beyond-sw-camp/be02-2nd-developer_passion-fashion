@@ -28,7 +28,7 @@ public class UserController {
     private final EmailVerifyService emailVerifyService;
 
 
-    @ApiOperation(value = "회원 가입", response = BaseRes.class, notes = "회원 정보를 입력하여 회원 가입을 진행합니다.")
+    @ApiOperation(value = "회원 가입", response = BaseRes.class, notes = "회원이 회원 정보를 입력하여 회원 가입을 진행한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.POST, value = "/signup")
@@ -41,7 +41,7 @@ public class UserController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "이메일 인증", response = BaseRes.class, notes = "이메일 인증을 진행합니다.")
+    @ApiOperation(value = "이메일 인증", response = BaseRes.class, notes = "회원이 이메일 인증을 진행한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/verify")
@@ -59,7 +59,7 @@ public class UserController {
         }
     }
 
-    @ApiOperation(value = "로그인", response = BaseRes.class, notes = "로그인을 시도합니다.")
+    @ApiOperation(value = "로그인", response = BaseRes.class, notes = "회원이 로그인을 시도한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.POST, value = "/login")
@@ -69,7 +69,7 @@ public class UserController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "회원 목록 조회", response = BaseRes.class, notes = "전체 회원의 목록을 조회합니다.")
+    @ApiOperation(value = "회원 목록 조회", response = BaseRes.class, notes = "관리자가 전체 회원의 목록을 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/list")
@@ -79,7 +79,7 @@ public class UserController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "회원 정보 조회", response = BaseRes.class, notes = "회원의 정보를 조회합니다.")
+    @ApiOperation(value = "회원 정보 조회", response = BaseRes.class, notes = "회원이 본인의 회원 정보를 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/read")
@@ -90,7 +90,7 @@ public class UserController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "회원 정보 수정", response = BaseRes.class, notes = "회원의 정보를 수정합니다.")
+    @ApiOperation(value = "회원 정보 수정", response = BaseRes.class, notes = "회원이 본인의 회원 정보를 수정한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
@@ -103,7 +103,7 @@ public class UserController {
     }
 
 
-    @ApiOperation(value = "회원 삭제", response = BaseRes.class, notes = "회원의 정보를 삭제합니다.")
+    @ApiOperation(value = "회원 삭제", response = BaseRes.class, notes = "관리자가 탈퇴한 회원의 정보를 삭제한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{userIdx}")
@@ -114,7 +114,7 @@ public class UserController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "회원 탈퇴", response = BaseRes.class, notes = "회원 탈퇴를 진행합니다.")
+    @ApiOperation(value = "회원 탈퇴", response = BaseRes.class, notes = "회원이 회원 탈퇴를 진행한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/cancle/{userIdx}")
