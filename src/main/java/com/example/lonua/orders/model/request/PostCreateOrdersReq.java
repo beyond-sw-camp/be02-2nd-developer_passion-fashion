@@ -38,7 +38,7 @@ public class PostCreateOrdersReq {
     private String productName;
 
     @NotNull
-    @Min(1)
+    @Length(min=1)
     @ApiModelProperty(value = "결제 수단", example = "카카오페이", required = true)
     private String payMethod;
 
