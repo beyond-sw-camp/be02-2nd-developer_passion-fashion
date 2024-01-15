@@ -4,7 +4,6 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.product.model.entity.ProductIntrodImage;
-import com.example.lonua.product.model.request.PostRegisterProductIntrodReq;
 import com.example.lonua.product.repository.ProductIntrodImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
