@@ -1,14 +1,12 @@
 package com.example.lonua.review.service;
 
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.review.model.entity.Review;
 import com.example.lonua.review.model.request.PostReviewReq;
-import com.example.lonua.review.model.response.PostReviewRes;
 import com.example.lonua.review.repository.ReviewRepository;
 import com.example.lonua.user.model.entity.User;
-import com.example.lonua.user.model.entity.response.PostSignupRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 

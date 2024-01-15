@@ -1,7 +1,7 @@
 package com.example.lonua.likes.service;
 
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.likes.model.entity.Likes.Likes;
 import com.example.lonua.likes.model.request.PostCancelLikesReq;
 import com.example.lonua.likes.model.response.GetListLikesRes;
@@ -12,11 +12,9 @@ import com.example.lonua.product.repository.ProductCountRepository;
 import com.example.lonua.product.repository.ProductRepository;
 import com.example.lonua.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.LockModeType;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;

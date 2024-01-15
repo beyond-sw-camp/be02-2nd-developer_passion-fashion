@@ -1,7 +1,7 @@
 package com.example.lonua.question.controller;
 
 
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.question.model.request.PatchUpdateQuestionReq;
 import com.example.lonua.question.model.request.PostRegisterQuestionReq;
 import com.example.lonua.question.service.QuestionService;

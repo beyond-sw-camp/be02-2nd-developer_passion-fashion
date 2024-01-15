@@ -2,7 +2,7 @@ package com.example.lonua.product.service;
 
 import com.example.lonua.brand.model.entity.Brand;
 import com.example.lonua.category.model.entity.Category;
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.exception.ErrorCode;
 import com.example.lonua.exception.exception.CategoryException;
 import com.example.lonua.product.model.entity.ProductCount;
