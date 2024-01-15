@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.Min;
@@ -22,10 +23,10 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostReviewReq {
-//    @NotNull
-//    @Min(value = 1)
-//    @ApiModelProperty(value = "리뷰 IDX", example = "1")
-//    private Integer reviewIdx;
+    @NotNull
+    @Min(value = 1)
+    @ApiModelProperty(value = "리뷰 IDX", example = "1")
+    private Integer reviewIdx;
 
     @NotNull
     @Min(value = 1)
@@ -48,8 +49,8 @@ public class PostReviewReq {
     private String reviewPhoto;
 
     @NotNull
-    @Length(max = 500)
-    @ApiModelProperty(value = "리뷰 평가 점수 내용", example = "제품이 친절하고 사장님이 맛있어요")
+    @Range(min = 1,max = 5)
+    @ApiModelProperty(value = "리뷰 평가 점수 내용", example = "1",notes="1~5 사이의 정수를 입력하세요.")
     private Integer evaluation;
 
     //private String createdAt;

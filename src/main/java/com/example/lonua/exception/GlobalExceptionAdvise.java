@@ -9,10 +9,20 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
+import static com.example.lonua.exception.errorCode.ErrorCode.INVALID_INPUT_VALUE;
+
 @RestControllerAdvice
 public class GlobalExceptionAdvise extends ResponseEntityExceptionHandler {
 
     private final Logger log = LoggerFactory.getLogger(GlobalExceptionAdvise.class);
+
+
+    @ExceptionHandler(NumberFormatException.class)
+    public ResponseEntity NumberFormatEx(NumberFormatException e) {
+
+        log.error("숫자가 아닌 값이 입력되었습니다.");
+        return makeResponseEntity(INVALID_INPUT_VALUE);
+    }
 
     @ExceptionHandler(UserException.class)
     public ResponseEntity handleUserException(UserException e) {
