@@ -28,7 +28,7 @@ public class BranchService {
     public BaseRes create(PostRegisterReq request) {
         Branch branch = branchRepository.save(Branch.builder()
                 .brand(Brand.builder()
-                        .brandIdx(request.getBranchIdx())
+                        .brandIdx(request.getBrandIdx())
                         .build())
                 .branchName(request.getBranchName())
                 .branchAddress(request.getBranchAddress())
