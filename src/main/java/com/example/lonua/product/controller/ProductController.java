@@ -5,14 +5,14 @@ import com.example.lonua.product.model.request.PatchUpdateProductReq;
 import com.example.lonua.product.model.request.PostRegisterProductReq;
 import com.example.lonua.product.model.response.PostRegisterProductRes;
 import com.example.lonua.product.service.ProductService;
-<<<<<<< HEAD
+
 import lombok.RequiredArgsConstructor;
-=======
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
->>>>>>> feature/swagger
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -37,32 +37,21 @@ public class ProductController {
 
         return ResponseEntity.ok().body(baseRes);
     }
-<<<<<<< HEAD
 
     // 페이징 별 상품 조회
+    @ApiOperation(value = "물품 페이징 조회")
     @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
     public ResponseEntity list(Integer page, Integer size) {
-=======
-    @ApiOperation(value = "물품 전체 조회")
-    @RequestMapping(method = RequestMethod.GET, value = "/list")
-    public ResponseEntity list() {
->>>>>>> feature/swagger
+
 
         BaseRes baseRes = productService.list(page, size);
         return ResponseEntity.ok().body(baseRes);
     }
-<<<<<<< HEAD
-
-=======
-    @ApiOperation(value = "물품 상세 조회")
-    @RequestMapping(method = RequestMethod.GET, value = "/read")
-    public ResponseEntity read(@ApiParam(value = "상품 ID") Integer productIdx) {
->>>>>>> feature/swagger
 
     // 상품 세부 조회
+    @ApiOperation(value = "물품 상세 조회")
     @RequestMapping(method = RequestMethod.GET, value = "/{idx}")
     public ResponseEntity read(@PathVariable Integer idx) {
-
         BaseRes baseRes = productService.read(idx);
         return ResponseEntity.ok().body(baseRes);
     }

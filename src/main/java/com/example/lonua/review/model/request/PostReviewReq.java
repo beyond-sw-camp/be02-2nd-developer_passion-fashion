@@ -22,20 +22,20 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 public class PostReviewReq {
-    @NotNull
-    @Min(value = 1)
-    @ApiModelProperty(value = "리뷰 IDX", example = "1")
-    private Integer reviewIdx;
+//    @NotNull
+//    @Min(value = 1)
+//    @ApiModelProperty(value = "리뷰 IDX", example = "1")
+//    private Integer reviewIdx;
 
     @NotNull
     @Min(value = 1)
     @ApiModelProperty(value = "리뷰 대상 상품 IDX", example = "1")
     private Integer productIdx;
 
-    @NotNull
-    @Min(value = 1)
-    @ApiModelProperty(value = "리뷰 작성자 IDX", example = "1")
-    private Integer userIdx;
+//    @NotNull
+//    @Min(value = 1)
+//    @ApiModelProperty(value = "리뷰 작성자 IDX", example = "1")
+//    private Integer userIdx;
 
     @NotNull
     @Length(max = 500)

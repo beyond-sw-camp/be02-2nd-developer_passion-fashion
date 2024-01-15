@@ -8,6 +8,7 @@ import com.example.lonua.config.BaseRes;
 
 import io.swagger.annotations.ApiOperation;
 
+import io.swagger.annotations.ApiParam;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -31,33 +32,32 @@ public class BrandController {
 
         return ResponseEntity.ok().body(baseRes);
     }
-
+    @ApiOperation(value = "판매자 목록 가져오기")
     @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
-    public ResponseEntity list(@PathVariable Integer page, @PathVariable Integer size) {
+    public ResponseEntity list(
+            @ApiParam(name = "페이지 번호") @PathVariable Integer page,
+            @ApiParam(name = "페이지 수량") @PathVariable Integer size) {
         BaseRes baseRes = brandService.list(page, size);
 
         return ResponseEntity.ok().body(baseRes);
     }
-
+    @ApiOperation(value = "판매자 상세 정보 가져오기")
     @RequestMapping(method = RequestMethod.GET, value = "/{idx}")
-    public ResponseEntity read(@PathVariable Integer idx) {
+    public ResponseEntity read(@ApiParam(name = "브랜드 IDX") @PathVariable Integer idx) {
         BaseRes baseRes = brandService.read(idx);
-
         return ResponseEntity.ok().body(baseRes);
     }
-
+    @ApiOperation(value = "판매자 상세 정보 수정")
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
     public ResponseEntity update(
             @RequestPart(value = "brand")PatchUpdateBrandReq patchUpdateBrandReq,
             @RequestPart(value = "brandImage") MultipartFile brandFile) {
-
         BaseRes baseRes = brandService.update(patchUpdateBrandReq, brandFile);
         return ResponseEntity.ok().body(baseRes);
     }
-
+    @ApiOperation(value = "판매자 삭제")
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{idx}")
-    public ResponseEntity delete(@PathVariable Integer idx) {
-
+    public ResponseEntity delete(@ApiParam(name = "브랜드 IDX") @PathVariable Integer idx) {
         BaseRes baseRes = brandService.delete(idx);
         return ResponseEntity.ok().body(baseRes);
     }

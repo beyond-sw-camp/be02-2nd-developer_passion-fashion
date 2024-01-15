@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -44,6 +45,7 @@ public class PostRegisterBrandReq {
 
     @NotNull
     @Length(max = 30)
+    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$") //TODO 정규표현 식 입력해야함.
     @ApiModelProperty(value = "판매자 사업지 전화 번호", example = "02-123-4567", required = true)
     private String phoneNumber;
 
@@ -64,7 +66,7 @@ public class PostRegisterBrandReq {
 
     @NotNull
     @Range(min = 0,max = 10000)
-    @ApiModelProperty(value = "반송 가격", example = "서울시 창고로 123", required = true)
+    @ApiModelProperty(value = "반송 가격", example = "10000", required = true)
     private Integer returnCost;
 
     @NotNull

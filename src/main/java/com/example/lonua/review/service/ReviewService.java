@@ -25,8 +25,8 @@ public class ReviewService {
     public BaseRes registerReview(PostReviewReq request) {
 
          reviewRepository.save(Review.builder()
-                .user(User.builder().userIdx(request.getUser().getUserIdx()).build())
-                .product(Product.builder().productIdx(request.getProduct().getProductIdx()).build())
+                .user(User.builder().userIdx(1).build())
+                .product(Product.builder().productIdx(request.getProductIdx()).build())
                 .reviewContent(request.getReviewContent())
                 .reviewPhoto(request.getReviewPhoto())
                 .evaluation(request.getEvaluation())
@@ -51,14 +51,14 @@ public class ReviewService {
         if (result.isPresent()) {
             Review review = result.get();
 
-             PostReviewReq.builder()
-                .reviewIdx(review.getReviewIdx())
-                .reviewContent(review.getReviewContent())
-                .reviewPhoto(review.getReviewPhoto())
-                .evaluation(review.getEvaluation())
-                .createdAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
-                .updatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
-                .build();
+//             PostReviewReq.builder()
+//                .reviewIdx(review.getReviewIdx())
+//                .reviewContent(review.getReviewContent())
+//                .reviewPhoto(review.getReviewPhoto())
+//                .evaluation(review.getEvaluation())
+//                .createdAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
+//                .updatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
+//                .build();
 
             BaseRes baseRes = BaseRes.builder()
                     .code(200)
