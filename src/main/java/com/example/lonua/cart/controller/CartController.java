@@ -3,6 +3,7 @@ package com.example.lonua.cart.controller;
 
 
 import com.example.lonua.cart.model.request.DeleteRemoveReq;
+import com.example.lonua.cart.model.request.GetListReq;
 import com.example.lonua.cart.model.request.PostRegisterReq;
 import com.example.lonua.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
@@ -23,8 +24,8 @@ public class CartController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/list")
-    ResponseEntity listCart(Integer page, Integer size) {
-        return ResponseEntity.ok().body(cartService.list(page, size));
+    ResponseEntity listCart(GetListReq request) {
+        return ResponseEntity.ok().body(cartService.list(request));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")

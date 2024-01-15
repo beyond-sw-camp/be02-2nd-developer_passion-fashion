@@ -2,6 +2,7 @@ package com.example.lonua.cart.service;
 
 import com.example.lonua.cart.model.entity.Cart;
 import com.example.lonua.cart.model.request.DeleteRemoveReq;
+import com.example.lonua.cart.model.request.GetListReq;
 import com.example.lonua.cart.model.request.PostRegisterReq;
 import com.example.lonua.cart.model.response.GetListRes;
 import com.example.lonua.cart.model.response.PostRegisterRes;
@@ -54,10 +55,10 @@ public class CartService {
                 .build();
     }
 
-    public BaseRes list(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+    public BaseRes list(GetListReq request) {
+        Pageable pageable = PageRequest.of(request.getPage() - 1, request.getSize());
 
-        Page<Cart> all = cartRepository.findList(pageable);
+        Page<Cart> all = cartRepository.findList(pageable, request.getUserIdx());
         List<GetListRes> getListResList = new ArrayList<>();
 
         for (Cart cart : all) {
