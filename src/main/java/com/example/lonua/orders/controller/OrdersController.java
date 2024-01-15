@@ -28,7 +28,7 @@ public class OrdersController {
 
     private final OrdersService ordersService;
 
-    @ApiOperation(value = "주문 생성", response = BaseRes.class, notes = "회원이 상품을 주문합니다.")
+    @ApiOperation(value = "주문 생성", response = BaseRes.class, notes = "회원이 상품을 주문한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.POST, value = "/create")
@@ -40,7 +40,7 @@ public class OrdersController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "주문 목록 조회", response = BaseRes.class, notes = "회원이 주문한 상품의 목록을 조회합니다.")
+    @ApiOperation(value = "주문 목록 조회", response = BaseRes.class, notes = "회원이 주문한 상품의 목록을 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
@@ -51,7 +51,7 @@ public class OrdersController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "특정 주문 내역 세부 조회", response = BaseRes.class, notes = "회원이 특정 주문 내역의 세부정보를 조회합니다.")
+    @ApiOperation(value = "특정 주문 내역 세부 조회", response = BaseRes.class, notes = "회원이 특정 주문 내역의 세부정보를 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/read/{idx}")
@@ -62,7 +62,7 @@ public class OrdersController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "주문 취소", response = BaseRes.class, notes = "회원이 주문을 취소합니다. (상품 배송 전)")
+    @ApiOperation(value = "주문 취소", response = BaseRes.class, notes = "회원이 주문을 취소한다. (상품 배송 전)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.DELETE, value = "/cancle/{idx}")
