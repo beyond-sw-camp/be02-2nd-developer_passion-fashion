@@ -7,6 +7,7 @@ import com.example.lonua.cart.model.request.DeleteRemoveReq;
 import com.example.lonua.cart.model.request.PostRegisterReq;
 import com.example.lonua.cart.service.CartService;
 import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -32,7 +33,7 @@ public class CartController {
 
     @ApiOperation(value = "장바구니 상품 삭제하기")
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
-    ResponseEntity deleteCart(@RequestBody DeleteRemoveReq request) {
+    ResponseEntity deleteCart(@RequestBody @ApiParam(value = "삭제할 장바구니") DeleteRemoveReq request) {
         return ResponseEntity.ok().body(cartService.delete(request));
     }
 
