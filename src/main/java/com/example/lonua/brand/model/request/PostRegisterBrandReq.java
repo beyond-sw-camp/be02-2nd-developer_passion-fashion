@@ -16,17 +16,6 @@ import javax.validation.constraints.NotNull;
 @Builder
 public class PostRegisterBrandReq {
 
-<<<<<<< HEAD
-    private String brandName;
-    private String brandIntroduction;
-    private String brandStyle;
-    private String businessAddress;
-    private String phoneNumber;
-    private String businessRegistration;
-    private String bankAccountNumber;
-    private String returnAddress;
-    private Integer returnCost;
-=======
 //    private List<Branch> branchList = new ArrayList<>();
 //    private List<Product> productList = new ArrayList<>();
     @NotNull
@@ -81,7 +70,6 @@ public class PostRegisterBrandReq {
     @NotNull
     @Length(max = 30)
     @ApiModelProperty(value = "반송 담당 회사", example = "퀵", required = true)
->>>>>>> feature/swagger
     private String returnCourier;
 
 }

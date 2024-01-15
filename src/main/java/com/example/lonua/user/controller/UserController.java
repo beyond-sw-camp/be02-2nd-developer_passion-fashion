@@ -39,6 +39,7 @@ public class UserController {
     }
 
     // 메일 이증
+    @ApiOperation(value = "메일인증")
     @RequestMapping(method = RequestMethod.GET, value = "/verify")
     public ResponseEntity veriify(GetEmailVerifyReq getEmailVerifyReq) {
         if (emailVerifyService.verify(getEmailVerifyReq)) {
@@ -74,22 +75,19 @@ public class UserController {
     @RequestMapping(method = RequestMethod.GET, value = "/read")
     public ResponseEntity read() {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-
         BaseRes baseRes = userService.read(user.getUserEmail());
-
         return ResponseEntity.ok().body(baseRes);
     }
-
+    @ApiOperation(value = "회원 정보 수정")
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
     public ResponseEntity update(@RequestBody PatchUserUpdateReq patchUserUpdateReq) {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         BaseRes baseRes = userService.update(user.getUserEmail(), patchUserUpdateReq);
-
         return ResponseEntity.ok().body(baseRes);
     }
 
-
+    @ApiOperation(value = "회원 정보 삭제")
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{userIdx}")
     public ResponseEntity delete(@PathVariable Integer userIdx) {
 

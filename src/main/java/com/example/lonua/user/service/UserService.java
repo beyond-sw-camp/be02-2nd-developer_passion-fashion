@@ -1,11 +1,7 @@
 package com.example.lonua.user.service;
 
-<<<<<<< HEAD
 import com.example.lonua.config.BaseRes;
-import com.example.lonua.exception.ErrorCode;
-=======
 import com.example.lonua.exception.errorCode.ErrorCode;
->>>>>>> feature/swagger
 import com.example.lonua.exception.exception.UserException;
 import com.example.lonua.grade.model.entity.Grade;
 import com.example.lonua.orders.model.entity.Orders;
@@ -14,14 +10,11 @@ import com.example.lonua.user.config.utils.JwtUtils;
 import com.example.lonua.user.model.entity.request.PostUserLoginReq;
 import com.example.lonua.user.model.entity.request.PostSignUpReq;
 import com.example.lonua.user.model.entity.User;
-<<<<<<< HEAD
 import com.example.lonua.user.model.entity.request.PatchUserUpdateReq;
 import com.example.lonua.user.model.entity.response.*;
-=======
 import com.example.lonua.user.model.entity.response.GetListUserRes;
 import com.example.lonua.user.model.entity.response.GetUserOrdersRes;
 import com.example.lonua.user.model.entity.response.PostUserLoginRes;
->>>>>>> feature/swagger
 import com.example.lonua.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;

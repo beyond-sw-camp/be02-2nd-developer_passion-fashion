@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;
@@ -40,9 +41,8 @@ public class PostRegisterProductReq {
     @ApiModelProperty(value = "상품명(45자 이하)", example = "멋진 후드티", required = true)
     private String productName;
 
-<<<<<<< HEAD
-=======
     @NotNull
+    @Pattern(regexp = ".*\\\\.(jpg|jpeg|png|gif|bmp)$",message = "이미지 파일 확장자")
     @ApiModelProperty(value = "상품 이미지(파일 첨부)", required = true)
     private MultipartFile productImage;
 
@@ -55,7 +55,6 @@ public class PostRegisterProductReq {
     //@Length(max=45)
     @Min(value = 0)
     @ApiModelProperty(value = "수량", example = "1", required = true)
->>>>>>> feature/swagger
     private Integer quantity;
 
     @NotNull

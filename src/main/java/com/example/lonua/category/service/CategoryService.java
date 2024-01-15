@@ -3,15 +3,15 @@ package com.example.lonua.category.service;
 import com.example.lonua.category.model.request.PostCategoryReq;
 import com.example.lonua.category.model.entity.Category;
 import com.example.lonua.category.repository.CategoryRepository;
-<<<<<<< HEAD
+
 import com.example.lonua.config.BaseRes;
-import com.example.lonua.exception.ErrorCode;
+
 import com.example.lonua.exception.exception.CategoryException;
 import lombok.RequiredArgsConstructor;
-=======
+
 import com.example.lonua.exception.errorCode.ErrorCode;
 import com.example.lonua.exception.exception.CategoryException;
->>>>>>> feature/swagger
+
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;

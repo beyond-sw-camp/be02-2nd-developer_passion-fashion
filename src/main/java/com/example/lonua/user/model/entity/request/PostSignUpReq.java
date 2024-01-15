@@ -20,11 +20,11 @@ public class PostSignUpReq {
 
     @NotNull
     @Length(max=45) //????
-    @Pattern(regexp = "asd") //TODO 정규표현 식 입력해야함.
+    @Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$") //TODO 정규표현 식 입력해야함.
     @ApiModelProperty(value = "사용자 이메일", example = "test@example.com", required = true)
     private String userEmail;
     @NotNull
-    @Length(min=8,max=200)
+    @Length(min=8,max=100)
     @ApiModelProperty(value = "사용자 PW(최소 길이:8)", example = "qwer1234@", required = true)
     private String userPassword;
 
@@ -36,17 +36,18 @@ public class PostSignUpReq {
 
     @NotNull
     @Length(max=45) //???? 8자리로 입력 받을까>? yyyy-mm-dd
+    @Pattern(regexp = "^(19|20)\\d{2}(0[1-9]|1[0-2])(0[1-9]|[12]\\d|3[01])$", message = "올바른 날짜 형식을 사용하세요 (yyyymmdd).")
     @ApiModelProperty(value = "사용자 생일", example = "19990101", required = true)
     private String userBirth;
 
     @NotNull
     @Length(max=1) //????
-    @Pattern(regexp = "asd") //TODO 정규표현 식 입력해야함. (M or W)
+    @Pattern(regexp = "^[MW]$", message = "'M' 또는 'W'로 입력하세요.") //TODO 정규표현 식 입력해야함. (M or W)
     @ApiModelProperty(value = "사용자 성별", example = "M", required = true)
     private String userGender;
 
     @NotNull
-    @Length(max=11) //????
+    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$") //TODO 정규표현 식 입력해야함.
     @ApiModelProperty(value = "사용자 핸드폰 번호", example = "01012345678", required = true)
     private String userPhoneNumber;
 

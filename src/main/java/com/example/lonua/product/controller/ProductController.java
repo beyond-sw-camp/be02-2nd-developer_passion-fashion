@@ -25,14 +25,8 @@ public class ProductController {
 
     private final ProductService productService;
 
-<<<<<<< HEAD
     // 상품 등록
-=======
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
     @ApiOperation(value = "물품 등록")
->>>>>>> feature/swagger
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     public ResponseEntity register(
             @RequestPart(value = "product") PostRegisterProductReq postRegisterProductReq,
