@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class GetListReq {
+public class DeleteAllRemoveReq {
     private Integer userIdx;
-    private Integer page;
-    private Integer size;
-
 }

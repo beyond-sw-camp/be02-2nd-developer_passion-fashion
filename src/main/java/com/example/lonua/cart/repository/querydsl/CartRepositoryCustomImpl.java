@@ -2,11 +2,13 @@ package com.example.lonua.cart.repository.querydsl;
 
 import com.example.lonua.cart.model.entity.Cart;
 import com.example.lonua.cart.model.entity.QCart;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.entity.QProduct;
 import com.example.lonua.user.model.entity.QUser;
 
 import com.querydsl.jpa.JPQLQuery;
 import com.querydsl.jpa.impl.JPAQuery;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -39,7 +41,7 @@ public class CartRepositoryCustomImpl extends QuerydslRepositorySupport implemen
                 .fetch().stream().distinct().collect(Collectors.toList());
 
 
-
         return new PageImpl<>(result, pageable, result.size());
     }
+
 }
