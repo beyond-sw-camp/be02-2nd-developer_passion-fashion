@@ -1,5 +1,6 @@
 package com.example.lonua.branch.model.request;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import javax.validation.constraints.Min;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(description = "asdqweasd")
 public class DeleteRemoveReq {
 
     @Min(value = 1)

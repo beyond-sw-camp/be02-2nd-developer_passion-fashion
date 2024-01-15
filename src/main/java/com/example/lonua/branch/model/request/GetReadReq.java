@@ -13,6 +13,6 @@ import org.hibernate.validator.constraints.Length;
 @Data
 public class GetReadReq {
     @Length(max = 50)
-    @ApiModelProperty(value = "조회할 가게의 이름")
+    @ApiModelProperty(value = "조회할 가게의 이름", allowableValues = "50자 이하")
     private String branchName;
 }

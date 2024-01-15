@@ -12,6 +12,9 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+import javax.validation.constraints.Min;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/likes")
@@ -21,7 +24,7 @@ public class LikesController {
 
     @ApiOperation(value = "좋아요 누른 상품 등록하기")
     @RequestMapping(method = RequestMethod.GET, value = "/{idx}")
-    public ResponseEntity createLikes(@PathVariable Integer idx) {
+    public ResponseEntity createLikes(@PathVariable @Min(value = 1) Integer idx) {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         try {
@@ -47,7 +50,7 @@ public class LikesController {
 
     @ApiOperation(value = "좋아요 누른 상품 삭제하기")
     @RequestMapping(method = RequestMethod.POST, value = "/cancel")
-    public ResponseEntity in(@RequestBody PostCancelLikesReq postCancelLikesReq) { // 메소드 이름의 상태가?
+    public ResponseEntity in(@RequestBody @Valid PostCancelLikesReq postCancelLikesReq) { // 메소드 이름의 상태가?
         User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         BaseRes baseRes = likesService.cancle(user, postCancelLikesReq);
 

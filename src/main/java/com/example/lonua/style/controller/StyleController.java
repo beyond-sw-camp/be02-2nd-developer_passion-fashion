@@ -8,6 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequestMapping("/style")
 public class StyleController {
@@ -19,7 +21,7 @@ public class StyleController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-    public ResponseEntity register(@RequestBody PostRegReq postRegReq) {
+    public ResponseEntity register(@RequestBody @Valid PostRegReq postRegReq) {
         styleService.register(postRegReq);
 
         return ResponseEntity.ok().body("스타일 등록 완료");

@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/question")
@@ -20,27 +22,27 @@ public class QuestionController {
     private final QuestionService questionService;
     @ApiOperation(value = "질문 등록")
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-    public ResponseEntity registerQuestion(PostQuestionReq request) {
+    public ResponseEntity registerQuestion(@Valid PostQuestionReq request) {
         BaseRes baseRes = questionService.registerQuestion(request);
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "질문 등록")
+    @ApiOperation(value = "질문 조회")
     @RequestMapping(method = RequestMethod.GET, value = "/read")
-    public ResponseEntity readQuestion(@ApiParam(name = "질문 식별 번호", value = "1이상의 양수") Integer questionIdx) {
+    public ResponseEntity readQuestion(@ApiParam(name = "질문 식별 번호", value = "1이상의 양수") @Valid Integer questionIdx) {
         BaseRes baseRes = questionService.readQuestion(questionIdx);
         return ResponseEntity.ok().body(baseRes);
     }
 
     @ApiOperation(value = "질문 수정")
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
-    public ResponseEntity updateQuestion(PostQuestionReq request) {
+    public ResponseEntity updateQuestion(@Valid PostQuestionReq request) {
         BaseRes baseRes = questionService.updateQuestion(request);
         return ResponseEntity.ok().body(baseRes);
     }
     @ApiOperation(value = "질문 삭제")
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
-    public ResponseEntity deleteQuestion(@ApiParam(name = "질문 Idx", value = "질문 Idx 숫자") Integer questionIdx) {
+    public ResponseEntity deleteQuestion(@ApiParam(name = "질문 Idx", value = "질문 Idx 숫자") @Valid Integer questionIdx) {
         BaseRes baseRes = questionService.deleteQuestion(questionIdx);
         return ResponseEntity.ok().body(baseRes);
     }

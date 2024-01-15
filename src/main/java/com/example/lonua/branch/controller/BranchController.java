@@ -9,9 +9,12 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+
+import javax.validation.Valid;
 
 @RestController
 @RequiredArgsConstructor
@@ -21,7 +24,7 @@ public class BranchController {
 
     @ApiOperation(value = "가게 등록하기")
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-    ResponseEntity registerBranch(PostRegisterReq request) {
+    ResponseEntity registerBranch(@RequestBody @Valid PostRegisterReq request) {
         return ResponseEntity.ok().body(branchService.create(request));
     }
     @ApiOperation(value = "가게 목록 조회하기")
@@ -32,18 +35,18 @@ public class BranchController {
 
     @ApiOperation(value = "가게 하나 조회하기")
     @RequestMapping(method = RequestMethod.GET, value = "/read")
-    ResponseEntity readBranch(GetReadReq request) {
+    ResponseEntity readBranch(@RequestBody @Valid GetReadReq request) {
         return ResponseEntity.ok().body(branchService.read(request));
     }
     @ApiOperation(value = "가게 상세 정보 수정하기")
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
-    ResponseEntity updateBranch(PatchUpdateReq request) {
+    ResponseEntity updateBranch(@RequestBody @Valid PatchUpdateReq request) {
         return ResponseEntity.ok().body(branchService.update(request));
     }
 
     @ApiOperation(value = "가게 삭제하기")
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
-    ResponseEntity deleteBranch(DeleteRemoveReq request) {
+    ResponseEntity deleteBranch(@RequestBody @Valid DeleteRemoveReq request) {
         return ResponseEntity.ok().body(branchService.delete(request));
     }
 
