@@ -2,16 +2,13 @@ package com.example.lonua.cart.controller;
 
 
 
+import com.example.lonua.cart.model.request.DeleteAllRemoveReq;
 import com.example.lonua.cart.model.request.DeleteRemoveReq;
-import com.example.lonua.cart.model.request.GetListReq;
 import com.example.lonua.cart.model.request.PostRegisterReq;
 import com.example.lonua.cart.service.CartService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequiredArgsConstructor
@@ -24,9 +21,9 @@ public class CartController {
         return ResponseEntity.ok().body(cartService.create(request));
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "/list")
-    ResponseEntity listCart(GetListReq request) {
-        return ResponseEntity.ok().body(cartService.list(request));
+    @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
+    ResponseEntity listCart(Integer userIdx, @PathVariable Integer page,@PathVariable Integer size) {
+        return ResponseEntity.ok().body(cartService.list(userIdx, page, size));
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
@@ -34,8 +31,8 @@ public class CartController {
         return ResponseEntity.ok().body(cartService.delete(request));
     }
 
-    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteAll")
-    ResponseEntity deleteCart() {
-        return ResponseEntity.ok().body(cartService.deleteAll());
+    @RequestMapping(method = RequestMethod.DELETE, value = "/deleteall")
+    ResponseEntity deleteCart(@RequestBody DeleteAllRemoveReq request) {
+        return ResponseEntity.ok().body(cartService.deleteAll(request));
     }
 }
