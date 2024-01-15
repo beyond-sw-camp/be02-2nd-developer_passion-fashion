@@ -29,7 +29,7 @@ public class QuestionController {
 
     private final QuestionService questionService;
 
-    @ApiOperation(value = "질문 등록", response = BaseRes.class, notes = "회원이 상품에 대한 질문을 등록합니다.")
+    @ApiOperation(value = "질문 등록", response = BaseRes.class, notes = "회원이 상품에 대한 질문을 등록한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.POST, value = "/register")
@@ -40,7 +40,7 @@ public class QuestionController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "질문 목록 조회", response = BaseRes.class, notes = "회원이 본인이 작성한 질문의 목록을 조회합니다.")
+    @ApiOperation(value = "질문 목록 조회", response = BaseRes.class, notes = "회원이 본인이 작성한 질문의 목록을 조회한다. (페이지 별)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
@@ -51,7 +51,7 @@ public class QuestionController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "질문 수정", response = BaseRes.class, notes = "회원이 작성한 질문을 수정합니다.")
+    @ApiOperation(value = "질문 수정", response = BaseRes.class, notes = "회원이 작성한 질문을 수정한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
@@ -62,7 +62,7 @@ public class QuestionController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "질문 삭제", response = BaseRes.class, notes = "회원이 작성한 질문을 삭제합니다.")
+    @ApiOperation(value = "질문 삭제", response = BaseRes.class, notes = "회원이 작성한 질문을 삭제한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{idx}")
