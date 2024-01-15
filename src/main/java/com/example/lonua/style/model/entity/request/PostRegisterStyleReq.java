@@ -1,4 +1,4 @@
-package com.example.lonua.style.model;
+package com.example.lonua.style.model.entity.request;
 
 import lombok.*;
 
@@ -7,6 +7,6 @@ import lombok.*;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class PostRegReq {
+public class PostRegisterStyleReq {
     private String styleType;
 }
