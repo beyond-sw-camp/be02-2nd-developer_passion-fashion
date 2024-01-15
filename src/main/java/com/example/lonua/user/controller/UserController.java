@@ -2,10 +2,7 @@ package com.example.lonua.user.controller;
 
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.user.model.entity.User;
-import com.example.lonua.user.model.entity.request.GetEmailVerifyReq;
-import com.example.lonua.user.model.entity.request.PostSignUpReq;
-import com.example.lonua.user.model.entity.request.PostUserLoginReq;
-import com.example.lonua.user.model.entity.request.PatchUserUpdateReq;
+import com.example.lonua.user.model.entity.request.*;
 import com.example.lonua.user.service.EmailVerifyService;
 import com.example.lonua.user.service.UserService;
 import lombok.RequiredArgsConstructor;
@@ -88,5 +85,11 @@ public class UserController {
         BaseRes baseRes = userService.delete(userIdx);
 
         return ResponseEntity.ok().body(baseRes);
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/cancle")
+    public ResponseEntity cancle(@RequestBody PostUserCancleReq request) {
+
+        return ResponseEntity.ok().body(userService.cancle(request));
     }
 }
