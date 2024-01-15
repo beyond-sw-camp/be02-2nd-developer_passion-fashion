@@ -8,19 +8,17 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import javax.persistence.*;
-
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostQuestionReq {
+public class PostRegisterQuestionReq {
 
-    private Integer questionIdx;
-    private Product product;
-    private User user;
-    private String questionType;
+    private Integer productIdx;
+
+    private String questionType;  // 사이즈, 배송, 재입고, 상품 상세문의
+    private String questionTitle;
     private String questionContent;
-    private String hasAnswer;
-    private String isSecret;
+    private Boolean isSecret;
+
 }
