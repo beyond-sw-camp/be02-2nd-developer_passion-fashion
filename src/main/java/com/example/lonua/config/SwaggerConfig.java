@@ -6,6 +6,7 @@ import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.builders.RequestHandlerSelectors;
 import springfox.documentation.service.ApiInfo;
 import springfox.documentation.service.Contact;
+import springfox.documentation.service.Response;
 import springfox.documentation.spi.DocumentationType;
 import springfox.documentation.spring.web.plugins.Docket;
 
@@ -22,8 +23,8 @@ public class SwaggerConfig {
                                 //.or(RequestHandlerSelectors.basePackage("com.example.demo.product"))
                 )
                 .paths(PathSelectors.any()) ///?
-                .build()
-                .apiInfo(apiInfo("LOUNA", "v1.0"));
+                .build();
+                //.apiInfo(apiInfo("LOUNA", "v1.0"));
     }
 
     private ApiInfo apiInfo(String title, String version) {
