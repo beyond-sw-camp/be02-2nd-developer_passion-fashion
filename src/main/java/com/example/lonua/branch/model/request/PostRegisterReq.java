@@ -1,7 +1,9 @@
 package com.example.lonua.branch.model.request;
 
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.annotations.ApiParam;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -14,6 +16,7 @@ import javax.validation.constraints.Min;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
+@ApiModel(description = "가게 등록 요청 시 쓰는 DTO" ,value = "Branch PostRegisterRequest DTO")
 public class PostRegisterReq {
     @Min(value = 1)
     @ApiModelProperty(value = "추가할 가게의 idx")

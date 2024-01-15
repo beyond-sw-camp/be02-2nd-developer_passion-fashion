@@ -1,5 +1,6 @@
 package com.example.lonua.brand.model.request;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -14,6 +15,7 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ApiModel(description = "가게 데이터를 삭제 요청받을 때 쓰는 DTO",value = "PatchUpdateBrandReqDTO")
 public class PatchUpdateBrandReq {
     @NotNull
     @Min(value = 1)

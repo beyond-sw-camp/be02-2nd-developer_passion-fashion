@@ -24,7 +24,7 @@ import javax.validation.constraints.Min;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("product")
-@Api(tags = "상품 기능",value = "상품을 관리할 수 있는 API")
+@Api(tags = "상품 기능",value = "ProductController")
 public class ProductController {
 
     private final ProductService productService;
