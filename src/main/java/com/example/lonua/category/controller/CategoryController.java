@@ -2,7 +2,7 @@ package com.example.lonua.category.controller;
 
 import com.example.lonua.category.model.request.PostCategoryReq;
 import com.example.lonua.category.service.CategoryService;
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

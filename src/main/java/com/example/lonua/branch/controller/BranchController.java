@@ -7,6 +7,7 @@ import com.example.lonua.branch.model.request.PostRegisterReq;
 import com.example.lonua.branch.service.BranchService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -18,7 +19,7 @@ public class BranchController {
     private final BranchService branchService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-    ResponseEntity registerBranch(PostRegisterReq request) {
+    ResponseEntity registerBranch(@RequestBody PostRegisterReq request) {
         return ResponseEntity.ok().body(branchService.create(request));
     }
 
@@ -27,15 +28,15 @@ public class BranchController {
         return ResponseEntity.ok().body(branchService.list());
     }
     @RequestMapping(method = RequestMethod.GET, value = "/read")
-    ResponseEntity readBranch(GetReadReq request) {
+    ResponseEntity readBranch(@RequestBody GetReadReq request) {
         return ResponseEntity.ok().body(branchService.read(request));
     }
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
-    ResponseEntity updateBranch(PatchUpdateReq request) {
+    ResponseEntity updateBranch(@RequestBody PatchUpdateReq request) {
         return ResponseEntity.ok().body(branchService.update(request));
     }
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
-    ResponseEntity deleteBranch(DeleteRemoveReq request) {
+    ResponseEntity deleteBranch(@RequestBody DeleteRemoveReq request) {
         return ResponseEntity.ok().body(branchService.delete(request));
     }
 

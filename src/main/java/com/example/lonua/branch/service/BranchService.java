@@ -11,7 +11,7 @@ import com.example.lonua.branch.model.response.PatchUpdateRes;
 import com.example.lonua.branch.model.response.PostRegisterRes;
 import com.example.lonua.branch.repository.BranchRepository;
 import com.example.lonua.brand.model.entity.Brand;
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,7 +28,7 @@ public class BranchService {
     public BaseRes create(PostRegisterReq request) {
         Branch branch = branchRepository.save(Branch.builder()
                 .brand(Brand.builder()
-                        .brandIdx(request.getBranchIdx())
+                        .brandIdx(request.getBrandIdx())
                         .build())
                 .branchName(request.getBranchName())
                 .branchAddress(request.getBranchAddress())

@@ -1,8 +1,6 @@
 package com.example.lonua.question.model.response;
 
 
-import com.example.lonua.product.model.entity.Product;
-import com.example.lonua.user.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -12,12 +10,14 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PostQuestionRes {
+public class GetListQuestionRes {
 
-    private Product product;
-    private User user;
+    private String productName;
+    private String productImage;
+
     private String questionType;
+    private String questionTitle;
     private String questionContent;
-    private String hasAnswer;
-    private String isSecret;
+    private String createdAt;
+    private Boolean hasAnswer;
 }

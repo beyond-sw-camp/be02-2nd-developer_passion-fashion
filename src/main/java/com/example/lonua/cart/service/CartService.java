@@ -1,20 +1,24 @@
 package com.example.lonua.cart.service;
 
 import com.example.lonua.cart.model.entity.Cart;
+import com.example.lonua.cart.model.request.DeleteAllRemoveReq;
 import com.example.lonua.cart.model.request.DeleteRemoveReq;
 import com.example.lonua.cart.model.request.PostRegisterReq;
 import com.example.lonua.cart.model.response.GetListRes;
 import com.example.lonua.cart.model.response.PostRegisterRes;
 import com.example.lonua.cart.repository.CartRepository;
-import com.example.lonua.config.BaseRes;
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.user.model.entity.User;
+import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -54,10 +58,10 @@ public class CartService {
                 .build();
     }
 
-    public BaseRes list(Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page - 1, size);
+    public BaseRes list(Integer userIdx, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
 
-        Page<Cart> all = cartRepository.findList(pageable);
+        Page<Cart> all = cartRepository.findList(pageable, userIdx);
         List<GetListRes> getListResList = new ArrayList<>();
 
         for (Cart cart : all) {
@@ -92,8 +96,10 @@ public class CartService {
                 .build();
     }
 
-    public BaseRes deleteAll() {
-        cartRepository.deleteAll();
+    @Transactional
+    public BaseRes deleteAll(DeleteAllRemoveReq request) {
+
+        cartRepository.deleteByUserIdx(request.getUserIdx());
 
         return BaseRes.builder()
                 .code(200)

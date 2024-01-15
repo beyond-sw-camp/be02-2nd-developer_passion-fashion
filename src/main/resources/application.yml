@@ -53,6 +53,7 @@ spring:
         driver-class-name: com.mysql.cj.jdbc.Driver
         jdbc-url: jdbc:mysql://192.168.72.30/shop
 
+
   servlet:
     multipart:
       max-file-size: 10MB

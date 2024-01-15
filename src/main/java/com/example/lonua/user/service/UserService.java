@@ -1,16 +1,19 @@
 package com.example.lonua.user.service;
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 import com.example.lonua.config.BaseRes;
+=======
+import com.example.lonua.common.BaseRes;
+>>>>>>> develop
 import com.example.lonua.exception.ErrorCode;
 =======
 import com.example.lonua.exception.errorCode.ErrorCode;
 >>>>>>> feature/swagger
 import com.example.lonua.exception.exception.UserException;
 import com.example.lonua.grade.model.entity.Grade;
-import com.example.lonua.orders.model.entity.Orders;
-import com.example.lonua.product.model.response.GetReadOrdersProductRes;
 import com.example.lonua.user.config.utils.JwtUtils;
+import com.example.lonua.user.model.entity.request.PostUserCancleReq;
 import com.example.lonua.user.model.entity.request.PostUserLoginReq;
 import com.example.lonua.user.model.entity.request.PostSignUpReq;
 import com.example.lonua.user.model.entity.User;
@@ -40,7 +43,7 @@ import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class UserService{
+public class UserService {
 
     @Value("${jwt.secret-key}")
     private String secretKey;
@@ -58,7 +61,7 @@ public class UserService{
         // 중복된 ID에 대한 예외처리 추가
         Optional<User> result = userRepository.findByUserEmail(postSignUpReq.getUserEmail());
 
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             throw new UserException(ErrorCode.DUPLICATED_USER, String.format("Email is %s", postSignUpReq.getUserEmail()));
         }
 
@@ -102,7 +105,7 @@ public class UserService{
         List<User> result = userRepository.findAll();
 
         List<GetListUserRes> getListUserResList = new ArrayList<>();
-        for(User user : result) {
+        for (User user : result) {
 
             GetListUserRes getListUserRes = GetListUserRes.builder()
                     .userIdx(user.getUserIdx())
@@ -212,7 +215,7 @@ public class UserService{
     // 메일 인증 완료 후 회원 상태 수정
     public BaseRes updateStatus(String email) {
         Optional<User> result = userRepository.findByUserEmail(email);
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             User user = result.get();
             user.setStatus(true);
             userRepository.save(user);
@@ -271,10 +274,10 @@ public class UserService{
     public BaseRes update(String userEmail, PatchUserUpdateReq patchUserUpdateReq) {
         Optional<User> result = userRepository.findByUserEmail(userEmail);
 
-        if(result.isPresent()) {
+        if (result.isPresent()) {
             User user = result.get();
 
-            user.update(patchUserUpdateReq.getUserAddr(), patchUserUpdateReq.getUserPhoneNumber(), patchUserUpdateReq.getPreferStyle(), patchUserUpdateReq.getUpperType(), patchUserUpdateReq.getLowerType());
+            user.update(patchUserUpdateReq);
             user.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
             userRepository.save(user);
 
@@ -302,7 +305,7 @@ public class UserService{
 
         Integer result = userRepository.deleteByUserIdx(idx);
 
-        if(!result.equals(0)) {
+        if (!result.equals(0)) {
             return BaseRes.builder()
                     .code(200)
                     .isSuccess(true)
@@ -317,5 +320,31 @@ public class UserService{
                     .result("회원을 찾을 수 없습니다.")
                     .build();
         }
+    }
+
+    @Transactional
+    public BaseRes cancle(PostUserCancleReq request) {
+        Optional<User> byUserIdx = userRepository.findByUserIdx(request.getUserIdx());
+
+        if (byUserIdx.isPresent()) {
+            User user = byUserIdx.get();
+            user.setStatus(false);
+            userRepository.save(user);
+
+            return BaseRes.builder()
+                    .code(200)
+                    .isSuccess(true)
+                    .message("요청 성공")
+                    .result("회원의 상태가 탈퇴 상태로 변경되었습니다.")
+                    .build();
+
+        }
+
+        return BaseRes.builder()
+                .code(200)
+                .isSuccess(true)
+                .message("요청 성공")
+                .result("이미 탈퇴처리가 된 회원입니다.")
+                .build();
     }
 }
