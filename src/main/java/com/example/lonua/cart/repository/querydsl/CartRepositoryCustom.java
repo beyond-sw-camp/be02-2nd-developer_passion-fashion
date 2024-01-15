@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 import java.util.List;
 
 public interface CartRepositoryCustom {
-    public Page<Cart> findList(Pageable pageable);
+    public Page<Cart> findList(Pageable pageable, Integer userIdx);
 }
