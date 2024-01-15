@@ -1,6 +1,7 @@
 package com.example.lonua.user.model.entity.request;
 
 import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
 import org.hibernate.validator.constraints.Range;
@@ -27,7 +28,7 @@ public class PostSignUpReq {
     @NotNull
     @Length(min=8,max=200)
     @Pattern(regexp="^(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$%^&*()_+\\-=\\[\\]{};':\\\",.<>/?]).{8,}$")
-    @ApiModelProperty(value = "패스워드(최소 길이 : 8글자 / 적어도 한개의 대문자, 소문자, 특수문자, 숫자를 포함)", example = "qwer1234@", required = true)
+    @ApiModelProperty(value = "패스워드(최소 길이 : 8글자 / 적어도 한개의 대문자, 소문자, 특수문자, 숫자를 포함)", example = "Qwer1234@", required = true)
     private String userPassword;
 
 
@@ -50,7 +51,7 @@ public class PostSignUpReq {
     private String userGender;
 
     @NotNull
-    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$") //TODO 정규표현 식 입력해야함.
+    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$")
     @ApiModelProperty(value = "휴대전화 번호", example = "010-1234-5678", required = true)
     private String userPhoneNumber;
 

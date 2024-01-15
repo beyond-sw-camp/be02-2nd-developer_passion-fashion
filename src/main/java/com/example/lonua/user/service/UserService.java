@@ -5,7 +5,6 @@ import com.example.lonua.exception.ErrorCode;
 import com.example.lonua.exception.exception.UserException;
 import com.example.lonua.grade.model.entity.Grade;
 import com.example.lonua.user.config.utils.JwtUtils;
-import com.example.lonua.user.model.entity.request.PostUserCancleReq;
 import com.example.lonua.user.model.entity.request.PostUserLoginReq;
 import com.example.lonua.user.model.entity.request.PostSignUpReq;
 import com.example.lonua.user.model.entity.User;
@@ -96,7 +95,7 @@ public class UserService {
             GetListUserRes getListUserRes = GetListUserRes.builder()
                     .userIdx(user.getUserIdx())
                     .userEmail(user.getUserEmail())
-                    .userName(user.getUsername())
+                    .name(user.getName())
                     .userBirth(user.getUserBirth())
                     .userGender(user.getUserGender())
                     .userPhoneNumber(user.getUserPhoneNumber())
@@ -125,7 +124,7 @@ public class UserService {
             GetListUserRes getListUserRes = GetListUserRes.builder()
                     .userIdx(user.getUserIdx())
                     .userEmail(user.getUserEmail())
-                    .userName(user.getUsername())
+                    .name(user.getName())
                     .userBirth(user.getUserBirth())
                     .userGender(user.getUserGender())
                     .userPhoneNumber(user.getUserPhoneNumber())
@@ -309,8 +308,8 @@ public class UserService {
     }
 
     @Transactional
-    public BaseRes cancle(User user) {
-        Optional<User> byUserIdx = userRepository.findByUserIdx(user.getUserIdx());
+    public BaseRes cancle(Integer userIdx) {
+        Optional<User> byUserIdx = userRepository.findByUserIdx(userIdx);
 
         if (byUserIdx.isPresent()) {
             User loginUser = byUserIdx.get();

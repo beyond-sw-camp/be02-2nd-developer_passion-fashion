@@ -138,7 +138,7 @@ public class User implements UserDetails {
             this.userAddr = patchUserUpdateReq.getUserAddr();
         }
         if (patchUserUpdateReq.getUserPhoneNumber() != null) {
-            this.userPhoneNumber = patchUserUpdateReq.getUserAddr();
+            this.userPhoneNumber = patchUserUpdateReq.getUserPhoneNumber();
         }
         if (patchUserUpdateReq.getPreferStyle() != null) {
             this.preferStyle = patchUserUpdateReq.getPreferStyle();
