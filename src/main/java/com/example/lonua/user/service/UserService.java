@@ -309,13 +309,13 @@ public class UserService {
     }
 
     @Transactional
-    public BaseRes cancle(PostUserCancleReq request) {
-        Optional<User> byUserIdx = userRepository.findByUserIdx(request.getUserIdx());
+    public BaseRes cancle(User user) {
+        Optional<User> byUserIdx = userRepository.findByUserIdx(user.getUserIdx());
 
         if (byUserIdx.isPresent()) {
-            User user = byUserIdx.get();
-            user.setStatus(false);
-            userRepository.save(user);
+            User loginUser = byUserIdx.get();
+            loginUser.setStatus(false);
+            userRepository.save(loginUser);
 
             return BaseRes.builder()
                     .code(200)
@@ -327,10 +327,10 @@ public class UserService {
         }
 
         return BaseRes.builder()
-                .code(200)
-                .isSuccess(true)
-                .message("요청 성공")
-                .result("이미 탈퇴처리가 된 회원입니다.")
+                .code(400)
+                .isSuccess(false)
+                .message("요청 실패")
+                .result("회원정보를 찾을 수 없습니다.")
                 .build();
     }
 }

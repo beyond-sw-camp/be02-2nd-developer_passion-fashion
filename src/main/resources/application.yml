@@ -85,6 +85,7 @@ cloud:
       product-bucket: lonua-product
       productIntrod-bucket: lonua-productintrod
       brand-bucket: lonua-brand
+      review-bucket: lonua-review
     credentials:
       access-key: ${ACCESS_KEY}
       secret-key: ${SECRET_KEY}
