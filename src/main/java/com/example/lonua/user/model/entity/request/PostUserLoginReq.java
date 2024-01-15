@@ -5,6 +5,7 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
 
 @Getter
 @Setter
@@ -15,6 +16,7 @@ public class PostUserLoginReq {
 
     @NotNull
     @Length(max=45)
+    @Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$",message = "이메일을 입력하세요.") //TODO 정규표현 식 입력해야함.
     @ApiModelProperty(value = "사용자 ID", example = "test1", required = true)
     private String email;
 

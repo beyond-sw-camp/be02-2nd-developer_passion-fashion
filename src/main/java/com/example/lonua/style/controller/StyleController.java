@@ -8,6 +8,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
+
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/style")
@@ -16,7 +18,12 @@ public class StyleController {
     private final StyleService styleService;
 
     @RequestMapping(method = RequestMethod.POST, value = "/register")
+<<<<<<< HEAD
     public ResponseEntity register(@RequestBody PostRegisterStyleReq postRegisterStyleReq) {
+=======
+    public ResponseEntity register(@RequestBody @Valid PostRegReq postRegReq) {
+        styleService.register(postRegReq);
+>>>>>>> feature/swagger
 
         BaseRes baseRes = styleService.register(postRegisterStyleReq);
 
