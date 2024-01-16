@@ -112,6 +112,7 @@ public class CouponService {
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
+                .result("쿠폰 삭제에 성공했습니다.")
                 .build();
     }
 }
