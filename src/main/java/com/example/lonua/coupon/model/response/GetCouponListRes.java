@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class GetReadRes {
+public class GetCouponListRes {
     private Integer couponIdx;
     private String couponName;
     private Integer couponDiscountRate;

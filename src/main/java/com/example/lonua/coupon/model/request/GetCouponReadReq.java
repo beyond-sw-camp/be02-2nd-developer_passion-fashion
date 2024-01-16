@@ -7,13 +7,15 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 @Data
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class DeleteRemoveReq {
+public class GetCouponReadReq {
+    @NotNull
     @Min(value = 1)
-    @ApiModelProperty(value = "삭제할 쿠폰 Idx", example = "1", required = true)
+    @ApiModelProperty(value = "조회할 쿠폰 Idx", example = "1", required = true)
     private Integer couponIdx;
 }

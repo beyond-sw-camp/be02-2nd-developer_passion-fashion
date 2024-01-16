@@ -3,12 +3,10 @@ package com.example.lonua.coupon.service;
 
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.coupon.model.entity.Coupon;
-import com.example.lonua.coupon.model.request.DeleteRemoveReq;
-import com.example.lonua.coupon.model.request.GetReadReq;
-import com.example.lonua.coupon.model.request.PostRegisterReq;
-import com.example.lonua.coupon.model.response.GetListRes;
-import com.example.lonua.coupon.model.response.GetReadRes;
-import com.example.lonua.coupon.model.response.PostRegisterRes;
+import com.example.lonua.coupon.model.request.DeleteCouponRemoveReq;
+import com.example.lonua.coupon.model.request.PostCouponRegisterReq;
+import com.example.lonua.coupon.model.response.GetCouponListRes;
+import com.example.lonua.coupon.model.response.PostCouponRegisterRes;
 import com.example.lonua.coupon.repository.CouponRepository;
 import com.example.lonua.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +16,6 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -26,7 +23,7 @@ public class CouponService {
 
     private final CouponRepository couponRepository;
 
-    public BaseRes create(PostRegisterReq request) {
+    public BaseRes create(PostCouponRegisterReq request) {
         Coupon coupon = couponRepository.save(Coupon.builder()
                 .couponName(request.getCouponName())
                 .couponDiscountRate(request.getCouponDiscountRate())
@@ -44,7 +41,7 @@ public class CouponService {
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
-                .result(PostRegisterRes.builder()
+                .result(PostCouponRegisterRes.builder()
                         .userIdx(coupon.getUser().getUserIdx())
                         .couponIdx(coupon.getCouponIdx())
                         .couponName(coupon.getCouponName())
@@ -57,35 +54,35 @@ public class CouponService {
 
     }
 
-    public BaseRes read(GetReadReq request) {
-        Optional<Coupon> byId = couponRepository.findById(request.getCouponIdx());
-        if (byId.isPresent()) {
-            Coupon coupon = byId.get();
-            return BaseRes.builder()
-                    .code(200)
-                    .isSuccess(true)
-                    .message("요청성공")
-                    .result(GetReadRes.builder()
-                            .couponIdx(coupon.getCouponIdx())
-                            .couponName(coupon.getCouponName())
-                            .couponDiscountRate(coupon.getCouponDiscountRate())
-                            .receivedDate(coupon.getReceivedDate())
-                            .couponExpirationDate(coupon.getCouponExpirationDate())
-                            .status(coupon.getStatus())
-                            .userIdx(coupon.getUser().getUserIdx())
-                            .build())
-                    .build();
-        }
-        return null;
-
-    }
+//    public BaseRes read(GetReadReq request) {
+//        Optional<Coupon> byId = couponRepository.findById(request.getCouponIdx());
+//        if (byId.isPresent()) {
+//            Coupon coupon = byId.get();
+//            return BaseRes.builder()
+//                    .code(200)
+//                    .isSuccess(true)
+//                    .message("요청성공")
+//                    .result(GetReadRes.builder()
+//                            .couponIdx(coupon.getCouponIdx())
+//                            .couponName(coupon.getCouponName())
+//                            .couponDiscountRate(coupon.getCouponDiscountRate())
+//                            .receivedDate(coupon.getReceivedDate())
+//                            .couponExpirationDate(coupon.getCouponExpirationDate())
+//                            .status(coupon.getStatus())
+//                            .userIdx(coupon.getUser().getUserIdx())
+//                            .build())
+//                    .build();
+//        }
+//        return null;
+//
+//    }
 
     public BaseRes list() {
         List<Coupon> all = couponRepository.findAll();
-        List<GetListRes> getListResList = new ArrayList<>();
+        List<GetCouponListRes> getListResCouponList = new ArrayList<>();
 
         for (Coupon coupon : all) {
-            GetListRes getListRes = GetListRes.builder()
+            GetCouponListRes getCouponListRes = GetCouponListRes.builder()
                     .couponIdx(coupon.getCouponIdx())
                     .couponName(coupon.getCouponName())
                     .couponDiscountRate(coupon.getCouponDiscountRate())
@@ -94,17 +91,17 @@ public class CouponService {
                     .status(coupon.getStatus())
                     .userIdx(coupon.getUser().getUserIdx())
                     .build();
-            getListResList.add(getListRes);
+            getListResCouponList.add(getCouponListRes);
         }
         return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
-                .result(getListResList)
+                .result(getListResCouponList)
                 .build();
     }
 
-    public BaseRes delete(DeleteRemoveReq request) {
+    public BaseRes delete(DeleteCouponRemoveReq request) {
         Coupon coupon = Coupon.builder()
                 .couponIdx(request.getCouponIdx())
                 .build();
