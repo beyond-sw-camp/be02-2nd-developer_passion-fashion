@@ -112,7 +112,8 @@
 <br>
 
 ---
-## 📑 [API 명세서 바로가기](https://wobbly-armadillo-60c.notion.site/LONUA-2d18351d8b904299a92793b83f78b500)
+## <a href="https://wobbly-armadillo-60c.notion.site/LONUA-2d18351d8b904299a92793b83f78b500" target="_blank">📑 API 명세서 바로가기</a>
+
 
 ---
 ## 📜 [Swaager-UI 바로가기]()
