@@ -43,7 +43,7 @@ public class CartService {
         return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
-                .message("요청성공")
+                .message("요청 성공")
                 .result(PostCartRegisterRes.builder()
                         .cartIdx(cart.getCartIdx())
                         .createdAt(cart.getCreatedAt())
@@ -73,7 +73,7 @@ public class CartService {
         return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
-                .message("요청성공")
+                .message("요청 성공")
                 .result(getListResCartList)
                 .build();
     }
@@ -89,7 +89,8 @@ public class CartService {
         return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
-                .message("요청성공")
+                .message("장바구니 1개 상품 삭제 성공")
+                .result("요청 성공")
                 .build();
     }
 
@@ -101,7 +102,8 @@ public class CartService {
         return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
-                .message("요청성공")
+                .message("장바구니 전체 상품 삭제 성공")
+                .result("요청 성공")
                 .build();
     }
 }
