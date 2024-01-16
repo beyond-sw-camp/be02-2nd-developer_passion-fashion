@@ -66,7 +66,7 @@ public class OrdersController {
     @ApiOperation(value = "주문 상태 수정", response = BaseRes.class, notes = "브랜드(판매자)가 주문 상태를 수정한다. ( 주문 접수 / 배송 전 / 배송 중 / 배송 완료 )")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
-    @RequestMapping(method = RequestMethod.PATCH, value = "/update/{idx}")
+    @RequestMapping(method = RequestMethod.PATCH, value = "/update")
     public ResponseEntity updateStatus(@RequestBody @Valid PatchUpdateOrdersReq patchUpdateOrdersReq){
 
         BaseRes baseRes = ordersService.updateStatus(patchUpdateOrdersReq);
@@ -77,10 +77,10 @@ public class OrdersController {
     @ApiOperation(value = "주문 취소", response = BaseRes.class, notes = "회원이 주문을 취소한다. (상품 배송 전)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
-    @RequestMapping(method = RequestMethod.DELETE, value = "/cancle/{idx}")
-    public ResponseEntity delete(@PathVariable @NotNull @Positive Integer idx) {
+    @RequestMapping(method = RequestMethod.DELETE, value = "/cancle/{ordersIdx}")
+    public ResponseEntity cancle(@PathVariable @NotNull @Positive Integer ordersIdx) {
         User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        BaseRes baseRes = ordersService.delete(idx);
+        BaseRes baseRes = ordersService.cancle(ordersIdx);
 
         return ResponseEntity.ok().body(baseRes);
     }
