@@ -5,14 +5,14 @@ import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.entity.Product;
-import com.example.lonua.product.model.entity.ProductImage;
-import com.example.lonua.product.model.response.GetListProductRes;
 import com.example.lonua.review.model.entity.Review;
 import com.example.lonua.review.model.request.*;
 import com.example.lonua.review.model.response.GetListReviewRes;
 import com.example.lonua.review.model.response.GetReadReviewRes;
-import com.example.lonua.review.model.response.PostReviewRes;
+import com.example.lonua.review.model.response.PatchUpdateReviewRes;
+import com.example.lonua.review.model.response.PostRegisterReviewRes;
 import com.example.lonua.review.repository.ReviewRepository;
+import com.example.lonua.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
@@ -75,12 +75,13 @@ public class ReviewService {
     }
 
     @Transactional
-    public BaseRes registerReview(PostRegisterReviewReq postRegisterReviewReq, MultipartFile file) {
+    public BaseRes registerReview(User user, PostRegisterReviewReq postRegisterReviewReq, MultipartFile file) {
 
         String reviewPhoto = saveFile(file);
 
         reviewRepository.save(Review.builder()
                 .product(Product.builder().productIdx(postRegisterReviewReq.getProductIdx()).build())
+                .user(user)
                 .reviewContent(postRegisterReviewReq.getReviewContent())
                 .reviewPhoto(reviewPhoto.replace(File.separator, "/"))
                 .evaluation(postRegisterReviewReq.getEvaluation())
@@ -89,12 +90,17 @@ public class ReviewService {
                 .status(true)
                 .build());
 
+        PostRegisterReviewRes postRegisterReviewRes = PostRegisterReviewRes.builder()
+                .reviewContent(postRegisterReviewReq.getReviewContent())
+                .reviewPhoto(reviewPhoto.replace(File.separator, "/"))
+                .evaluation(postRegisterReviewReq.getEvaluation())
+                .build();
 
         BaseRes baseRes = BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
-                .message("리뷰를 등록했습니다.")
-                .result(postRegisterReviewReq)
+                .message("리뷰 등록 성공")
+                .result(postRegisterReviewRes)
                 .build();
 
         return baseRes;
@@ -116,7 +122,7 @@ public class ReviewService {
             BaseRes baseRes = BaseRes.builder()
                     .code(200)
                     .isSuccess(true)
-                    .message("리뷰를 가져왔습니다.")
+                    .message("요청 성공")
                     .result(getReadReviewRes)
                     .build();
 
@@ -150,7 +156,7 @@ public class ReviewService {
         BaseRes baseRes = BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
-                .message("리뷰를 가져왔습니다.")
+                .message("요청 성공")
                 .result(response)
                 .build();
 
@@ -159,42 +165,57 @@ public class ReviewService {
     }
 
 
-    public BaseRes updateReview(UpdateReviewReq request) {
+    public BaseRes updateReview(PatchUpdateReviewReq request, User user) {
 
-        Optional<Review> result = reviewRepository.findByReviewIdx(request.getReviewIdx());
+        Optional<Review> result = reviewRepository.findByReviewIdxAndUser_userIdx(request.getReviewIdx(), user.getUserIdx());
 
         if (result.isPresent()) {
             Review review = result.get();
-            review.setReviewContent(request.getReviewContent());
-            review.setReviewPhoto(request.getReviewPhoto());
-            review.setEvaluation(request.getEvaluation());
-
+            review.update(request);
+            review.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
             reviewRepository.save(review);
+
+            PatchUpdateReviewRes patchUpdateReviewRes = PatchUpdateReviewRes.builder()
+                    .reviewContent(review.getReviewContent())
+                    .reviewPhoto(review.getReviewPhoto())
+                    .evaluation(review.getEvaluation())
+                    .build();
 
             BaseRes baseRes = BaseRes.builder()
                     .code(200)
                     .isSuccess(true)
-                    .message("리뷰를 수정 했습니다.")
-                    .result(request)
+                    .message("리뷰 수정 성공")
+                    .result(patchUpdateReviewRes)
                     .build();
 
             return baseRes;
 
         }
-        return null;
+        return  BaseRes.builder()
+                    .code(400)
+                    .isSuccess(false)
+                    .message("리뷰 수정 실패")
+                    .result("잘못된 요청입니다.")
+                    .build();
     }
 
 
-    public BaseRes deleteReview(Integer reviewIdx) {
-        reviewRepository.delete(Review.builder().reviewIdx(reviewIdx).build());
+    public BaseRes deleteReview(Integer reviewIdx, User user) {
+        Integer result = reviewRepository.deleteByReviewIdxAndUser_userIdx(reviewIdx, user.getUserIdx());
 
-        BaseRes baseRes = BaseRes.builder()
+        if(!result.equals(0)) {
+            return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
-                .message("리뷰를 삭제했습니다.")
+                .message("리뷰 삭제 성공")
                 .result(reviewIdx)
                 .build();
-
-        return baseRes;
+        }
+        return BaseRes.builder()
+                .code(400)
+                .isSuccess(false)
+                .message("리뷰 삭제 실패")
+                .result("잘못된 요청입니다.")
+                .build();
     }
 }

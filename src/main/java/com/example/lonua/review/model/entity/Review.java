@@ -1,6 +1,7 @@
 package com.example.lonua.review.model.entity;
 
 import com.example.lonua.product.model.entity.Product;
+import com.example.lonua.review.model.request.PatchUpdateReviewReq;
 import com.example.lonua.user.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,9 +9,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.util.Date;
 
 @Entity
 @Data
@@ -47,4 +45,16 @@ public class Review {
 
     @Column(nullable = false)
     private Boolean status;
+
+    public void update(PatchUpdateReviewReq patchUpdateReviewReq) {
+        if(patchUpdateReviewReq.getReviewContent() != null) {
+            this.reviewContent = patchUpdateReviewReq.getReviewContent();
+        }
+        if(patchUpdateReviewReq.getReviewPhoto() != null) {
+            this.reviewPhoto = patchUpdateReviewReq.getReviewPhoto();
+        }
+        if(patchUpdateReviewReq.getEvaluation() != null) {
+            this.evaluation = patchUpdateReviewReq.getEvaluation();
+        }
+    }
 }

@@ -10,7 +10,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class UpdateReviewReq {
+public class PatchUpdateReviewReq {
 
     private Integer reviewIdx;
 

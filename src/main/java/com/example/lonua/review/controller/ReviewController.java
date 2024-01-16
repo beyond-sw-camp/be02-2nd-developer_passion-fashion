@@ -4,8 +4,10 @@ package com.example.lonua.review.controller;
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.review.model.request.*;
 import com.example.lonua.review.service.ReviewService;
+import com.example.lonua.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -21,7 +23,9 @@ public class ReviewController {
             @RequestPart(value = "review") PostRegisterReviewReq postRegisterReviewReq,
             @RequestPart(value = "reviewPhoto") MultipartFile file
     ) {
-        BaseRes baseRes = reviewService.registerReview(postRegisterReviewReq,file);
+        User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        BaseRes baseRes = reviewService.registerReview(user, postRegisterReviewReq,file);
+
         return ResponseEntity.ok().body(baseRes);
     }
 
@@ -38,14 +42,18 @@ public class ReviewController {
     }
 
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
-    public ResponseEntity updateReview(@RequestBody UpdateReviewReq request) {
-        BaseRes baseRes = reviewService.updateReview(request);
+    public ResponseEntity updateReview(@RequestBody PatchUpdateReviewReq request) {
+        User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        BaseRes baseRes = reviewService.updateReview(request, user);
+
         return ResponseEntity.ok().body(baseRes);
     }
 
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{reviewIdx}")
     public ResponseEntity deleteReview(@PathVariable Integer reviewIdx) {
-        BaseRes baseRes =  reviewService.deleteReview(reviewIdx);
+        User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        BaseRes baseRes =  reviewService.deleteReview(reviewIdx, user);
+
         return ResponseEntity.ok().body(baseRes);
     }
 }
