@@ -21,7 +21,7 @@ public class PatchUserUpdateReq {
     private String userAddr;
 
     @NotNull
-    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$")
+//    @Pattern(regexp = "^\\d{2,3}-\\d{3,4}-\\d{4}$")
     @ApiModelProperty(value = "휴대전화 번호", example = "010-1234-5678", required = true)
     private String userPhoneNumber;
 

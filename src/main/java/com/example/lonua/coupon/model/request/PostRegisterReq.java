@@ -25,7 +25,7 @@ public class PostRegisterReq {
     @ApiModelProperty(value = "쿠폰을 받을 사람의 Idx", example = "1", required = true)
     private Integer userIdx;
 
-    @Pattern(regexp = "^.{1,20}$", message = "20글자 이하의 문자열을 입력하세요.")
+//    @Pattern(regexp = "^.{1,20}$", message = "20글자 이하의 문자열을 입력하세요.")
     @ApiModelProperty(value = "발급할 쿠폰의 이름", example = "1", required = true)
     private String couponName;
 

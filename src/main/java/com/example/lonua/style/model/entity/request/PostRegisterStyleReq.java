@@ -17,7 +17,7 @@ public class PostRegisterStyleReq {
 
     @NotNull
     @Length(max=7)
-    @Pattern(regexp = "^[가-힣]*$")
+//    @Pattern(regexp = "^[가-힣]*$")
     @ApiModelProperty(value = "스타일 유형", example = "댄디", required = true)
     private String styleType;
 }
