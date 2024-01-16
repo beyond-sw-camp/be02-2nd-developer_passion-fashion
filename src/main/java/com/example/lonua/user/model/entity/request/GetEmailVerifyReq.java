@@ -16,7 +16,7 @@ public class GetEmailVerifyReq {
 
     @NotNull
     @Length(max=45)
-//    @Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")
+    @Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")
     @ApiModelProperty(value = "사용자 인증 이메일", example = "test@example.com", required = true)
     private String email;
 

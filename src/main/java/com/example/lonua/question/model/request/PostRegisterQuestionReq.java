@@ -27,7 +27,7 @@ public class PostRegisterQuestionReq {
 
     @NotNull
     @Length(min=2, max=7)
-//    @Pattern(regexp = "^(사이즈|배송|재입고|상품 상세문의)$")
+    @Pattern(regexp = "^(사이즈|배송|재입고|상품 상세문의)$")
     @ApiModelProperty(value = "질문 유형 ( 사이즈 / 배송 / 재입고 / 상품 상세문의 )", example = "배송", required = true)
     private String questionType;  // 사이즈, 배송, 재입고, 상품 상세문의
 
@@ -42,7 +42,7 @@ public class PostRegisterQuestionReq {
     private String questionContent;
 
     @NotNull
-//    @Pattern(regexp = "^(true|false)$")
+    @Pattern(regexp = "^(true|false)$")
     @ApiModelProperty(value = "비밀글 여부", example = "true", required = true)
     private Boolean isSecret;
 

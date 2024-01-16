@@ -32,37 +32,37 @@ public class PatchUpdateBrandReq {
 
     @NotNull
     @Length(max=10)
-//    @Pattern(regexp = "^[가-힣]*$")
+    @Pattern(regexp = "^[가-힣]*$")
     @ApiModelProperty(value = "브랜드 스타일", example = "스포츠", required = true)
     private String brandStyle;
 
     @NotNull
     @Length(min=10, max=200)
-//    @Pattern(regexp = "^([가-힣]+시(?:[가-힣]+구(?:[가-힣]+읍|면)|[가-힣]+시(?:[가-힣]+구)?[가-힣]+읍|면)|[가-힣]+광역시(?:[가-힣]+구(?:[가-힣]+읍|면)|[가-힣]+시(?:[가-힣]+구)?[가-힣]+읍|면)) [가-힣]+[동로길]?\\d{1,5}(?:-[1-9]\\d{0,3})?$\n")
+    @Pattern(regexp = "^([가-힣]+시(?:[가-힣]+구(?:[가-힣]+읍|면)|[가-힣]+시(?:[가-힣]+구)?[가-힣]+읍|면)|[가-힣]+광역시(?:[가-힣]+구(?:[가-힣]+읍|면)|[가-힣]+시(?:[가-힣]+구)?[가-힣]+읍|면)) [가-힣]+[동로길]?\\d{1,5}(?:-[1-9]\\d{0,3})?$\n")
     @ApiModelProperty(value = "사업자 주소 (도로명 주소)", example = "서울특별시 금천구 가산디지털1로 159 (가산동) 이랜드 가산동 사옥", required = true)
     private String businessAddress;
 
     @NotNull
     @Length(min = 1, max = 20)
-//    @Pattern(regexp = "^(\\+[0-9]{2}-?)?((0|1)[0-9]{1,2}-?)?([0-9]{3,4}-?[0-9]{4})$")
+    @Pattern(regexp = "^(\\+[0-9]{2}-?)?((0|1)[0-9]{1,2}-?)?([0-9]{3,4}-?[0-9]{4})$")
     @ApiModelProperty(value = "사업자 전화번호", example = "1670-9700", required = true)
     private String phoneNumber;
 
     @NotNull
     @Length(min = 1, max = 10)
-//    @Pattern(regexp = "^[1-9]\\d{9}$")
+    @Pattern(regexp = "^[1-9]\\d{9}$")
     @ApiModelProperty(value = "사업자 등록증 번호", example = "1138519030", required = true)
     private String businessRegistration;
 
     @NotNull
     @Length(min = 1, max = 45)
-//    @Pattern(regexp = "^\\d{10,12}$")
+    @Pattern(regexp = "^\\d{10,12}$")
     @ApiModelProperty(value = "계좌 번호", example = "111-1111-1111", required = true)
     private String bankAccountNumber;
 
     @NotNull
     @Length(min = 1, max = 200)
-//    @Pattern(regexp = "^([가-힣]+시(?:[가-힣]+구(?:[가-힣]+읍|면)|[가-힣]+시(?:[가-힣]+구)?[가-힣]+읍|면)|[가-힣]+광역시(?:[가-힣]+구(?:[가-힣]+읍|면)|[가-힣]+시(?:[가-힣]+구)?[가-힣]+읍|면)) [가-힣]+[동로길]?\\d{1,5}(?:-[1-9]\\d{0,3})?$\n")
+    @Pattern(regexp = "^([가-힣]+시(?:[가-힣]+구(?:[가-힣]+읍|면)|[가-힣]+시(?:[가-힣]+구)?[가-힣]+읍|면)|[가-힣]+광역시(?:[가-힣]+구(?:[가-힣]+읍|면)|[가-힣]+시(?:[가-힣]+구)?[가-힣]+읍|면)) [가-힣]+[동로길]?\\d{1,5}(?:-[1-9]\\d{0,3})?$\n")
     @ApiModelProperty(value = "반품 주소", example = "(31214) 충청남도 천안시 동남구 풍세산단3로 111 이랜드패션통합물류센터 4F 스파오", required = true)
     private String returnAddress;
 
