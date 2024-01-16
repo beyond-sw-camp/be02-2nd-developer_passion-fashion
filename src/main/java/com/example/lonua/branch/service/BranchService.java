@@ -98,10 +98,11 @@ public class BranchService {
         branchRepository.delete(branch);
 
         return BaseRes.builder()
-                    .code(200)
-                    .isSuccess(true)
-                    .message("요청성공")
-                    .build();
+                .code(200)
+                .isSuccess(true)
+                .message("요청성공")
+                .result("지점을 삭제 했습니다.")
+                .build();
     }
 
     public BaseRes update(PatchBranchUpdateReq request) {
