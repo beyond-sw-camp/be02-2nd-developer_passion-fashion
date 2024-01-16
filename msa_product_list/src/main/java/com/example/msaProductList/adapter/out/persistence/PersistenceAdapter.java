@@ -18,6 +18,8 @@ import java.util.List;
 public class PersistenceAdapter implements ProductPersistenceOutport {
     private final ProductRepository productRepository;
     public List<Product> list(Integer page, Integer size) {
+        
+        //TODO: N+1 문제 해결해야함
         Pageable pageable = PageRequest.of(page-1, size);
         Page<ProductEntity> productEntityPage = productRepository.findAll(pageable);
         List<Product> productList = new ArrayList<>();
