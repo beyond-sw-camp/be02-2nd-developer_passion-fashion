@@ -13,12 +13,22 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @Builder
 public class GetEmailVerifyReq {
+<<<<<<< HEAD
     @NotNull
     @Length(max=45) //????
     @Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$") //TODO 정규표현 식 입력해야함.
     @ApiModelProperty(value = "사용자 인증 이메일", example = "test@example.com", required = true)
     private String email;
     
+=======
+
+    @NotNull
+    @Length(max=45)
+    @Pattern(regexp = "^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$")
+    @ApiModelProperty(value = "사용자 인증 이메일", example = "test@example.com", required = true)
+    private String email;
+
+>>>>>>> develop
     @NotNull
     @ApiModelProperty(value = "사용자 인증 토큰", example = "uuid", required = true)
     private String uuid;

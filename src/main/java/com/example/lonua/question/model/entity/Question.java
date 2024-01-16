@@ -2,6 +2,7 @@ package com.example.lonua.question.model.entity;
 
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.question.model.request.PatchUpdateQuestionReq;
+import com.example.lonua.reply.model.entity.Reply;
 import com.example.lonua.user.model.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,7 +30,10 @@ public class Question {
     @JoinColumn(name = "User_idx")
     private User user;
 
-    @Column(nullable = false, length = 45)
+    @OneToOne(mappedBy = "question")
+    private Reply reply;
+
+    @Column(nullable = false, length = 7)
     private String questionType;
 
     @Column(nullable = false, length = 45)

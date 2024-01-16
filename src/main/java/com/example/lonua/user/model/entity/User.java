@@ -34,22 +34,22 @@ public class User implements UserDetails {
     @JoinColumn(name = "Grade_idx")
     private Grade grade;
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Cart> cartList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Coupon> couponList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Likes> likesList = new ArrayList<>();
 
     @OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
     private List<Orders> ordersList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Question> questionList = new ArrayList<>();
 
-    @OneToMany(mappedBy = "user")
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
     private List<Review> reviewList = new ArrayList<>();
 
 
@@ -77,7 +77,7 @@ public class User implements UserDetails {
     @Column(nullable = false, length = 45)
     private String userAddr;
 
-    @Column(length = 10)
+    @Column(length = 7)
     private String preferStyle;
 
     @Column(nullable = false)
@@ -138,7 +138,7 @@ public class User implements UserDetails {
             this.userAddr = patchUserUpdateReq.getUserAddr();
         }
         if (patchUserUpdateReq.getUserPhoneNumber() != null) {
-            this.userPhoneNumber = patchUserUpdateReq.getUserAddr();
+            this.userPhoneNumber = patchUserUpdateReq.getUserPhoneNumber();
         }
         if (patchUserUpdateReq.getPreferStyle() != null) {
             this.preferStyle = patchUserUpdateReq.getPreferStyle();

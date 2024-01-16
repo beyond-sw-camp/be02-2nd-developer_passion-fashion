@@ -2,12 +2,22 @@ package com.example.lonua.cart.controller;
 
 
 
-import com.example.lonua.cart.model.request.DeleteAllRemoveReq;
-import com.example.lonua.cart.model.request.DeleteRemoveReq;
-import com.example.lonua.cart.model.request.PostRegisterReq;
+import com.example.lonua.cart.model.request.DeleteAllCartRemoveReq;
+import com.example.lonua.cart.model.request.DeleteCartRemoveReq;
+import com.example.lonua.cart.model.request.PostCartRegisterReq;
 import com.example.lonua.cart.service.CartService;
+<<<<<<< HEAD
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
+=======
+import com.example.lonua.common.BaseRes;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.media.Schema;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+>>>>>>> develop
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,15 +25,27 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/cart")
+@Api(value="장바구니 컨트롤러 v1", tags="장바구니 API")
 public class CartController {
     private final CartService cartService;
+<<<<<<< HEAD
     @ApiOperation(value = "장바구니에 상품 등록")
+=======
+
+
+    @ApiOperation(value = "장바구니 추가", response = BaseRes.class, notes = "회원이 장바구니에 물건을 등록한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+>>>>>>> develop
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-    ResponseEntity registerCart(@RequestBody PostRegisterReq request) {
+    ResponseEntity registerCart(@RequestBody PostCartRegisterReq request) {
         return ResponseEntity.ok().body(cartService.create(request));
     }
 <<<<<<< HEAD
 
+    @ApiOperation(value = "장바구니 조회", response = BaseRes.class, notes = "회원이 장바구니에 있는 모든 물건을 조회한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
     ResponseEntity listCart(Integer userIdx, @PathVariable Integer page,@PathVariable Integer size) {
         return ResponseEntity.ok().body(cartService.list(userIdx, page, size));
@@ -34,15 +56,28 @@ public class CartController {
         return ResponseEntity.ok().body(cartService.list(page, size));
 >>>>>>> feature/swagger
     }
+<<<<<<< HEAD
     @ApiOperation(value = "장바구니 상품 삭제하기")
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
 <<<<<<< HEAD
     ResponseEntity deleteCart(@RequestBody DeleteRemoveReq request) {
+=======
+
+    @ApiOperation(value = "장바구니 단일 삭제", response = BaseRes.class, notes = "회원이 장바구니에 물건을 단일 삭제한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+    @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
+    ResponseEntity deleteCart(@RequestBody DeleteCartRemoveReq request) {
+>>>>>>> develop
         return ResponseEntity.ok().body(cartService.delete(request));
     }
 
+
+    @ApiOperation(value = "장바구니 모두 삭제", response = BaseRes.class, notes = "회원이 장바구니에 모든 물건을 삭제한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteall")
-    ResponseEntity deleteCart(@RequestBody DeleteAllRemoveReq request) {
+    ResponseEntity deleteCart(@RequestBody DeleteAllCartRemoveReq request) {
         return ResponseEntity.ok().body(cartService.deleteAll(request));
 =======
     ResponseEntity deleteCart(@ApiParam(value = "삭제할 장바구니") DeleteRemoveReq request) {

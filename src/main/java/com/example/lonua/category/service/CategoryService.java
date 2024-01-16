@@ -1,6 +1,7 @@
 package com.example.lonua.category.service;
 
-import com.example.lonua.category.model.request.PostCategoryReq;
+import com.example.lonua.category.model.request.PatchUpdateCategoryReq;
+import com.example.lonua.category.model.request.PostRegisterCategoryReq;
 import com.example.lonua.category.model.entity.Category;
 import com.example.lonua.category.repository.CategoryRepository;
 <<<<<<< HEAD
@@ -23,6 +24,7 @@ import com.example.lonua.exception.errorCode.ErrorCode;
 import com.example.lonua.exception.exception.CategoryException;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -34,7 +36,7 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
-    public BaseRes register(PostCategoryReq postRegReqCategoryReq) {
+    public BaseRes register(PostRegisterCategoryReq postRegReqCategoryReq) {
         Optional<Category> result = categoryRepository.findByCategoryName(postRegReqCategoryReq.getCategoryName());
         if(result.isPresent()) {
             throw new CategoryException(ErrorCode.DUPLICATED_USER, String.format("Category is %s", postRegReqCategoryReq.getCategoryName()));
@@ -55,12 +57,12 @@ public class CategoryService {
                 .build();
     }
 
-    public BaseRes update(PostCategoryReq postCategoryReq) {
-        Optional<Category> reuslt = categoryRepository.findByCategoryName(postCategoryReq.getCategoryName());
+    public BaseRes update(PatchUpdateCategoryReq patchUpdateCategoryReq) {
+        Optional<Category> reuslt = categoryRepository.findByCategoryIdx(patchUpdateCategoryReq.getCategoryIdx());
 
         if(reuslt.isPresent()) {
             Category category = reuslt.get();
-            category.update(postCategoryReq);
+            category.update(patchUpdateCategoryReq);
             category.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
             categoryRepository.save(category);
 
@@ -80,6 +82,7 @@ public class CategoryService {
         }
     }
 
+    @Transactional
     public BaseRes delete(Integer idx) {
         Integer result = categoryRepository.deleteByCategoryIdx(idx);
 

@@ -1,14 +1,11 @@
 package com.example.lonua.branch.service;
 
 import com.example.lonua.branch.model.entity.Branch;
-import com.example.lonua.branch.model.request.DeleteRemoveReq;
-import com.example.lonua.branch.model.request.GetReadReq;
-import com.example.lonua.branch.model.request.PatchUpdateReq;
-import com.example.lonua.branch.model.request.PostRegisterReq;
-import com.example.lonua.branch.model.response.GetListRes;
-import com.example.lonua.branch.model.response.GetReadRes;
-import com.example.lonua.branch.model.response.PatchUpdateRes;
-import com.example.lonua.branch.model.response.PostRegisterRes;
+import com.example.lonua.branch.model.request.*;
+import com.example.lonua.branch.model.response.GetBranchListRes;
+import com.example.lonua.branch.model.response.GetBranchReadRes;
+import com.example.lonua.branch.model.response.PatchBranchUpdateRes;
+import com.example.lonua.branch.model.response.PostBranchRegisterRes;
 import com.example.lonua.branch.repository.BranchRepository;
 import com.example.lonua.brand.model.entity.Brand;
 import com.example.lonua.common.BaseRes;
@@ -25,7 +22,7 @@ public class BranchService {
 
     private final BranchRepository branchRepository;
 
-    public BaseRes create(PostRegisterReq request) {
+    public BaseRes create(PostBranchRegisterReq request) {
         Branch branch = branchRepository.save(Branch.builder()
                 .brand(Brand.builder()
                         .brandIdx(request.getBrandIdx())
@@ -38,7 +35,7 @@ public class BranchService {
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
-                .result(PostRegisterRes.builder()
+                .result(PostBranchRegisterRes.builder()
                         .branchIdx(branch.getBranchIdx())
                         .branchName(branch.getBranchName())
                         .branchAddress(branch.getBranchAddress())
@@ -47,15 +44,15 @@ public class BranchService {
                 .build();
     }
 
-    public BaseRes read(GetReadReq request) {
-        Optional<Branch> bybranchName = branchRepository.findBybranchName(request.getBranchName());
+    public BaseRes read(GetBranchReadReq request) {
+        Optional<Branch> bybranchName = branchRepository.findByBranchNameAndBrandBrandIdx(request.getBranchName(), request.getBrandIdx());
         if (bybranchName.isPresent()) {
             Branch branch = bybranchName.get();
             return BaseRes.builder()
                     .code(200)
                     .isSuccess(true)
                     .message("요청성공")
-                    .result(GetReadRes.builder()
+                    .result(GetBranchReadRes.builder()
                             .branchIdx(branch.getBranchIdx())
                             .branchName(branch.getBranchName())
                             .branchAddress(branch.getBranchAddress())
@@ -63,31 +60,36 @@ public class BranchService {
                             .build())
                     .build();
         }
-        return null;
+        return BaseRes.builder()
+                .code(200)
+                .isSuccess(false)
+                .message("요청 실패")
+                .result("잘못된 요청입니다.")
+                .build();
     }
 
-    public BaseRes list() {
-        List<Branch> all = branchRepository.findAll();
-        List<GetListRes> getListResList = new ArrayList<>();
+    public BaseRes list(GetBranchListReq request) {
+        List<Branch> all = branchRepository.findAllByBrandBrandIdx(request.getBrandIdx());
+        List<GetBranchListRes> getListResBranchList = new ArrayList<>();
         for (Branch branch : all) {
-            GetListRes getListRes = GetListRes.builder()
+            GetBranchListRes getBranchListRes = GetBranchListRes.builder()
                     .branchIdx(branch.getBranchIdx())
                     .branchName(branch.getBranchName())
                     .branchAddress(branch.getBranchAddress())
                     .brandIdx(branch.getBrand().getBrandIdx())
                     .build();
-            getListResList.add(getListRes);
+            getListResBranchList.add(getBranchListRes);
         }
 
         return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
-                .result(getListResList)
+                .result(getListResBranchList)
                 .build();
     }
 
-    public BaseRes delete(DeleteRemoveReq request) {
+    public BaseRes delete(DeleteBranchRemoveReq request) {
 
         Branch branch = Branch.builder()
                 .branchIdx(request.getBranchIdx())
@@ -96,13 +98,14 @@ public class BranchService {
         branchRepository.delete(branch);
 
         return BaseRes.builder()
-                    .code(200)
-                    .isSuccess(true)
-                    .message("요청성공")
-                    .build();
+                .code(200)
+                .isSuccess(true)
+                .message("요청성공")
+                .result("지점을 삭제 했습니다.")
+                .build();
     }
 
-    public BaseRes update(PatchUpdateReq request) {
+    public BaseRes update(PatchBranchUpdateReq request) {
         Optional<Branch> bybranchName = branchRepository.findById(request.getBranchIdx());
 
         if (bybranchName.isPresent()) {
@@ -116,7 +119,7 @@ public class BranchService {
                     .code(200)
                     .isSuccess(true)
                     .message("요청성공")
-                    .result(PatchUpdateRes.builder()
+                    .result(PatchBranchUpdateRes.builder()
                             .branchIdx(result.getBranchIdx())
                             .branchName(result.getBranchName())
                             .branchAddress(result.getBranchAddress())
@@ -124,6 +127,11 @@ public class BranchService {
                             .build())
                     .build();
         }
-        return null;
+        return BaseRes.builder()
+                .code(200)
+                .isSuccess(true)
+                .message("요청성공")
+                .result("지점IDX가 존재하지 않습니다.")
+                .build();
     }
 }

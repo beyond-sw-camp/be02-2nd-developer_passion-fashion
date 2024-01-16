@@ -16,7 +16,6 @@ import com.example.lonua.exception.errorCode.ErrorCode;
 import com.example.lonua.exception.exception.UserException;
 import com.example.lonua.grade.model.entity.Grade;
 import com.example.lonua.user.config.utils.JwtUtils;
-import com.example.lonua.user.model.entity.request.PostUserCancleReq;
 import com.example.lonua.user.model.entity.request.PostUserLoginReq;
 import com.example.lonua.user.model.entity.request.PostSignUpReq;
 import com.example.lonua.user.model.entity.User;
@@ -28,10 +27,14 @@ import com.example.lonua.user.model.entity.response.PostUserLoginRes;
 import com.example.lonua.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -101,18 +104,22 @@ public class UserService {
         return baseRes;
     }
 
-    public BaseRes list() {
-        List<User> result = userRepository.findAll();
+    public BaseRes list(Integer page, Integer size) {
+
+        Pageable pageable = PageRequest.of(page-1, size);
+
+        Page<User> userList = userRepository.findUserList(pageable);
 
         List<GetListUserRes> getListUserResList = new ArrayList<>();
-        for (User user : result) {
+        for (User user : userList) {
 
             GetListUserRes getListUserRes = GetListUserRes.builder()
                     .userIdx(user.getUserIdx())
                     .userEmail(user.getUserEmail())
-                    .userName(user.getUsername())
+                    .name(user.getName())
                     .userBirth(user.getUserBirth())
                     .userGender(user.getUserGender())
+                    .userAddr(user.getUserAddr())
                     .userPhoneNumber(user.getUserPhoneNumber())
                     .preferStyle(user.getPreferStyle())
                     .upperType(user.getUpperType())
@@ -132,14 +139,14 @@ public class UserService {
     }
 
     public BaseRes read(String email) {
-        Optional<User> result = userRepository.findByUserEmail(email);
+        Optional<User> result = userRepository.findUser(email);
         if (result.isPresent()) {
             User user = result.get();
 
             GetListUserRes getListUserRes = GetListUserRes.builder()
                     .userIdx(user.getUserIdx())
                     .userEmail(user.getUserEmail())
-                    .userName(user.getUsername())
+                    .name(user.getName())
                     .userBirth(user.getUserBirth())
                     .userGender(user.getUserGender())
                     .userPhoneNumber(user.getUserPhoneNumber())
@@ -158,7 +165,7 @@ public class UserService {
                     .build();
         } else {
             return BaseRes.builder()
-                    .code(200)
+                    .code(400)
                     .isSuccess(true)
                     .message("요청 실패")
                     .result("회원을 찾을 수 없습니다.")
@@ -323,13 +330,13 @@ public class UserService {
     }
 
     @Transactional
-    public BaseRes cancle(PostUserCancleReq request) {
-        Optional<User> byUserIdx = userRepository.findByUserIdx(request.getUserIdx());
+    public BaseRes cancle(Integer userIdx) {
+        Optional<User> byUserIdx = userRepository.findByUserIdx(userIdx);
 
         if (byUserIdx.isPresent()) {
-            User user = byUserIdx.get();
-            user.setStatus(false);
-            userRepository.save(user);
+            User loginUser = byUserIdx.get();
+            loginUser.setStatus(false);
+            userRepository.save(loginUser);
 
             return BaseRes.builder()
                     .code(200)
@@ -341,10 +348,10 @@ public class UserService {
         }
 
         return BaseRes.builder()
-                .code(200)
-                .isSuccess(true)
-                .message("요청 성공")
-                .result("이미 탈퇴처리가 된 회원입니다.")
+                .code(400)
+                .isSuccess(false)
+                .message("요청 실패")
+                .result("회원정보를 찾을 수 없습니다.")
                 .build();
     }
 }
