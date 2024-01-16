@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 
 @AllArgsConstructor
@@ -14,6 +15,10 @@ import javax.validation.constraints.NotNull;
 @Builder
 @Data
 public class GetBranchReadReq {
+    @NotNull
+    @Min(value = 1)
+    @ApiModelProperty(value = "해당 브랜드Idx", example = "1", required = true)
+    private Integer brandIdx;
 
     @NotNull
     @Length(max = 50)
