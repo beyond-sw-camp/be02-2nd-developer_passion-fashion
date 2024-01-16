@@ -1,16 +1,15 @@
 package com.example.lonua.cart.service;
 
 import com.example.lonua.cart.model.entity.Cart;
-import com.example.lonua.cart.model.request.DeleteAllRemoveReq;
-import com.example.lonua.cart.model.request.DeleteRemoveReq;
-import com.example.lonua.cart.model.request.PostRegisterReq;
-import com.example.lonua.cart.model.response.GetListRes;
-import com.example.lonua.cart.model.response.PostRegisterRes;
+import com.example.lonua.cart.model.request.DeleteAllCartRemoveReq;
+import com.example.lonua.cart.model.request.DeleteCartRemoveReq;
+import com.example.lonua.cart.model.request.PostCartRegisterReq;
+import com.example.lonua.cart.model.response.GetCartListRes;
+import com.example.lonua.cart.model.response.PostCartRegisterRes;
 import com.example.lonua.cart.repository.CartRepository;
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.entity.Product;
 import com.example.lonua.user.model.entity.User;
-import com.querydsl.jpa.impl.JPAQueryFactory;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,19 +17,17 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.persistence.EntityManager;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class CartService {
     private final CartRepository cartRepository;
 
-    public BaseRes create(PostRegisterReq request) {
+    public BaseRes create(PostCartRegisterReq request) {
         Cart cart = cartRepository.save(Cart.builder()
                 .user(User.builder()
                         .userIdx(request.getUserIdx())
@@ -47,7 +44,7 @@ public class CartService {
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
-                .result(PostRegisterRes.builder()
+                .result(PostCartRegisterRes.builder()
                         .cartIdx(cart.getCartIdx())
                         .createdAt(cart.getCreatedAt())
                         .updatedAt(cart.getUpdatedAt())
@@ -62,26 +59,26 @@ public class CartService {
         Pageable pageable = PageRequest.of(page, size);
 
         Page<Cart> all = cartRepository.findList(pageable, userIdx);
-        List<GetListRes> getListResList = new ArrayList<>();
+        List<GetCartListRes> getListResCartList = new ArrayList<>();
 
         for (Cart cart : all) {
-            GetListRes build = GetListRes.builder()
+            GetCartListRes build = GetCartListRes.builder()
                     .cartIdx(cart.getCartIdx())
                     .productName(cart.getProduct().getProductName())
                     .price(cart.getProduct().getPrice())
                     .build();
-            getListResList.add(build);
+            getListResCartList.add(build);
         }
 
         return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
-                .result(getListResList)
+                .result(getListResCartList)
                 .build();
     }
 
-    public BaseRes delete(DeleteRemoveReq request) {
+    public BaseRes delete(DeleteCartRemoveReq request) {
 
         Cart cart = Cart.builder()
                 .cartIdx(request.getCartIdx())
@@ -97,7 +94,7 @@ public class CartService {
     }
 
     @Transactional
-    public BaseRes deleteAll(DeleteAllRemoveReq request) {
+    public BaseRes deleteAll(DeleteAllCartRemoveReq request) {
 
         cartRepository.deleteByUserIdx(request.getUserIdx());
 

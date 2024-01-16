@@ -13,7 +13,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder
 @Data
-public class PostRegisterReq {
+public class PostCartRegisterReq {
     @NotNull
     @Min(value = 1)
     @ApiModelProperty(value = "장바구니에 담을 상품 idx", example = "1", required = true)

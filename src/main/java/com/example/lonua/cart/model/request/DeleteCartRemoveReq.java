@@ -13,9 +13,9 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder
 @Data
-public class DeleteRemoveReq {
+public class DeleteCartRemoveReq {
     @NotNull
     @Min(value = 1)
-    @ApiModelProperty(value = "카트 idx", example = "1", required = true)
+    @ApiModelProperty(value = "카트Idx", example = "1", required = true)
     private Integer cartIdx;
 }
