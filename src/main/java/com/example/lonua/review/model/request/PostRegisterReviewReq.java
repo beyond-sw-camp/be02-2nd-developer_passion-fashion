@@ -18,10 +18,7 @@ import javax.persistence.*;
 public class PostRegisterReviewReq {
 
     private Integer productIdx;
-    private Integer userIdx;
-
     private String reviewContent;
     private Integer evaluation;
-    private String updatedAt;
 
 }

@@ -54,10 +54,10 @@ public class OrdersController {
     @ApiOperation(value = "특정 주문 내역 세부 조회", response = BaseRes.class, notes = "회원이 특정 주문 내역의 세부정보를 조회합니다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
-    @RequestMapping(method = RequestMethod.GET, value = "/read/{idx}")
-    public ResponseEntity read(@PathVariable @NotNull @Positive Integer idx){
+    @RequestMapping(method = RequestMethod.GET, value = "/read/{ordersIdx}/{productIdx}")
+    public ResponseEntity read(@PathVariable @NotNull @Positive Integer ordersIdx, @PathVariable @NotNull @Positive Integer productIdx){
         User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        BaseRes baseRes = ordersService.read(user, idx);
+        BaseRes baseRes = ordersService.read(user, ordersIdx, productIdx);
 
         return ResponseEntity.ok().body(baseRes);
     }

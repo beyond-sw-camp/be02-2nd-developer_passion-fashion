@@ -65,7 +65,7 @@ public class BrandController {
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
     public ResponseEntity update(
             @RequestPart(value = "brand") @Valid PatchUpdateBrandReq patchUpdateBrandReq,
-            @RequestPart(value = "brandImage") @NotNull MultipartFile brandFile) {
+            @RequestPart(value = "brandImage") MultipartFile brandFile) {
 
         BaseRes baseRes = brandService.update(patchUpdateBrandReq, brandFile);
         return ResponseEntity.ok().body(baseRes);
