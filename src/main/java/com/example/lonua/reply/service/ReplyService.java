@@ -1,7 +1,6 @@
 package com.example.lonua.reply.service;
 
 import com.example.lonua.brand.model.entity.Brand;
-import com.example.lonua.cart.model.response.GetListRes;
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.question.model.entity.Question;
 import com.example.lonua.question.repository.QuestionRepository;
@@ -77,7 +76,7 @@ public class ReplyService {
         if (byId.isPresent()) {
             Reply reply = byId.get();
             reply.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
-            reply.setReplyContent(reply.getReplyContent());
+            reply.setReplyContent(request.getReplyContent());
 
             Reply saved = replyRepository.save(reply);
 
