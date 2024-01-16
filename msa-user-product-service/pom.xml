@@ -9,7 +9,7 @@
         <version>0.0.1-SNAPSHOT</version>
     </parent>
 
-    <artifactId>msa_product_list</artifactId>
+    <artifactId>msa-user-product-service</artifactId>
 
     <properties>
         <maven.compiler.source>11</maven.compiler.source>

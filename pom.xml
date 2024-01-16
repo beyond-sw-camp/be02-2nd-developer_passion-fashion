@@ -13,9 +13,10 @@
 	<version>0.0.1-SNAPSHOT</version>
 	<name>lonua</name>
     <modules>
-        <module>msa_product_list</module>
+        <module>msa-user-product-service</module>
         <module>common</module>
-        <module>msa-product-create</module>
+        <module>msa-brand-product-service</module>
+        <module>gateway</module>
     </modules>
     <packaging>pom</packaging>
 	<description>Demo project for Spring Boot</description>

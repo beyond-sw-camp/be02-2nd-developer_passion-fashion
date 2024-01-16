@@ -19,6 +19,8 @@ public class KafkaCreateListener {
         //CreateProductCommand createProductCommand = record.value();
         System.out.println(record.value());
         createProductInport.create(CreateProductCommand.builder()
+                        .brandIdx(record.value().getBrandIdx())
+                        .brandName(record.value().getBrandName())
                         .productName(record.value().getProductName())
                         .price(record.value().getPrice())
                         .quantity(record.value().getQuantity())
