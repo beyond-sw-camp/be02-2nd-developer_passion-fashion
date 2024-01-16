@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class GetReadRes {
+public class GetBranchReadRes {
     private Integer branchIdx;
     private String branchName;
     private String branchAddress;

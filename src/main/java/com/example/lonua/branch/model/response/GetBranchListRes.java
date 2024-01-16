@@ -9,9 +9,10 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class PatchUpdateRes {
+public class GetBranchListRes {
     private Integer branchIdx;
     private String branchName;
     private String branchAddress;
     private Integer brandIdx;
+
 }

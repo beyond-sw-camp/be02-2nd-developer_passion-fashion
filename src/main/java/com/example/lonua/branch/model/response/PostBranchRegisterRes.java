@@ -5,14 +5,13 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class GetListRes {
+@NoArgsConstructor
+@Builder
+@Data
+public class PostBranchRegisterRes {
     private Integer branchIdx;
     private String branchName;
     private String branchAddress;
     private Integer brandIdx;
-
 }
