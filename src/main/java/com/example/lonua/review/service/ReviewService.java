@@ -2,6 +2,7 @@ package com.example.lonua.review.service;
 
 
 import com.amazonaws.services.s3.AmazonS3;
+import com.amazonaws.services.s3.model.AmazonS3Exception;
 import com.amazonaws.services.s3.model.ObjectMetadata;
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.entity.Product;
@@ -40,7 +41,7 @@ public class ReviewService {
 
     private final ReviewRepository reviewRepository;
 
-    public String makeFolder(){
+    public String makeFolder() {
         String str = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd"));
         String folderPath = str.replace("/", File.separator);
         return folderPath;
@@ -73,6 +74,16 @@ public class ReviewService {
 
         }
     }
+
+    public void deleteFile(String reviewPhoto) {
+        try {
+            reviewPhoto = "https://lonua-brand.s3.ap-northeast-2.amazonaws.com/2024/01/14/085f8c96-a78f-4c0f-a220-83c89672f17c_new+satur.png";
+            s3.deleteObject(bucket, reviewPhoto);
+        } catch (AmazonS3Exception e) {
+            throw new RuntimeException(e);
+        }
+    }
+
 
     @Transactional
     public BaseRes registerReview(User user, PostRegisterReviewReq postRegisterReviewReq, MultipartFile file) {
@@ -114,10 +125,10 @@ public class ReviewService {
             Review review = result.get();
 
             GetReadReviewRes getReadReviewRes = GetReadReviewRes.builder()
-                .reviewContent(review.getReviewContent())
-                .reviewPhoto(review.getReviewPhoto())
-                .evaluation(review.getEvaluation())
-                .build();
+                    .reviewContent(review.getReviewContent())
+                    .reviewPhoto(review.getReviewPhoto())
+                    .evaluation(review.getEvaluation())
+                    .build();
 
             BaseRes baseRes = BaseRes.builder()
                     .code(200)
@@ -140,7 +151,7 @@ public class ReviewService {
         List<Review> reviewList = reviewRepository.findByProduct_ProductIdx(productIdx);
         List<GetListReviewRes> response = new ArrayList<>();
 
-        for(Review review : reviewList) {
+        for (Review review : reviewList) {
 
             GetListReviewRes getListReviewRes = GetListReviewRes.builder()
                     .productName(review.getProduct().getProductName())
@@ -165,38 +176,48 @@ public class ReviewService {
     }
 
 
-    public BaseRes updateReview(PatchUpdateReviewReq request, User user) {
+    public BaseRes updateReview(PatchUpdateReviewReq request, MultipartFile reviewFile) {
 
-        Optional<Review> result = reviewRepository.findByReviewIdxAndUser_userIdx(request.getReviewIdx(), user.getUserIdx());
+        Optional<Review> result = reviewRepository.findByReviewIdx(request.getReviewIdx());
 
         if (result.isPresent()) {
-            Review review = result.get();
-            review.update(request);
-            review.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
-            reviewRepository.save(review);
+            if (reviewFile != null) {
+                Review review = result.get();
+                System.out.println(review.getReviewPhoto());
 
-            PatchUpdateReviewRes patchUpdateReviewRes = PatchUpdateReviewRes.builder()
-                    .reviewContent(review.getReviewContent())
-                    .reviewPhoto(review.getReviewPhoto())
-                    .evaluation(review.getEvaluation())
-                    .build();
+                deleteFile(review.getReviewPhoto());
 
-            BaseRes baseRes = BaseRes.builder()
-                    .code(200)
-                    .isSuccess(true)
-                    .message("리뷰 수정 성공")
-                    .result(patchUpdateReviewRes)
-                    .build();
+                String saveFileName = saveFile(reviewFile);
+                review.update(request, saveFileName.replace(File.separator, "/"));
+                review.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+                reviewRepository.save(review);
 
-            return baseRes;
 
-        }
-        return  BaseRes.builder()
+                PatchUpdateReviewRes patchUpdateReviewRes = PatchUpdateReviewRes.builder()
+                        .reviewContent(review.getReviewContent())
+                        .reviewPhoto(review.getReviewPhoto())
+                        .evaluation(review.getEvaluation())
+                        .build();
+
+                BaseRes baseRes = BaseRes.builder()
+                        .code(200)
+                        .isSuccess(true)
+                        .message("리뷰 수정 성공")
+                        .result(patchUpdateReviewRes)
+                        .build();
+
+                return baseRes;
+            }
+
+        } else {
+            return BaseRes.builder()
                     .code(400)
                     .isSuccess(false)
                     .message("리뷰 수정 실패")
                     .result("잘못된 요청입니다.")
                     .build();
+        }
+        return null;
     }
 
 
