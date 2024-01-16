@@ -20,17 +20,14 @@ public class PatchUpdateProductReq {
     @ApiModelProperty(value = "상품 IDX( 1이상의 숫자 )", example = "1", required = true)
     private Integer productIdx;
 
-    @NotNull
-    @Length(max=45)
+    @Length(min=1, max=45)
     @ApiModelProperty(value = "상품명(45자 이하)", example = "하프 집업 카라넥 케이블 니트 [카키]", required = true)
     private String productName;
 
-    @NotNull
     @Min(value = 0)
     @ApiModelProperty(value = "수량", example = "100", required = true)
     private Integer quantity;
 
-    @NotNull
     @Range(min = 100,max = 400000000) // 4억 이하로만 해주세요.
     @ApiModelProperty(value = "가격", example = "1000", required = true)
     private Integer price;
