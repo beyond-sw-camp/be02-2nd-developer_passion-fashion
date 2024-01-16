@@ -48,7 +48,7 @@ public class BranchController {
             @ApiResponse(responseCode = "200", description = "지점 단일 조회 성공", content = @Content(mediaType = "application/json",schema = @Schema(implementation = BaseRes.class)))}
     )
     @RequestMapping(method = RequestMethod.GET, value = "/read")
-    ResponseEntity readBranch(@RequestBody @Valid GetBranchReadReq request) {
+    ResponseEntity readBranch(@Valid GetBranchReadReq request) {
         return ResponseEntity.ok().body(branchService.read(request));
     }
 
