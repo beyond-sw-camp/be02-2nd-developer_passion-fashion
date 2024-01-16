@@ -4,6 +4,7 @@ package com.example.lonua.orders.service;
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.orders.model.entity.Orders;
 import com.example.lonua.orders.model.entity.OrdersProduct;
+import com.example.lonua.orders.model.request.PatchUpdateOrdersReq;
 import com.example.lonua.orders.model.request.PostCreateOrdersReq;
 import com.example.lonua.orders.model.response.GetCreateOrdersRes;
 import com.example.lonua.orders.model.response.GetListOrdersRes;
@@ -45,7 +46,7 @@ public class OrdersService {
                 .impUid(postCreateOrdersReq.getImpUid())
                 .createdAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
                 .updatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
-                .status(true)
+                .status("주문 접수")
                 .build();
 
         orders = ordersRepository.save(orders);
@@ -184,26 +185,59 @@ public class OrdersService {
         }
     }
 
-    @Transactional
-    public BaseRes delete(Integer idx) {
-        Integer result1 = ordersProductRepository.deleteByOrders_OrdersIdx(idx);
-        Integer result2 = ordersRepository.deleteByOrdersIdx(idx);
+    public BaseRes updateStatus(PatchUpdateOrdersReq patchUpdateOrdersReq) {
+        Optional<Orders> result = ordersRepository.findByOrdersIdx(patchUpdateOrdersReq.getOrdersIdx());
+        if(result.isPresent()) {
+            Orders orders = result.get();
+            orders.updateStatus(patchUpdateOrdersReq);
+            orders.setUpdatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")));
+            ordersRepository.save(orders);
 
-        if(!result1.equals(0) && !result2.equals(0)) {
             return BaseRes.builder()
                     .code(200)
                     .isSuccess(true)
-                    .message("요청 성공")
-                    .result("상품이 삭제되었습니다.")
+                    .message("주문 상태 수정 성공")
+                    .result(patchUpdateOrdersReq.getStatus())
                     .build();
         } else {
             return BaseRes.builder()
                     .code(400)
                     .isSuccess(false)
-                    .message("요청 실패")
-                    .result("상품을 찾을 수 없습니다.")
+                    .message("주문 상태 수정 실패")
+                    .result("잘못된 요청입니다.")
                     .build();
         }
+    }
+    @Transactional
+    public BaseRes delete(Integer idx) {
+        Optional<Orders> ordersStauts = ordersRepository.findByOrdersIdx(idx);
+        if(ordersStauts.isPresent()) {
+            Orders orders = ordersStauts.get();
+            if(orders.getStatus().equals("배송 전") || orders.getStatus().equals("주문 접수")) {
+                Integer result1 = ordersProductRepository.deleteByOrders_OrdersIdx(idx);
+                Integer result2 = ordersRepository.deleteByOrdersIdx(idx);
+
+                return BaseRes.builder()
+                        .code(200)
+                        .isSuccess(true)
+                        .message("요청 성공")
+                        .result("상품이 삭제되었습니다.")
+                        .build();
+            }
+        } else {
+            return BaseRes.builder()
+                    .code(400)
+                    .isSuccess(false)
+                    .message("요청 실패")
+                    .result("잘못된 요청입니다.")
+                    .build();
+        }
+            return BaseRes.builder()
+                    .code(400)
+                    .isSuccess(false)
+                    .message("요청 실패")
+                    .result("잘못된 요청입니다.")
+                    .build();
     }
 
 
