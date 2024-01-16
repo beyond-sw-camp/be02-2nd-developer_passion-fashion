@@ -5,11 +5,11 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@Data
-@Builder
-@NoArgsConstructor
 @AllArgsConstructor
-public class PostCreateRes {
+@NoArgsConstructor
+@Builder
+@Data
+public class GetGradeReadRes {
     private Integer gradeIdx;
     private String gradeType;
     private Integer discountRate;
