@@ -42,7 +42,6 @@ public class PostRegisterQuestionReq {
     private String questionContent;
 
     @NotNull
-//    @Pattern(regexp = "^(true|false)$")
     @ApiModelProperty(value = "비밀글 여부", example = "true", required = true)
     private Boolean isSecret;
 
