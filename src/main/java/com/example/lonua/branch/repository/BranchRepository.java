@@ -8,8 +8,8 @@ import java.util.List;
 import java.util.Optional;
 
 public interface BranchRepository extends JpaRepository<Branch, Integer> {
-    Optional<Branch> findBybranchName(String branchName);
+    Optional<Branch> findByBranchNameAndBrandBrandIdx(String branchName, Integer brandIdx);
 
-        List<Branch> findAllByBrandBrandIdx(Integer brandIdx);
+    List<Branch> findAllByBrandBrandIdx(Integer brandIdx);
 
 }

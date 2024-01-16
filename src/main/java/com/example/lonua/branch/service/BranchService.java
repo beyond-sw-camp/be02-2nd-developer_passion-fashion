@@ -45,7 +45,7 @@ public class BranchService {
     }
 
     public BaseRes read(GetBranchReadReq request) {
-        Optional<Branch> bybranchName = branchRepository.findBybranchName(request.getBranchName());
+        Optional<Branch> bybranchName = branchRepository.findByBranchNameAndBrandBrandIdx(request.getBranchName(), request.getBrandIdx());
         if (bybranchName.isPresent()) {
             Branch branch = bybranchName.get();
             return BaseRes.builder()
@@ -60,7 +60,12 @@ public class BranchService {
                             .build())
                     .build();
         }
-        return null;
+        return BaseRes.builder()
+                .code(200)
+                .isSuccess(false)
+                .message("요청 실패")
+                .result("잘못된 요청입니다.")
+                .build();
     }
 
     public BaseRes list(GetBranchListReq request) {
@@ -93,10 +98,11 @@ public class BranchService {
         branchRepository.delete(branch);
 
         return BaseRes.builder()
-                    .code(200)
-                    .isSuccess(true)
-                    .message("요청성공")
-                    .build();
+                .code(200)
+                .isSuccess(true)
+                .message("요청성공")
+                .result("지점을 삭제 했습니다.")
+                .build();
     }
 
     public BaseRes update(PatchBranchUpdateReq request) {

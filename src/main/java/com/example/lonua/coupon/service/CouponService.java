@@ -77,8 +77,8 @@ public class CouponService {
 //
 //    }
 
-    public BaseRes list() {
-        List<Coupon> all = couponRepository.findAll();
+    public BaseRes list(User user) {
+        List<Coupon> all = couponRepository.findAllByUserUserIdx(user.getUserIdx());
         List<GetCouponListRes> getListResCouponList = new ArrayList<>();
 
         for (Coupon coupon : all) {
@@ -112,6 +112,7 @@ public class CouponService {
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
+                .result("쿠폰 삭제에 성공했습니다.")
                 .build();
     }
 }
