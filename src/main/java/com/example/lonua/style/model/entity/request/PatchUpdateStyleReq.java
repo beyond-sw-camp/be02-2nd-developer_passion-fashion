@@ -15,13 +15,13 @@ import javax.validation.constraints.Pattern;
 public class PatchUpdateStyleReq {
 
     @NotNull
-//    @Pattern(regexp = "^[0-9]+$")
+    @Pattern(regexp = "^[0-9]+$")
     @ApiModelProperty(value = "스타일 IDX", example = "1", required = true)
     private Integer styleIdx;
 
     @NotNull
     @Length(max=7)
-//    @Pattern(regexp = "^[가-힣]*$")
+    @Pattern(regexp = "^[가-힣]*$")
     @ApiModelProperty(value = "스타일 유형", example = "댄디", required = true)
     private String StyleType;
 }

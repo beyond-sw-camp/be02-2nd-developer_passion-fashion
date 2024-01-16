@@ -29,10 +29,6 @@ public class PatchUpdateReviewReq {
     private String reviewContent;
 
     @NotNull
-    @ApiModelProperty(value = "리뷰 사진", example = "example.jpg", required = true)
-    private MultipartFile reviewPhoto;
-
-    @NotNull
     @Min(value = 1)
     @ApiModelProperty(value = "평점", example = "1", required = true)
     private Integer evaluation;

@@ -37,7 +37,7 @@ public class ReviewController {
             @RequestPart(value = "reviewPhoto") @NotNull MultipartFile file
     ) {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        BaseRes baseRes = reviewService.registerReview(user, postRegisterReviewReq,file);
+        BaseRes baseRes = reviewService.registerReview(user, postRegisterReviewReq, file);
 
         return ResponseEntity.ok().body(baseRes);
     }
@@ -69,7 +69,7 @@ public class ReviewController {
             @RequestPart(value = "review") @Valid PatchUpdateReviewReq request,
             @RequestPart(value = "reviewPhoto") @NotNull MultipartFile reviewFile) {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        BaseRes baseRes = reviewService.updateReview(request, reviewFile);
+        BaseRes baseRes = reviewService.updateReview(request, reviewFile, user);
 
         return ResponseEntity.ok().body(baseRes);
     }
