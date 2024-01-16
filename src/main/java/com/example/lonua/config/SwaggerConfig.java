@@ -3,6 +3,7 @@ package com.example.lonua.config;
 
 import com.example.lonua.product.model.request.PostRegisterProductReq;
 import io.swagger.models.auth.In;
+import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
@@ -30,11 +31,13 @@ public class SwaggerConfig  {
                 .groupName("00. All Device API REST Service")
                 .apiInfo(apiInfo())
                 .select()
+                .apis(RequestHandlerSelectors.basePackage("com.example.lonua"))
                 .paths(PathSelectors.any())
                 .build()
                 .securitySchemes(Arrays.asList(apiKey()))
                 .securityContexts(Arrays.asList(securityContext()))
                 .useDefaultResponseMessages(false)
+                .ignoredParameterTypes(BasicErrorController.class)
                 .globalResponses(HttpMethod.GET,new ArrayList<Response>(){{
                     add(new ResponseBuilder().code("200").description("OK ( 요청 성공 )").build());
                     add(new ResponseBuilder().code("400").description("Bad Request ( 잘못된 요청입니다 )").build());
