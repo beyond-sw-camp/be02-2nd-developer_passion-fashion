@@ -1,10 +1,7 @@
 package com.example.lonua.branch.service;
 
 import com.example.lonua.branch.model.entity.Branch;
-import com.example.lonua.branch.model.request.DeleteBranchRemoveReq;
-import com.example.lonua.branch.model.request.GetBranchReadReq;
-import com.example.lonua.branch.model.request.PatchBranchUpdateReq;
-import com.example.lonua.branch.model.request.PostBranchRegisterReq;
+import com.example.lonua.branch.model.request.*;
 import com.example.lonua.branch.model.response.GetBranchListRes;
 import com.example.lonua.branch.model.response.GetBranchReadRes;
 import com.example.lonua.branch.model.response.PatchBranchUpdateRes;
@@ -66,8 +63,8 @@ public class BranchService {
         return null;
     }
 
-    public BaseRes list() {
-        List<Branch> all = branchRepository.findAll();
+    public BaseRes list(GetBranchListReq request) {
+        List<Branch> all = branchRepository.findAllByBrandBrandIdx(request.getBrandIdx());
         List<GetBranchListRes> getListResBranchList = new ArrayList<>();
         for (Branch branch : all) {
             GetBranchListRes getBranchListRes = GetBranchListRes.builder()
@@ -124,6 +121,11 @@ public class BranchService {
                             .build())
                     .build();
         }
-        return null;
+        return BaseRes.builder()
+                .code(200)
+                .isSuccess(true)
+                .message("요청성공")
+                .result("지점IDX가 존재하지 않습니다.")
+                .build();
     }
 }

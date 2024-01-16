@@ -1,9 +1,6 @@
 package com.example.lonua.branch.controller;
 
-import com.example.lonua.branch.model.request.DeleteBranchRemoveReq;
-import com.example.lonua.branch.model.request.GetBranchReadReq;
-import com.example.lonua.branch.model.request.PatchBranchUpdateReq;
-import com.example.lonua.branch.model.request.PostBranchRegisterReq;
+import com.example.lonua.branch.model.request.*;
 import com.example.lonua.branch.service.BranchService;
 import com.example.lonua.common.BaseRes;
 import io.swagger.annotations.Api;
@@ -42,8 +39,8 @@ public class BranchController {
             @ApiResponse(responseCode = "200", description = "지점 모두 조회 성공", content = @Content(mediaType = "application/json",schema = @Schema(implementation = BaseRes.class)))}
     )
     @RequestMapping(method = RequestMethod.GET, value = "/list")
-    ResponseEntity listBranch() {
-        return ResponseEntity.ok().body(branchService.list());
+    ResponseEntity listBranch(@RequestBody @Valid GetBranchListReq request) {
+        return ResponseEntity.ok().body(branchService.list(request));
     }
 
     @ApiOperation(value = "지점 단일 조회", response = BaseRes.class, notes = "판매자가 지점을 단일 조회한다.")
