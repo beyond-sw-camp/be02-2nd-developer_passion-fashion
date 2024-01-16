@@ -2,6 +2,7 @@ package com.example.lonua.orders.controller;
 
 
 import com.example.lonua.common.BaseRes;
+import com.example.lonua.orders.model.request.PatchUpdateOrdersReq;
 import com.example.lonua.orders.model.request.PostCreateOrdersReq;
 import com.example.lonua.orders.service.OrdersService;
 import com.example.lonua.user.model.entity.User;
@@ -54,10 +55,21 @@ public class OrdersController {
     @ApiOperation(value = "특정 주문 내역 세부 조회", response = BaseRes.class, notes = "회원이 특정 주문 내역의 세부정보를 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
-    @RequestMapping(method = RequestMethod.GET, value = "/read/{idx}")
-    public ResponseEntity read(@PathVariable @NotNull @Positive Integer idx){
+    @RequestMapping(method = RequestMethod.GET, value = "/read/{ordersIdx}/{productIdx}")
+    public ResponseEntity read(@PathVariable @NotNull @Positive Integer ordersIdx, @PathVariable @NotNull @Positive Integer productIdx){
         User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
-        BaseRes baseRes = ordersService.read(user, idx);
+        BaseRes baseRes = ordersService.read(user, ordersIdx, productIdx);
+
+        return ResponseEntity.ok().body(baseRes);
+    }
+
+    @ApiOperation(value = "주문 상태 수정", response = BaseRes.class, notes = "브랜드(판매자)가 주문 상태를 수정한다. ( 주문 접수 / 배송 전 / 배송 중 / 배송 완료 )")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+    @RequestMapping(method = RequestMethod.PATCH, value = "/update")
+    public ResponseEntity updateStatus(@RequestBody @Valid PatchUpdateOrdersReq patchUpdateOrdersReq){
+
+        BaseRes baseRes = ordersService.updateStatus(patchUpdateOrdersReq);
 
         return ResponseEntity.ok().body(baseRes);
     }
@@ -65,9 +77,11 @@ public class OrdersController {
     @ApiOperation(value = "주문 취소", response = BaseRes.class, notes = "회원이 주문을 취소한다. (상품 배송 전)")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
-    @RequestMapping(method = RequestMethod.DELETE, value = "/cancle/{idx}")
-    public ResponseEntity delete(@PathVariable @NotNull @Positive Integer idx) {
-        BaseRes baseRes = ordersService.delete(idx);
+    @RequestMapping(method = RequestMethod.DELETE, value = "/cancle/{ordersIdx}")
+    public ResponseEntity cancle(@PathVariable @NotNull @Positive Integer ordersIdx) {
+        User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
+        BaseRes baseRes = ordersService.cancle(ordersIdx);
+
         return ResponseEntity.ok().body(baseRes);
     }
 

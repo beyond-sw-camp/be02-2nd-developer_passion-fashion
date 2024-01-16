@@ -34,9 +34,9 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     public ResponseEntity register(
-            @RequestPart(value = "product") @Valid PostRegisterProductReq postRegisterProductReq,
             @RequestPart(value = "productImage") @NotNull MultipartFile[] productFiles,
-            @RequestPart(value = "productIntrodImage") @NotNull MultipartFile[] productIntrodFiles
+            @RequestPart(value = "productIntrodImage") @NotNull MultipartFile[] productIntrodFiles,
+            @RequestPart(value = "product") @Valid PostRegisterProductReq postRegisterProductReq
     ) {
         BaseRes baseRes = productService.register(postRegisterProductReq, productFiles, productIntrodFiles);
 
@@ -85,7 +85,7 @@ public class ProductController {
 
     //----------------------검색 기능-------------------------
     // 1. 카테고리 별 상품 리스트 검색(최신 등록 순)
-    @ApiOperation(value = "카테고리 별 상품 조회", response = BaseRes.class, notes = "회원이 카테고리에 해당하는 상품의 목록을 조회한다.")
+    @ApiOperation(value = "카테고리 별 상품 목록 조회", response = BaseRes.class, notes = "회원이 카테고리에 해당하는 상품의 목록을 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/categorylist/{categoryIdx}/{page}/{size}")
@@ -97,7 +97,7 @@ public class ProductController {
 
 
     // 2. 같은 상/하체 체형을 가진 사람이 많이 주문한 상품 리스트 검색(상체 - 하체 순 정렬)
-    @ApiOperation(value = "회원의 신체 유형에 따른 상품 조회", response = BaseRes.class, notes = "회원이 자신의 상/하체 유형과 동일한 회원이 많이 구매한 상품 순으로 상품 목록을 조회한다.")
+    @ApiOperation(value = "회원의 신체 유형에 따른 상품 목록 조회", response = BaseRes.class, notes = "회원이 자신의 상/하체 유형과 동일한 회원이 많이 구매한 상품 순으로 상품 목록을 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/sametype/{page}/{size}")
@@ -105,6 +105,17 @@ public class ProductController {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
 
         BaseRes baseRes = productService.sameTypeProductList(user, page, size);
+        return ResponseEntity.ok().body(baseRes);
+    }
+
+    // 3. 판매자가 등록한 본인 브랜드의 상품 리스트 검색
+    @ApiOperation(value = "브랜드 별 상품의 목록 조회", response = BaseRes.class, notes = "회원/판매자가 브랜드 별 상품의 목록을 조회한다.")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+    @RequestMapping(method = RequestMethod.GET, value = "/brand/{brandIdx}/{page}/{size}")
+    public ResponseEntity brandProductList(@PathVariable @NotNull @Positive Integer brandIdx, @PathVariable @NotNull @Positive Integer page, @PathVariable @NotNull @Positive Integer size) {
+
+        BaseRes baseRes = productService.brandProductList(brandIdx, page, size);
         return ResponseEntity.ok().body(baseRes);
     }
 }
