@@ -2,20 +2,10 @@ package com.example.lonua.product.service;
 
 import com.example.lonua.brand.model.entity.Brand;
 import com.example.lonua.category.model.entity.Category;
-<<<<<<< HEAD
-<<<<<<< HEAD
-<<<<<<< HEAD
-import com.example.lonua.config.BaseRes;
-=======
+
 import com.example.lonua.common.BaseRes;
->>>>>>> develop
+
 import com.example.lonua.exception.ErrorCode;
-=======
-=======
-
-import com.example.lonua.config.BaseRes;
-
->>>>>>> feature/swagger
 import com.example.lonua.exception.errorCode.ErrorCode;
 
 import com.example.lonua.exception.exception.CategoryException;

@@ -1,4 +1,4 @@
-package com.example.msaProductList.adapter.out.persistence;
+package com.example.msaProductList.adapter.out.persistence.entity;
 
 import lombok.*;
 
@@ -17,7 +17,7 @@ public class ProductImageEntity {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "Product_idx")
-    private Product product;
+    private ProductEntity product;
 
     @Column(nullable = false, length = 500, unique = true)
     private String productImage;

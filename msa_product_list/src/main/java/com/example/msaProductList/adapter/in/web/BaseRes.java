@@ -1,4 +1,4 @@
-package com.example.lonua.common;
+package com.example.msaProductList.adapter.in.web;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.v3.oas.annotations.media.Schema;

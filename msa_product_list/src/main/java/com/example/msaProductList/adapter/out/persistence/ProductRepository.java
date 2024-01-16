@@ -1,22 +1,24 @@
-package com.example.lonua.product.repository;
+package com.example.msaProductList.adapter.out.persistence;
 
-import com.example.lonua.product.model.entity.Product;
-import com.example.lonua.product.repository.querydsl.ProductRepositoryCustom;
+import com.example.msaProductList.adapter.out.persistence.entity.ProductEntity;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Lock;
 import org.springframework.stereotype.Repository;
 
-import javax.persistence.LockModeType;
 import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface ProductRepository extends JpaRepository<Product, Integer>, ProductRepositoryCustom {
-    public Optional<Product> findByProductName(String productName);
+public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
+    public Optional<ProductEntity> findByProductName(String productName);
 
-    public Optional<Product> findByProductIdx(Integer productIdx);
+    public Optional<ProductEntity> findByProductIdx(Integer productIdx);
 
     public Integer deleteByProductIdx(Integer idx);
 
-    public List<Product> findAllByBrand_BrandIdx(Integer idx);
+
+
+
+
 }

@@ -1,9 +1,11 @@
-package com.example.msaProductList.adapter.out.persistence;
+package com.example.msaProductList.adapter.out.persistence.entity;
+
+import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
+@Data
 @Entity
 public class ProductEntity {
     @Id
@@ -43,15 +45,4 @@ public class ProductEntity {
     @Column(nullable = false)
     private Boolean status;
 
-    public void update(PatchUpdateProductReq patchUpdateProductReq) {
-        if (patchUpdateProductReq.getProductName() != null) {
-            this.productName = patchUpdateProductReq.getProductName();
-        }
-        if (patchUpdateProductReq.getQuantity() != null) {
-            this.quantity = patchUpdateProductReq.getQuantity();
-        }
-        if (patchUpdateProductReq.getPrice() != null) {
-            this.price = patchUpdateProductReq.getPrice();
-        }
-    }
 }
