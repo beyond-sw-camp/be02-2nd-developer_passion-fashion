@@ -17,6 +17,7 @@
         <module>common</module>
         <module>msa-brand-product-service</module>
         <module>gateway</module>
+        <module>discovery</module>
     </modules>
     <packaging>pom</packaging>
 	<description>Demo project for Spring Boot</description>
