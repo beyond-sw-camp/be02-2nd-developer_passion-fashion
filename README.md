@@ -4,7 +4,7 @@
 ### 🤼‍♂️팀원 소개
 <br>
 
-&nbsp;　&nbsp;　&nbsp;　&nbsp;　&nbsp;　&nbsp;　&nbsp;　&nbsp;　🐯 **[이동규](https://github.com/PTCman)**&nbsp;　 🦁 **[김태윤](https://github.com/thanks9807)** &nbsp;　🐶 **[유형도](https://github.com/hyungdoyou)** &nbsp;　🐯 **[정원준](https://github.com/Wonjunmar)** &nbsp;　🐺 **[김경미](https://github.com/asasd)**
+&nbsp;　&nbsp;　&nbsp;　&nbsp;　&nbsp;　&nbsp;　&nbsp;　&nbsp;　🐻 **[이동규](https://github.com/PTCman)**&nbsp;　 🦁 **[김태윤](https://github.com/thanks9807)** &nbsp;　🐶 **[유형도](https://github.com/hyungdoyou)** &nbsp;　🐯 **[정원준](https://github.com/Wonjunmar)** &nbsp;　🐺 **[김경미](https://github.com/asasd)**
 <br><br><br>
 ## ✨ 프로젝트 개요
 
