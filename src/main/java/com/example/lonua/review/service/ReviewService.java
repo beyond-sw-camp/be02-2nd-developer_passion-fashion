@@ -176,7 +176,7 @@ public class ReviewService {
     }
 
 
-    public BaseRes updateReview(PatchUpdateReviewReq request, MultipartFile reviewFile) {
+    public BaseRes updateReview(PatchUpdateReviewReq request, MultipartFile reviewFile, User user) {
 
         Optional<Review> result = reviewRepository.findByReviewIdx(request.getReviewIdx());
 
@@ -220,7 +220,7 @@ public class ReviewService {
         return null;
     }
 
-
+    @Transactional
     public BaseRes deleteReview(Integer reviewIdx, User user) {
         Integer result = reviewRepository.deleteByReviewIdxAndUser_userIdx(reviewIdx, user.getUserIdx());
 

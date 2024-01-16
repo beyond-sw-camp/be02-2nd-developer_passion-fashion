@@ -14,7 +14,7 @@ import javax.validation.constraints.Pattern;
 public class PostRegisterCategoryReq {
 
     @NotNull
-//    @Pattern(regexp = "^[\\p{IsHangul}]+$")
+    @Pattern(regexp = "^[\\p{IsHangul}]+$")
     @ApiModelProperty(value = "카테고리명", example = "아우터", required = true)
     private String categoryName;
 
