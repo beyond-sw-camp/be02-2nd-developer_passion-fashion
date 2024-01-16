@@ -31,7 +31,6 @@ public class OrdersProductRepositoryCustomImpl extends QuerydslRepositorySupport
         QUser user = new QUser("user");
 
         List<OrdersProduct> result = from(ordersProduct)
-                .leftJoin(user.ordersList, orders).fetchJoin()
                 .leftJoin(ordersProduct.orders, orders).fetchJoin()
                 .leftJoin(ordersProduct.product, product).fetchJoin()
                 .distinct()
