@@ -151,7 +151,7 @@ public class UserService {
                     .build();
         } else {
             return BaseRes.builder()
-                    .code(200)
+                    .code(400)
                     .isSuccess(true)
                     .message("요청 실패")
                     .result("회원을 찾을 수 없습니다.")

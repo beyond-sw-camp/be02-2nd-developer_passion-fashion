@@ -86,7 +86,7 @@ public class OrdersController {
     }
 
     // ---------------------카카오페이 결제를 통한 주문-----------------------------
-//    @RequestMapping(method = RequestMethod.POST, value = "/create")
+//    @RequestMapping(method = RequestMethod.POST, value = "/kakaopay")
 //    public ResponseEntity create(@RequestBody PostCreateOrdersReq postCreateOrdersReq) throws IamportResponseException, IOException {
 //
 //        User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
