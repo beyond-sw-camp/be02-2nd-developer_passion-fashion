@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Builder
 @Data
-public class PatchUpdateRes {
+public class GetGradeListRes {
     private Integer gradeIdx;
     private String gradeType;
     private Integer discountRate;

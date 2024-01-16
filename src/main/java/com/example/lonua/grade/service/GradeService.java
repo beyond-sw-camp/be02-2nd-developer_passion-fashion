@@ -1,14 +1,12 @@
 package com.example.lonua.grade.service;
 
 import com.example.lonua.common.BaseRes;
-import com.example.lonua.grade.model.request.GetReadReq;
-import com.example.lonua.grade.model.request.PatchUpdateReq;
-import com.example.lonua.grade.model.request.PostCreateReq;
+import com.example.lonua.grade.model.request.PatchGradeUpdateReq;
+import com.example.lonua.grade.model.request.PostGradeCreateReq;
 import com.example.lonua.grade.model.entity.Grade;
-import com.example.lonua.grade.model.response.GetListRes;
-import com.example.lonua.grade.model.response.GetReadRes;
-import com.example.lonua.grade.model.response.PatchUpdateRes;
-import com.example.lonua.grade.model.response.PostCreateRes;
+import com.example.lonua.grade.model.response.GetGradeListRes;
+import com.example.lonua.grade.model.response.PatchGradeUpdateRes;
+import com.example.lonua.grade.model.response.PostGradeCreateRes;
 import com.example.lonua.grade.repository.GradeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -23,18 +21,18 @@ public class GradeService {
 
     private final GradeRepository gradeRepository;
 
-    public BaseRes create(PostCreateReq postCreateReq) {
+    public BaseRes create(PostGradeCreateReq postGradeCreateReq) {
 
         Grade grade = gradeRepository.save(Grade.builder()
-                .gradeType(postCreateReq.getGradeType())
-                .discountRate(postCreateReq.getDiscountRate())
+                .gradeType(postGradeCreateReq.getGradeType())
+                .discountRate(postGradeCreateReq.getDiscountRate())
                 .build());
 
         return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
-                .result(PostCreateRes.builder()
+                .result(PostGradeCreateRes.builder()
                         .gradeIdx(grade.getGradeIdx())
                         .discountRate(grade.getDiscountRate())
                         .gradeType(grade.getGradeType())
@@ -44,42 +42,42 @@ public class GradeService {
 
     public BaseRes list() {
         List<Grade> all = gradeRepository.findAll();
-        List<GetListRes> getListResList = new ArrayList<>();
+        List<GetGradeListRes> getListResGradeList = new ArrayList<>();
         for (Grade grade : all) {
-            GetListRes build = GetListRes.builder()
+            GetGradeListRes build = GetGradeListRes.builder()
                     .gradeIdx(grade.getGradeIdx())
                     .gradeType(grade.getGradeType())
                     .discountRate(grade.getDiscountRate())
                     .build();
-            getListResList.add(build);
+            getListResGradeList.add(build);
         }
 
             return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
                 .message("요청성공")
-                .result(getListResList)
+                .result(getListResGradeList)
                 .build();
     }
 
-    public BaseRes read(GetReadReq request) {
-        Optional<Grade> byGradeType = gradeRepository.findByGradeType(request.getGradeType());
-        if (byGradeType.isPresent()) {
-            Grade grade = byGradeType.get();
-            return BaseRes.builder()
-                    .code(200)
-                    .isSuccess(true)
-                    .message("요청성공")
-                    .result(GetReadRes.builder()
-                            .gradeIdx(grade.getGradeIdx())
-                            .gradeType(grade.getGradeType())
-                            .discountRate(grade.getDiscountRate())
-                            .build())
-                    .build();
-        }
-        return null;
-    }
-    public BaseRes update(PatchUpdateReq request) {
+//    public BaseRes read(GetReadReq request) {
+//        Optional<Grade> byGradeType = gradeRepository.findByGradeType(request.getGradeType());
+//        if (byGradeType.isPresent()) {
+//            Grade grade = byGradeType.get();
+//            return BaseRes.builder()
+//                    .code(200)
+//                    .isSuccess(true)
+//                    .message("요청성공")
+//                    .result(GetReadRes.builder()
+//                            .gradeIdx(grade.getGradeIdx())
+//                            .gradeType(grade.getGradeType())
+//                            .discountRate(grade.getDiscountRate())
+//                            .build())
+//                    .build();
+//        }
+//        return null;
+//    }
+    public BaseRes update(PatchGradeUpdateReq request) {
         Optional<Grade> byId = gradeRepository.findById(request.getGradeIdx());
 
         if (byId.isPresent()) {
@@ -92,7 +90,7 @@ public class GradeService {
                     .code(200)
                     .isSuccess(true)
                     .message("요청성공")
-                    .result(PatchUpdateRes.builder()
+                    .result(PatchGradeUpdateRes.builder()
                             .gradeIdx(result.getGradeIdx())
                             .gradeType(result.getGradeType())
                             .discountRate(result.getDiscountRate())
