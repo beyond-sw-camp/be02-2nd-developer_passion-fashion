@@ -17,6 +17,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 @RestController
 @RequestMapping("/user")
@@ -72,10 +74,10 @@ public class UserController {
     @ApiOperation(value = "회원 목록 조회", response = BaseRes.class, notes = "관리자가 전체 회원의 목록을 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
-    @RequestMapping(method = RequestMethod.GET, value = "/list")
-    public ResponseEntity list() {
+    @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
+    public ResponseEntity list(@PathVariable @NotNull @Positive Integer page, @PathVariable @NotNull @Positive Integer size) {
 
-        BaseRes baseRes = userService.list();
+        BaseRes baseRes = userService.list(page, size);
         return ResponseEntity.ok().body(baseRes);
     }
 

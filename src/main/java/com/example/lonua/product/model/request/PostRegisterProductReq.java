@@ -2,6 +2,7 @@ package com.example.lonua.product.model.request;
 
 
 import com.example.lonua.product.model.response.GetProductIntrodRes;
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -19,6 +20,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@ApiModel(value = "PostRegisterProductReq", description = "상품 등록 요청 데이터")
 public class PostRegisterProductReq {
 
     @NotNull

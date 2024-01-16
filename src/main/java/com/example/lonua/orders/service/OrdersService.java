@@ -145,8 +145,8 @@ public class OrdersService {
     }
 
     // 주문 상세 내역 조회
-    public BaseRes read(User user, Integer idx) {
-        Optional<Orders> result = ordersRepository.findOrders(idx);
+    public BaseRes read(User user, Integer ordersIdx, Integer productIdx) {
+        Optional<Orders> result = ordersRepository.findOrders(ordersIdx, productIdx);
 
         if (result.isPresent()){
             Orders orders = result.get();

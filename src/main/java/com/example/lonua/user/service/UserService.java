@@ -13,10 +13,14 @@ import com.example.lonua.user.model.entity.response.*;
 import com.example.lonua.user.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 import javax.transaction.Transactional;
 import java.time.LocalDateTime;
@@ -86,11 +90,14 @@ public class UserService {
         return baseRes;
     }
 
-    public BaseRes list() {
-        List<User> result = userRepository.findAll();
+    public BaseRes list(Integer page, Integer size) {
+
+        Pageable pageable = PageRequest.of(page-1, size);
+
+        Page<User> userList = userRepository.findUserList(pageable);
 
         List<GetListUserRes> getListUserResList = new ArrayList<>();
-        for (User user : result) {
+        for (User user : userList) {
 
             GetListUserRes getListUserRes = GetListUserRes.builder()
                     .userIdx(user.getUserIdx())
@@ -98,6 +105,7 @@ public class UserService {
                     .name(user.getName())
                     .userBirth(user.getUserBirth())
                     .userGender(user.getUserGender())
+                    .userAddr(user.getUserAddr())
                     .userPhoneNumber(user.getUserPhoneNumber())
                     .preferStyle(user.getPreferStyle())
                     .upperType(user.getUpperType())
@@ -117,7 +125,7 @@ public class UserService {
     }
 
     public BaseRes read(String email) {
-        Optional<User> result = userRepository.findByUserEmail(email);
+        Optional<User> result = userRepository.findUser(email);
         if (result.isPresent()) {
             User user = result.get();
 

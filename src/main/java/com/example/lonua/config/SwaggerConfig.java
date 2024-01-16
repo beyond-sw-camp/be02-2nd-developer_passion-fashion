@@ -1,6 +1,7 @@
 package com.example.lonua.config;
 
 
+import com.example.lonua.product.model.request.PostRegisterProductReq;
 import io.swagger.models.auth.In;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
