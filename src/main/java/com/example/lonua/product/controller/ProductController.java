@@ -29,7 +29,7 @@ public class ProductController {
 
     private final ProductService productService;
 
-    @ApiOperation(value = "상품 등록", response = BaseRes.class, notes = "상품 등록을 진행합니다.")
+    @ApiOperation(value = "상품 등록", response = BaseRes.class, notes = "브랜드(판매자)가 판매 상품을 등록한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.POST, value = "/register")
@@ -43,7 +43,7 @@ public class ProductController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "상품 목록 조회", response = BaseRes.class, notes = "페이지 별 상품 목록 조회를 진행합니다.")
+    @ApiOperation(value = "상품 목록 조회", response = BaseRes.class, notes = "회원이 페이지 별 상품 목록을 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
@@ -53,7 +53,7 @@ public class ProductController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "상품 세부 정보 조회", response = BaseRes.class, notes = "상품 세부 정보 조회를 진행합니다.")
+    @ApiOperation(value = "상품 세부 정보 조회", response = BaseRes.class, notes = "회원이 상품 세부 정보 조회를 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/{idx}")
@@ -63,7 +63,7 @@ public class ProductController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "상품 정보 수정", response = BaseRes.class, notes = "상품 정보 수정을 진행합니다.")
+    @ApiOperation(value = "상품 정보 수정", response = BaseRes.class, notes = "브랜드(판매자)가 상품 정보를 수정한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
@@ -73,7 +73,7 @@ public class ProductController {
         return ResponseEntity.ok().body(baseRes);
     }
 
-    @ApiOperation(value = "상품 삭제", response = BaseRes.class, notes = "등록한 상품의 삭제를 진행합니다.")
+    @ApiOperation(value = "상품 삭제", response = BaseRes.class, notes = "브랜드(판매자)가 등록한 상품을 삭제한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{idx}")
@@ -85,7 +85,7 @@ public class ProductController {
 
     //----------------------검색 기능-------------------------
     // 1. 카테고리 별 상품 리스트 검색(최신 등록 순)
-    @ApiOperation(value = "카테고리 별 상품 조회", response = BaseRes.class, notes = "카테고리에 해당하는 상품의 목록을 조회합니다.")
+    @ApiOperation(value = "카테고리 별 상품 조회", response = BaseRes.class, notes = "회원이 카테고리에 해당하는 상품의 목록을 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/categorylist/{categoryIdx}/{page}/{size}")
@@ -97,7 +97,7 @@ public class ProductController {
 
 
     // 2. 같은 상/하체 체형을 가진 사람이 많이 주문한 상품 리스트 검색(상체 - 하체 순 정렬)
-    @ApiOperation(value = "회원의 신체 유형에 따른 상품 조회", response = BaseRes.class, notes = "회원의 상체와 동일한 회원이 많이 구매한 상품 순으로 상품 목록을 조회합니다.")
+    @ApiOperation(value = "회원의 신체 유형에 따른 상품 조회", response = BaseRes.class, notes = "회원이 자신의 상/하체 유형과 동일한 회원이 많이 구매한 상품 순으로 상품 목록을 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/sametype/{page}/{size}")
