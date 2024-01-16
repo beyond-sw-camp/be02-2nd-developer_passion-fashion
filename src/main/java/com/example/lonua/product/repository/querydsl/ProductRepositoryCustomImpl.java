@@ -140,7 +140,6 @@ public class ProductRepositoryCustomImpl extends QuerydslRepositorySupport imple
 
         Optional<Product> result = Optional.ofNullable(from(product)
                 .leftJoin(product.productImageList, productImage).fetchJoin()
-                .leftJoin(product.productIntrodImageList, productIntrodImage).fetchJoin()
                 .leftJoin(product.productCount, productCount).fetchJoin()
                 .leftJoin(product.brand, brand).fetchJoin()
                 .where(product.productIdx.eq(idx))

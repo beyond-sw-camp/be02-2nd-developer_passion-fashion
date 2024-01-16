@@ -24,17 +24,17 @@ import java.util.List;
 public class PostRegisterProductReq {
 
     @NotNull
-    @Min(value = 1)
+    @Positive
     @ApiModelProperty(value = "판매자 IDX( 1이상의 숫자 )", example = "1", required = true)
     private Integer brand_idx;
 
     @NotNull
-    @Min(value = 1)
+    @Positive
     @ApiModelProperty(value = "카테고리 IDX( 1이상의 숫자 )", example = "1", required = true)
     private Integer category_idx;
 
     @NotNull
-    @Min(value = 1)
+    @Positive
     @ApiModelProperty(value = "스타일 IDX( 1이상의 숫자 )", example = "1", required = true)
     private Integer style_idx;
 
@@ -44,7 +44,7 @@ public class PostRegisterProductReq {
     private String productName;
 
     @NotNull
-    @Min(value = 0)
+    @Min(0)
     @ApiModelProperty(value = "수량", example = "100", required = true)
     private Integer quantity;
 
@@ -54,53 +54,53 @@ public class PostRegisterProductReq {
     private Integer price;
 
     @NotNull
-    @Min(value = 1)
+    @Min(0)
     @ApiModelProperty(value = "어깨 너비", example = "15.0", required = true)
     private Float shoulderWidth;
 
     @NotNull
-    @Positive // 0 이상의 양수
+    @Min(0)
     @ApiModelProperty(value = "가슴 단면", example = "15.0", required = true)
     private Float chestSize;
 
     @NotNull
-    @Positive // 0 이상의 양수
+    @Min(0)
     @ApiModelProperty(value = "팔 길이", example = "15.0", required = true)
     private Float armLength;
 
     @NotNull
-    @Positive // 0 이상의 양수
+    @Min(0)
     @ApiModelProperty(value = "상의 총 길이", example = "15.0", required = true)
     private Float topLength;
 
     @NotNull
-    @Positive // 0 이상의 양수
+    @Min(0)
     @ApiModelProperty(value = "허리 둘레", example = "15.0", required = true)
     private Float waistline;
 
     @NotNull
-    @Positive // 0 이상의 양수
+    @Min(0)
     @ApiModelProperty(value = "엉덩이 둘레", example = "15.0", required = true)
     private Float hipCircumference;
 
     @NotNull
-    @Positive // 0 이상의 양수
+    @Min(0)
     @ApiModelProperty(value = "밑 단", example = "15.0", required = true)
     private Float thighCircumference;
 
     @NotNull
-    @Positive // 0 이상의 양수
+    @Min(0)
     @ApiModelProperty(value = "밑 위", example = "15.0", required = true)
     private Float crotchLength;
 
     @NotNull
-    @Positive // 0 이상의 양수
+    @Min(0)
     @ApiModelProperty(value = "허벅지 둘레", example = "15.0", required = true)
     private Float hemLength;
 
 
     @NotNull
-    @Positive // 0 이상의 양수
+    @Min(0)
     @ApiModelProperty(value = "하의 총 길이", example = "15.0", required = true)
     private Float totalBottomLength;
 }

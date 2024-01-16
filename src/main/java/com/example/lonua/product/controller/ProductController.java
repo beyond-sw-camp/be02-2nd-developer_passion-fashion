@@ -34,9 +34,9 @@ public class ProductController {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     public ResponseEntity register(
+            @RequestPart(value = "product") @Valid PostRegisterProductReq postRegisterProductReq,
             @RequestPart(value = "productImage") @NotNull MultipartFile[] productFiles,
-            @RequestPart(value = "productIntrodImage") @NotNull MultipartFile[] productIntrodFiles,
-            @RequestPart(value = "product") @Valid PostRegisterProductReq postRegisterProductReq
+            @RequestPart(value = "productIntrodImage") @NotNull MultipartFile[] productIntrodFiles
     ) {
         BaseRes baseRes = productService.register(postRegisterProductReq, productFiles, productIntrodFiles);
 

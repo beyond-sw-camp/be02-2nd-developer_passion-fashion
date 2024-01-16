@@ -6,6 +6,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
+import javax.validation.constraints.Positive;
 
 @Getter
 @Setter
@@ -15,7 +16,7 @@ import javax.validation.constraints.Pattern;
 public class PatchUpdateStyleReq {
 
     @NotNull
-    @Pattern(regexp = "^[0-9]+$")
+    @Positive
     @ApiModelProperty(value = "스타일 IDX", example = "1", required = true)
     private Integer styleIdx;
 
