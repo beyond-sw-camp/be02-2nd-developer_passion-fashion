@@ -22,12 +22,12 @@ public class PostCreateOrdersReq {
     private Integer amount;
 
     @NotNull
-    //@Pattern(regexp = "^imp_\\d{12}$")
+    @Pattern(regexp = "^imp_\\d{12}$")
     @ApiModelProperty(value = "결제 번호", example = "imp_581455476041", required = true)
     private String impUid;
 
     @NotNull
-    //@Pattern(regexp = "^2024(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])\\d{10}$")
+    @Length(min=1, max=18)
     @ApiModelProperty(value = "주문 번호", example = "202401062125264623", required = true)
     private String merchantUid;
 
