@@ -18,7 +18,6 @@ public class PostCreateOrdersReq {
 
     @NotNull
     @Min(1)
-    @Pattern(regexp = "^[1-9]\\d*$")
     @ApiModelProperty(value = "총 주문 금액", example = "50000", required = true)
     private Integer amount;
 
@@ -28,7 +27,7 @@ public class PostCreateOrdersReq {
     private String impUid;
 
     @NotNull
-    @Pattern(regexp = "^2024(0[1-9]|1[0-2])(0[1-9]|[12][0-9]|3[01])\\d{10}$")
+    @Length(min=1, max=18)
     @ApiModelProperty(value = "주문 번호", example = "202401062125264623", required = true)
     private String merchantUid;
 
@@ -43,7 +42,6 @@ public class PostCreateOrdersReq {
     private String payMethod;
 
     @NotNull
-    @Pattern(regexp = "^\\[(\\d+(?:,\\s*\\d+)*)?\\]$")
     @ApiModelProperty(value = "주문 상품 리스트", example = "[1, 2, 3]", required = true)
     private List<Integer> productIdxList;
 
