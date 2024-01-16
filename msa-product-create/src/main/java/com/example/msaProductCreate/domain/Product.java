@@ -1,4 +1,4 @@
-package com.example.msaProductList.domain;
+package com.example.msaProductCreate.domain;
 
 import lombok.*;
 
@@ -9,10 +9,9 @@ import lombok.*;
 @NoArgsConstructor
 @Builder
 public class Product {
-    private Integer productIdx;
-    private String productName;
     private Integer brandIdx;
     private String brandName;
+    private String productName;
     private Integer quantity;
     private Integer price;
     private String image;

@@ -15,6 +15,7 @@
     <modules>
         <module>msa_product_list</module>
         <module>common</module>
+        <module>msa-product-create</module>
     </modules>
     <packaging>pom</packaging>
 	<description>Demo project for Spring Boot</description>
@@ -72,10 +73,6 @@
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
 
-		<dependency>
-			<groupId>org.springframework.boot</groupId>
-			<artifactId>spring-boot-starter-security</artifactId>
-		</dependency>
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>
