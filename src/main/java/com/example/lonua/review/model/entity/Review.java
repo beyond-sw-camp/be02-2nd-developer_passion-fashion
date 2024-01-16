@@ -46,15 +46,19 @@ public class Review {
     @Column(nullable = false)
     private Boolean status;
 
-    public void update(PatchUpdateReviewReq patchUpdateReviewReq) {
+    public void update(PatchUpdateReviewReq patchUpdateReviewReq, String reviewFileName) {
         if(patchUpdateReviewReq.getReviewContent() != null) {
             this.reviewContent = patchUpdateReviewReq.getReviewContent();
         }
-        if(patchUpdateReviewReq.getReviewPhoto() != null) {
-            this.reviewPhoto = patchUpdateReviewReq.getReviewPhoto();
-        }
+//        if(patchUpdateReviewReq.getReviewPhoto() != null) {
+//            this.reviewPhoto = patchUpdateReviewReq.getReviewPhoto();
+//        }
         if(patchUpdateReviewReq.getEvaluation() != null) {
             this.evaluation = patchUpdateReviewReq.getEvaluation();
+
+        }
+        if (reviewFileName != null) {
+            this.reviewPhoto = reviewFileName;
         }
     }
 }
