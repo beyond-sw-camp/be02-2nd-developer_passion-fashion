@@ -39,7 +39,6 @@ public class PatchUpdateQuestionReq {
     private String questionContent;
 
     @NotNull
-    @Pattern(regexp = "^(true|false)$")
     @ApiModelProperty(value = "비밀글 여부", example = "true", required = true)
     private Boolean isSecret;
 }
