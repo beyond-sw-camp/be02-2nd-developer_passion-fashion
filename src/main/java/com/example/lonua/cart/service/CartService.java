@@ -1,7 +1,6 @@
 package com.example.lonua.cart.service;
 
 import com.example.lonua.cart.model.entity.Cart;
-import com.example.lonua.cart.model.request.DeleteAllCartRemoveReq;
 import com.example.lonua.cart.model.request.DeleteCartRemoveReq;
 import com.example.lonua.cart.model.request.PostCartRegisterReq;
 import com.example.lonua.cart.model.response.GetCartListRes;
@@ -9,7 +8,9 @@ import com.example.lonua.cart.model.response.PostCartRegisterRes;
 import com.example.lonua.cart.repository.CartRepository;
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.product.model.entity.Product;
+import com.example.lonua.product.model.entity.QProduct;
 import com.example.lonua.user.model.entity.User;
+import com.querydsl.core.Tuple;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,10 +28,10 @@ import java.util.List;
 public class CartService {
     private final CartRepository cartRepository;
 
-    public BaseRes create(PostCartRegisterReq request) {
+    public BaseRes create(User user, PostCartRegisterReq request) {
         Cart cart = cartRepository.save(Cart.builder()
                 .user(User.builder()
-                        .userIdx(request.getUserIdx())
+                        .userIdx(user.getUserIdx())
                         .build())
                 .product(Product.builder()
                         .productIdx(request.getProductIdx())
@@ -55,10 +56,10 @@ public class CartService {
                 .build();
     }
 
-    public BaseRes list(Integer userIdx, Integer page, Integer size) {
+    public BaseRes list(User user, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
 
-        Page<Cart> all = cartRepository.findList(pageable, userIdx);
+        Page<Cart> all = cartRepository.findList(pageable, user.getUserIdx());
         List<GetCartListRes> getListResCartList = new ArrayList<>();
 
         for (Cart cart : all) {
@@ -95,9 +96,9 @@ public class CartService {
     }
 
     @Transactional
-    public BaseRes deleteAll(DeleteAllCartRemoveReq request) {
+    public BaseRes deleteAll(User user) {
 
-        cartRepository.deleteByUserIdx(request.getUserIdx());
+        cartRepository.deleteAllByUserIdx(user.getUserIdx());
 
         return BaseRes.builder()
                 .code(200)
