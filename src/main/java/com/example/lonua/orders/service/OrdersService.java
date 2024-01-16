@@ -209,7 +209,7 @@ public class OrdersService {
         }
     }
     @Transactional
-    public BaseRes delete(Integer idx) {
+    public BaseRes cancle(Integer idx) {
         Optional<Orders> ordersStauts = ordersRepository.findByOrdersIdx(idx);
         if(ordersStauts.isPresent()) {
             Orders orders = ordersStauts.get();
