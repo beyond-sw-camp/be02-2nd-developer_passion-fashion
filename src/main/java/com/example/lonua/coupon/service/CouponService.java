@@ -77,8 +77,8 @@ public class CouponService {
 //
 //    }
 
-    public BaseRes list() {
-        List<Coupon> all = couponRepository.findAll();
+    public BaseRes list(User user) {
+        List<Coupon> all = couponRepository.findAllByUserUserIdx(user.getUserIdx());
         List<GetCouponListRes> getListResCouponList = new ArrayList<>();
 
         for (Coupon coupon : all) {
