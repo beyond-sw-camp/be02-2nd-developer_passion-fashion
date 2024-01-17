@@ -16,15 +16,7 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder
 public class PostCancelLikesReq {
-<<<<<<< HEAD
-    @Min(value = 1)
-    @ApiModelProperty(value = "삭제할 likes의 idx", example = "1", required = true)
-    private Integer likesIdx;
 
-    @Min(value = 1)
-    @ApiModelProperty(value = "삭제할 likes의 제품의 idx", example = "1", required = true)
-    private Integer productIdx; // 왜 있는거지?
-=======
 
     @NotNull
     @Min(value = 1)
@@ -35,5 +27,4 @@ public class PostCancelLikesReq {
     @Min(value = 1)
     @ApiModelProperty(value = "상품 IDX( 1이상의 숫자 )", example = "1", required = true)
     private Integer productIdx;
->>>>>>> develop
 }

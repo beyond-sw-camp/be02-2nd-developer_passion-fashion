@@ -5,10 +5,8 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
-<<<<<<< HEAD
-=======
+
 import javax.validation.constraints.NotNull;
->>>>>>> develop
 import javax.validation.constraints.Pattern;
 import java.util.List;
 

@@ -5,21 +5,13 @@ import com.example.lonua.common.BaseRes;
 import com.example.lonua.question.model.request.PatchUpdateQuestionReq;
 import com.example.lonua.question.model.request.PostRegisterQuestionReq;
 import com.example.lonua.question.service.QuestionService;
-<<<<<<< HEAD
-import com.example.lonua.user.model.entity.User;
-<<<<<<< HEAD
-=======
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
->>>>>>> feature/swagger
-=======
+
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
->>>>>>> develop
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;

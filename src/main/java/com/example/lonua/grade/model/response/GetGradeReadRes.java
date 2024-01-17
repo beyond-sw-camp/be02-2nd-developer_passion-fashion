@@ -13,14 +13,9 @@ import javax.validation.constraints.Min;
 @NoArgsConstructor
 @Builder
 @Data
-<<<<<<< HEAD:src/main/java/com/example/lonua/grade/model/request/GetReadReq.java
-public class GetReadReq {
-    @Length(max=20)
-    @ApiModelProperty(value = "조회할 등급의 이름", example = "골드", required = true)
-=======
+
 public class GetGradeReadRes {
     private Integer gradeIdx;
->>>>>>> develop:src/main/java/com/example/lonua/grade/model/response/GetGradeReadRes.java
     private String gradeType;
     private Integer discountRate;
 }

@@ -14,13 +14,8 @@ import javax.validation.constraints.Min;
 @NoArgsConstructor
 @Builder
 @Data
-<<<<<<< HEAD:src/main/java/com/example/lonua/grade/model/request/PatchUpdateReq.java
-public class PatchUpdateReq {
-    @Min(value = 1)
-    @ApiModelProperty(value = "수정할 등급의 idx", example = "1", required = true)
-=======
+
 public class GetGradeListRes {
->>>>>>> develop:src/main/java/com/example/lonua/grade/model/response/GetGradeListRes.java
     private Integer gradeIdx;
 
     @Length(max=20)
