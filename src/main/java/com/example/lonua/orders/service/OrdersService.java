@@ -39,7 +39,7 @@ public class OrdersService {
     private final OrdersProductRepository ordersProductRepository;
     private final ProductCountRepository productCountRepository;
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes createOrder(User user, PostCreateOrdersReq postCreateOrdersReq) {
         Orders orders = Orders.builder()
                 .user(user)
@@ -110,7 +110,7 @@ public class OrdersService {
     }
 
     // 주문 내역 조회
-    @Transactional
+    @Transactional(readOnly = true)
     public BaseRes list(User user, Integer page, Integer size) {
 
         Pageable pageable = PageRequest.of(page-1, size);
@@ -145,6 +145,7 @@ public class OrdersService {
     }
 
     // 주문 상세 내역 조회
+    @Transactional(readOnly = true)
     public BaseRes read(User user, Integer ordersIdx, Integer productIdx) {
         Optional<Orders> result = ordersRepository.findOrders(ordersIdx, productIdx);
 
@@ -185,6 +186,7 @@ public class OrdersService {
         }
     }
 
+    @Transactional(readOnly = false)
     public BaseRes updateStatus(PatchUpdateOrdersReq patchUpdateOrdersReq) {
         Optional<Orders> result = ordersRepository.findByOrdersIdx(patchUpdateOrdersReq.getOrdersIdx());
         if(result.isPresent()) {
@@ -208,7 +210,7 @@ public class OrdersService {
                     .build();
         }
     }
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes cancle(Integer idx) {
         Optional<Orders> ordersStauts = ordersRepository.findByOrdersIdx(idx);
         if(ordersStauts.isPresent()) {
