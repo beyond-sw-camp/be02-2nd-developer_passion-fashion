@@ -60,7 +60,7 @@ public class CartService {
 
     @Transactional(readOnly = true)
     public BaseRes list(User user, Integer page, Integer size) {
-        Pageable pageable = PageRequest.of(page, size);
+        Pageable pageable = PageRequest.of(page-1, size);
 
         Page<Cart> all = cartRepository.findList(pageable, user.getUserIdx());
         List<GetCartListRes> getListResCartList = new ArrayList<>();
