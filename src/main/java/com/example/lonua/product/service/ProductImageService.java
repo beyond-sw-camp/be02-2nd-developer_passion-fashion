@@ -8,6 +8,7 @@ import com.example.lonua.product.repository.ProductImageRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
@@ -60,6 +61,7 @@ public class ProductImageService {
         }
     }
 
+    @Transactional(readOnly = false)
     public List<String> registerProductImage(Product product, MultipartFile[] uploadFiles) {
 
         List<String> productImageList = new ArrayList<>();

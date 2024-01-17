@@ -28,6 +28,7 @@ public class QuestionService {
 
     private final QuestionRepository questionRepository;
 
+    @Transactional(readOnly = false)
     public BaseRes register(User user, PostRegisterQuestionReq postRegisterQuestionReq) {
 
         Question question = Question.builder()
@@ -61,6 +62,7 @@ public class QuestionService {
     }
 
     // 질문 목록 조회
+    @Transactional(readOnly = true)
     public BaseRes list(User user, Integer page, Integer size) {
 
         Pageable pageable = PageRequest.of(page-1, size);
@@ -100,6 +102,7 @@ public class QuestionService {
         }
     }
 
+    @Transactional(readOnly = false)
     public BaseRes update(User user, PatchUpdateQuestionReq patchUpdateQuestionReq) {
         Optional<Question> result = questionRepository.findByQuestionIdxAndUser_userIdx(patchUpdateQuestionReq.getQuestionIdx(), user.getUserIdx());
 
@@ -135,7 +138,7 @@ public class QuestionService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes delete(Integer idx, User user) {
         Integer result = questionRepository.deleteByQuestionIdxAndUser_userIdx(idx, user.getUserIdx());
 

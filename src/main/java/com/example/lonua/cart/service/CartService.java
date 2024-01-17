@@ -28,6 +28,8 @@ import java.util.List;
 public class CartService {
     private final CartRepository cartRepository;
 
+
+    @Transactional(readOnly = false)
     public BaseRes create(User user, PostCartRegisterReq request) {
         Cart cart = cartRepository.save(Cart.builder()
                 .user(User.builder()
@@ -56,6 +58,7 @@ public class CartService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public BaseRes list(User user, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
 
@@ -79,6 +82,7 @@ public class CartService {
                 .build();
     }
 
+    @Transactional(readOnly = false)
     public BaseRes delete(DeleteCartRemoveReq request) {
 
         Cart cart = Cart.builder()
@@ -95,7 +99,8 @@ public class CartService {
                 .build();
     }
 
-    @Transactional
+
+    @Transactional(readOnly = false)
     public BaseRes deleteAll(User user) {
 
         cartRepository.deleteAllByUserIdx(user.getUserIdx());
