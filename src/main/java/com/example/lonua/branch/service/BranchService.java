@@ -110,7 +110,7 @@ public class BranchService {
                 .build();
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes update(PatchBranchUpdateReq request) {
         Optional<Branch> bybranchName = branchRepository.findById(request.getBranchIdx());
 
