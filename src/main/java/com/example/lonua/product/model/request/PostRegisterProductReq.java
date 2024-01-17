@@ -2,10 +2,7 @@ package com.example.lonua.product.model.request;
 
 
 import com.example.lonua.product.model.response.GetProductIntrodRes;
-<<<<<<< HEAD
-=======
 import io.swagger.annotations.ApiModel;
->>>>>>> develop
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
@@ -14,10 +11,6 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-<<<<<<< HEAD
-import javax.validation.constraints.Pattern;
-=======
->>>>>>> develop
 import javax.validation.constraints.Positive;
 import java.util.ArrayList;
 import java.util.List;

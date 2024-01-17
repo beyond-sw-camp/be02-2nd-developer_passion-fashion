@@ -1,7 +1,6 @@
 package com.example.lonua.cart.controller;
 
 
-
 import com.example.lonua.cart.model.request.DeleteCartRemoveReq;
 import com.example.lonua.cart.model.request.PostCartRegisterReq;
 import com.example.lonua.cart.service.CartService;
@@ -23,13 +22,13 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/cart")
-@Api(value="장바구니 컨트롤러 v1", tags="장바구니 API")
+@Api(value = "장바구니 컨트롤러 v1", tags = "장바구니 API")
 public class CartController {
     private final CartService cartService;
 
     @ApiOperation(value = "장바구니 추가", response = BaseRes.class, notes = "회원이 장바구니에 물건을 등록한다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class))})})
 
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     ResponseEntity registerCart(@RequestBody PostCartRegisterReq request) {
@@ -39,16 +38,16 @@ public class CartController {
 
     @ApiOperation(value = "장바구니 조회", response = BaseRes.class, notes = "회원이 장바구니에 있는 모든 물건을 조회한다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class))})})
     @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
-    ResponseEntity listCart(@PathVariable Integer page,@PathVariable Integer size) {
+    ResponseEntity listCart(@PathVariable Integer page, @PathVariable Integer size) {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         return ResponseEntity.ok().body(cartService.list(user, page, size));
     }
 
     @ApiOperation(value = "장바구니 단일 삭제", response = BaseRes.class, notes = "회원이 장바구니에 물건을 단일 삭제한다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class))})})
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete")
     ResponseEntity deleteCart(@RequestBody DeleteCartRemoveReq request) {
 
@@ -58,7 +57,7 @@ public class CartController {
 
     @ApiOperation(value = "장바구니 모두 삭제", response = BaseRes.class, notes = "회원이 장바구니에 모든 물건을 삭제한다.")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+            @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = {@Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class))})})
     @RequestMapping(method = RequestMethod.DELETE, value = "/deleteall")
     ResponseEntity deleteAllCart() {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());
