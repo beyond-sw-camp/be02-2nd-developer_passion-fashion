@@ -15,7 +15,6 @@
  
   - 따라서 **개인에게 맞는 옷, 스타일을 제공**하여 수많은 상품에 대한 선택의 폭을 줄임으로써  
    **쇼핑시간을 단축** 시켜주는 **"<span style="color:blue">개인 맞춤형 패션 플랫폼 서비스"</span>** 를 제공한다.
-<br>
 
 
   - 프로젝트와 관련된 자세한 정보는 [Wiki](https://github.com/beyond-sw-camp/be02-2nd-developer_passion-fashion/wiki/0.-LONUA(%EC%87%BC%ED%95%91%EB%AA%B0)-%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8-%F0%9F%91%94) 를 참고해주세요.
