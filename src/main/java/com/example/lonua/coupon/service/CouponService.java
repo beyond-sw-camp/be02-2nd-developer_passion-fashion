@@ -11,6 +11,7 @@ import com.example.lonua.coupon.repository.CouponRepository;
 import com.example.lonua.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,6 +24,7 @@ public class CouponService {
 
     private final CouponRepository couponRepository;
 
+    @Transactional(readOnly = false)
     public BaseRes create(User user, PostCouponRegisterReq request) {
         Coupon coupon = couponRepository.save(Coupon.builder()
                 .couponName(request.getCouponName())
@@ -77,6 +79,7 @@ public class CouponService {
 //
 //    }
 
+    @Transactional(readOnly = true)
     public BaseRes list(User user) {
         List<Coupon> all = couponRepository.findAllByUserUserIdx(user.getUserIdx());
         List<GetCouponListRes> getListResCouponList = new ArrayList<>();
@@ -101,6 +104,7 @@ public class CouponService {
                 .build();
     }
 
+    @Transactional(readOnly = false)
     public BaseRes delete(DeleteCouponRemoveReq request) {
         Coupon coupon = Coupon.builder()
                 .couponIdx(request.getCouponIdx())

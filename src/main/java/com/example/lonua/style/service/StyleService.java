@@ -21,6 +21,7 @@ import java.util.Optional;
 public class StyleService {
     private final StyleRepository styleRepository;
 
+    @Transactional(readOnly = false)
     public BaseRes register(PostRegisterStyleReq postRegisterStyleReq) {
         Optional<Style> result = styleRepository.findByStyleType(postRegisterStyleReq.getStyleType());
 
@@ -40,6 +41,7 @@ public class StyleService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public BaseRes list() {
         List<Style> styleList = styleRepository.findAll();
 
@@ -60,6 +62,7 @@ public class StyleService {
                 .build();
     }
 
+    @Transactional(readOnly = false)
     public BaseRes update(PatchUpdateStyleReq patchUpdateStyleReq) {
         Optional<Style> result = styleRepository.findByStyleIdx(patchUpdateStyleReq.getStyleIdx());
 
@@ -83,7 +86,7 @@ public class StyleService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes delete(Integer idx) {
         Integer result = styleRepository.deleteByStyleIdx(idx);
 

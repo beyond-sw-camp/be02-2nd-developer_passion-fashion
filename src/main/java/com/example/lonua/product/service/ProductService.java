@@ -48,7 +48,7 @@ public class ProductService {
     private final ProductImageRepository productImageRepository;
 
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes register(PostRegisterProductReq postRegisterProductReq, MultipartFile[] productFiles, MultipartFile[] productIntrodFiles) {
 
         Optional<Product> result = productRepository.findByProductName(postRegisterProductReq.getProductName());
@@ -131,7 +131,7 @@ public class ProductService {
 
     // 상품 리스트 출력(페이지 별)
 
-//    @Transactional(readOnly = true)
+    @Transactional(readOnly = true)
     public BaseRes list(Integer page, Integer size) {
 
         // 페이징 기능 사용(QueryDSL)
@@ -169,8 +169,7 @@ public class ProductService {
     }
 
     // 상품 세부 정보 조회(read 역할)
-//    @Transactional(readOnly = true)
-    @Transactional
+    @Transactional(readOnly = true)
     public BaseRes read(Integer idx) {
         Optional<Product> result = productRepository.findProduct(idx);
 
@@ -237,6 +236,7 @@ public class ProductService {
         }
     }
 
+    @Transactional(readOnly = false)
     public BaseRes update(PatchUpdateProductReq patchUpdateProductReq) {
         Optional<Product> result = productRepository.findByProductIdx(patchUpdateProductReq.getProductIdx());
 
@@ -273,7 +273,7 @@ public class ProductService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes delete(Integer idx) {
         Integer result1 = productImageRepository.deleteAllByProduct_ProductIdx(idx);
         Integer result2 = productIntrodImageRepository.deleteAllByProduct_ProductIdx(idx);
@@ -296,7 +296,7 @@ public class ProductService {
                     .build();
         }
     }
-    @Transactional
+    @Transactional(readOnly = true)
     public BaseRes categoryProductlist(Integer categoryIdx, Integer page, Integer size) {
 
         // 페이징 기능 사용(QueryDSL)
@@ -331,7 +331,7 @@ public class ProductService {
                 .build();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public BaseRes sameTypeProductList(User user, Integer page, Integer size) {
 
         Integer upperType = user.getUpperType();
@@ -368,7 +368,7 @@ public class ProductService {
                 .build();
     }
 
-    @Transactional
+    @Transactional(readOnly = true)
     public BaseRes brandProductList(Integer brandIdx, Integer page, Integer size) {
 
         // 페이징 기능 사용(QueryDSL)

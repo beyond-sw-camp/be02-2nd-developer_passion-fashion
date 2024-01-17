@@ -28,7 +28,7 @@ public class LikesService {
     private final ProductCountRepository productCountRepository;
     private final LikesRepository likesRepository;
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes createLikes(User user, Integer idx) {
         Optional<Product> result = productRepository.findByProductIdx(idx);
         // Todo 이 제품에 좋아요를 눌렀던적이 있는지 확인하는 로직 추가
@@ -66,6 +66,7 @@ public class LikesService {
         return null;
     }
 
+    @Transactional(readOnly = true)
     public BaseRes list(User user) {
         List<Likes> likesList = likesRepository.findAll();
 
@@ -91,7 +92,7 @@ public class LikesService {
         return response;
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes cancle(User user, PostCancelLikesReq postCancelLikesReq) {
 
         Integer result = likesRepository.deleteByLikesIdxAndUser(postCancelLikesReq.getLikesIdx(), user);

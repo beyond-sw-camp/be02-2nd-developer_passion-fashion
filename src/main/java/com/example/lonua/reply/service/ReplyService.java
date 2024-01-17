@@ -14,8 +14,8 @@ import com.example.lonua.reply.model.response.PostReplyRegisterRes;
 import com.example.lonua.reply.repository.ReplyRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -29,7 +29,7 @@ public class ReplyService {
     private final ReplyRepository replyRepository;
     private final QuestionRepository questionRepository;
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes create(PostReplyRegisterReq request) {
         Reply reply = replyRepository.save(Reply.builder()
                 .replyContent(request.getReplyContent())
@@ -68,7 +68,7 @@ public class ReplyService {
                 .build();
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes update(PatchReplyUpdateReq request) {
 
         Optional<Reply> byId = replyRepository.findById(request.getReplyIdx());
@@ -105,6 +105,7 @@ public class ReplyService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public BaseRes list(GetReplyListReq request) {
 
 
@@ -122,6 +123,7 @@ public class ReplyService {
                     .build();
             result.add(getReplyListRes);
         }
+
         return BaseRes.builder()
                 .code(200)
                 .isSuccess(true)
