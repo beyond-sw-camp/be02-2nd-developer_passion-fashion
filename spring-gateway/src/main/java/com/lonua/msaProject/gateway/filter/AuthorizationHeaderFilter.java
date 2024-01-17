@@ -1,7 +1,7 @@
-package com.memberFeat.memberProject.gateway.filter;
+package com.lonua.msaProject.gateway.filter;
 
 
-import com.memberFeat.memberProject.gateway.util.JwtTokenProvider;
+import com.lonua.msaProject.gateway.util.JwtTokenProvider;
 import io.jsonwebtoken.ExpiredJwtException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.web.reactive.error.ErrorWebExceptionHandler;

@@ -1,11 +1,6 @@
 package com.example.lonua.common;
-
 import io.swagger.annotations.ApiModel;
-<<<<<<< HEAD
-import io.swagger.v3.oas.annotations.media.Schema;
-=======
 import io.swagger.annotations.ApiModelProperty;
->>>>>>> develop
 import lombok.*;
 import springfox.documentation.schema.Example;
 
@@ -14,12 +9,7 @@ import springfox.documentation.schema.Example;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-<<<<<<< HEAD
-@ApiModel(description = "모든 반환값을 담는 DTO",value = "기본 응답")
-@Schema(description = "모든 반환값을 담는 DTO")
-=======
 @ApiModel(description = "Base response")
->>>>>>> develop
 public class BaseRes {
 
     @ApiModelProperty(value = "Response code", example = "200")

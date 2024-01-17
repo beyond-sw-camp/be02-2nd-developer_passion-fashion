@@ -16,7 +16,7 @@
         <module>msa-user-product-service</module>
         <module>common</module>
         <module>msa-brand-product-service</module>
-        <module>gateway</module>
+        <module>spring-gateway</module>
         <module>discovery</module>
     </modules>
     <packaging>pom</packaging>
@@ -35,7 +35,7 @@
 
 	<dependencies>
 		<dependency>
-			<groupId>com.example</groupId>
+			<groupId>com.common</groupId>
 			<artifactId>common</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
 		</dependency>
@@ -74,7 +74,6 @@
 			<groupId>org.springframework.boot</groupId>
 			<artifactId>spring-boot-starter-aop</artifactId>
 		</dependency>
-
 
 		<dependency>
 			<groupId>org.springframework.security</groupId>

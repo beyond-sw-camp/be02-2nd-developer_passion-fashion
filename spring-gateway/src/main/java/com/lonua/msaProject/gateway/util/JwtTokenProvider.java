@@ -1,4 +1,4 @@
-package com.memberFeat.memberProject.gateway.util;
+package com.lonua.msaProject.gateway.util;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

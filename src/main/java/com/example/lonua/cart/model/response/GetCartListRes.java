@@ -14,14 +14,9 @@ import javax.validation.constraints.NotNull;
 @NoArgsConstructor
 @Builder
 @Data
-<<<<<<< HEAD:src/main/java/com/example/lonua/cart/model/request/DeleteRemoveReq.java
-public class DeleteRemoveReq {
-    @NotNull
-    @Min(value = 1)
-    @ApiModelProperty(value = "카트 idx", example = "1", required = true)
-=======
+
 public class GetCartListRes {
->>>>>>> develop:src/main/java/com/example/lonua/cart/model/response/GetCartListRes.java
+
     private Integer cartIdx;
     private String productName;
     private Integer price;
