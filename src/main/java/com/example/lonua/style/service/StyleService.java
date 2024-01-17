@@ -1,7 +1,17 @@
 package com.example.lonua.style.service;
 
+<<<<<<< HEAD
+<<<<<<< HEAD
+<<<<<<< HEAD
+=======
 import com.example.lonua.common.BaseRes;
+>>>>>>> develop
 import com.example.lonua.exception.ErrorCode;
+=======
+=======
+>>>>>>> feature/swagger
+import com.example.lonua.exception.errorCode.ErrorCode;
+
 import com.example.lonua.exception.exception.StyleException;
 import com.example.lonua.style.model.entity.request.PatchUpdateStyleReq;
 import com.example.lonua.style.model.entity.request.PostRegisterStyleReq;

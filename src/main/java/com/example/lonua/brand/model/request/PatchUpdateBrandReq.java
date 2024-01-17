@@ -1,9 +1,9 @@
 package com.example.lonua.brand.model.request;
 
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
-
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -13,8 +13,8 @@ import javax.validation.constraints.Pattern;
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
+@ApiModel(description = "가게 데이터를 삭제 요청받을 때 쓰는 DTO",value = "PatchUpdateBrandReqDTO")
 public class PatchUpdateBrandReq {
-
     @Min(1)
     @ApiModelProperty(value = "브랜드 IDX( 1이상의 숫자 )", example = "1", required = true)
     private Integer brandIdx;
@@ -57,5 +57,6 @@ public class PatchUpdateBrandReq {
 
     @Length(min = 1, max = 45)
     @ApiModelProperty(value = "반품 택배사", example = "CJ대한통운", required = true)
+
     private String returnCourier;
 }

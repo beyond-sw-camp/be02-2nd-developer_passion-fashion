@@ -18,6 +18,9 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
+import retrofit2.http.POST;
+
+import javax.validation.Valid;
 
 import javax.validation.Valid;
 
@@ -28,8 +31,6 @@ import javax.validation.Valid;
 public class CouponController {
 
     private final CouponService couponService;
-
-
     @ApiOperation(value = "쿠폰 등록", response = BaseRes.class, notes = "관리자가 쿠폰을 등록한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
@@ -61,6 +62,4 @@ public class CouponController {
     ResponseEntity deleteCoupon(@RequestBody @Valid DeleteCouponRemoveReq request) {
         return ResponseEntity.ok().body(couponService.delete(request));
     }
-
-
 }

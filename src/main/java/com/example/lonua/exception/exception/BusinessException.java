@@ -1,6 +1,6 @@
 package com.example.lonua.exception.exception;
 
-import com.example.lonua.exception.ErrorCode;
+import com.example.lonua.exception.errorCode.ErrorCode;
 
 public class BusinessException extends RuntimeException{
     private ErrorCode errorCode;

@@ -3,6 +3,8 @@ package com.example.lonua.brand.controller;
 import com.example.lonua.brand.model.request.PatchUpdateBrandReq;
 import com.example.lonua.brand.model.request.PostRegisterBrandReq;
 import com.example.lonua.brand.service.BrandService;
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
 import com.example.lonua.common.BaseRes;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -26,10 +28,10 @@ import javax.validation.constraints.Positive;
 public class BrandController {
 
     private final BrandService brandService;
-
     @ApiOperation(value = "브랜드 등록", response = BaseRes.class, notes = "관리자가 브랜드를 등록한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     public ResponseEntity register(
             @RequestPart(value = "brand") @Valid PostRegisterBrandReq postRegisterBrandReq,
@@ -44,29 +46,31 @@ public class BrandController {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/list/{page}/{size}")
     public ResponseEntity list(@PathVariable @NotNull @Positive Integer page, @PathVariable @NotNull @Positive Integer size) {
+
         BaseRes baseRes = brandService.list(page, size);
 
         return ResponseEntity.ok().body(baseRes);
     }
+
 
     @ApiOperation(value = "특정 브랜드 정보 조회", response = BaseRes.class, notes = "관리자가 특정 브랜드의 정보를 조회한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.GET, value = "/{idx}")
     public ResponseEntity read(@PathVariable @NotNull @Positive Integer idx) {
-        BaseRes baseRes = brandService.read(idx);
 
+        BaseRes baseRes = brandService.read(idx);
         return ResponseEntity.ok().body(baseRes);
     }
 
     @ApiOperation(value = "브랜드 정보 수정", response = BaseRes.class, notes = "관리자가 브랜드 정보를 수정한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+
     @RequestMapping(method = RequestMethod.PATCH, value = "/update")
     public ResponseEntity update(
             @RequestPart(value = "brand") @Valid PatchUpdateBrandReq patchUpdateBrandReq,
             @RequestPart(value = "brandImage") MultipartFile brandFile) {
-
         BaseRes baseRes = brandService.update(patchUpdateBrandReq, brandFile);
         return ResponseEntity.ok().body(baseRes);
     }
@@ -76,7 +80,6 @@ public class BrandController {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{idx}")
     public ResponseEntity delete(@PathVariable @NotNull @Positive Integer idx) {
-
         BaseRes baseRes = brandService.delete(idx);
         return ResponseEntity.ok().body(baseRes);
     }

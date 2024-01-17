@@ -3,6 +3,7 @@ package com.example.lonua.category.controller;
 import com.example.lonua.category.model.request.PatchUpdateCategoryReq;
 import com.example.lonua.category.model.request.PostRegisterCategoryReq;
 import com.example.lonua.category.service.CategoryService;
+
 import com.example.lonua.common.BaseRes;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -11,10 +12,12 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import lombok.RequiredArgsConstructor;
+
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
+
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
@@ -51,7 +54,6 @@ public class CategoryController {
     @RequestMapping(method = RequestMethod.DELETE, value = "/delete/{idx}")
     public ResponseEntity delete(@PathVariable @NotNull @Positive Integer idx) {
         BaseRes baseRes = categoryService.delete(idx);
-
         return ResponseEntity.ok().body(baseRes);
     }
 }

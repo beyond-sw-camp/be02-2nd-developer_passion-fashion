@@ -3,6 +3,7 @@ package com.example.lonua.brand.model.request;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 import org.hibernate.validator.constraints.Length;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.validation.constraints.Min;
@@ -15,7 +16,6 @@ import javax.validation.constraints.Pattern;
 @AllArgsConstructor
 @Builder
 public class PostRegisterBrandReq {
-
     @NotNull
     @Length(min=1, max=45)
     @ApiModelProperty(value = "브랜드명(45자 이하)", example = "SPAO", required = true)

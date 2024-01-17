@@ -5,6 +5,7 @@ package com.example.lonua.cart.controller;
 import com.example.lonua.cart.model.request.DeleteCartRemoveReq;
 import com.example.lonua.cart.model.request.PostCartRegisterReq;
 import com.example.lonua.cart.service.CartService;
+
 import com.example.lonua.common.BaseRes;
 import com.example.lonua.user.model.entity.User;
 import io.swagger.annotations.Api;
@@ -13,6 +14,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -25,10 +27,10 @@ import org.springframework.web.bind.annotation.*;
 public class CartController {
     private final CartService cartService;
 
-
     @ApiOperation(value = "장바구니 추가", response = BaseRes.class, notes = "회원이 장바구니에 물건을 등록한다.")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
+
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     ResponseEntity registerCart(@RequestBody PostCartRegisterReq request) {
         User user = ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal());

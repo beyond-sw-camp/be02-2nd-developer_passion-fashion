@@ -1,8 +1,8 @@
 package com.example.lonua.common;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
+import springfox.documentation.schema.Example;
 
 @Getter
 @Setter

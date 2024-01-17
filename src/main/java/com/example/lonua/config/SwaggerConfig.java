@@ -1,6 +1,5 @@
 package com.example.lonua.config;
 
-
 import com.example.lonua.product.model.request.PostRegisterProductReq;
 import io.swagger.models.auth.In;
 import org.springframework.boot.autoconfigure.web.servlet.error.BasicErrorController;

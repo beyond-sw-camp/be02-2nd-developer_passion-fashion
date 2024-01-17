@@ -5,9 +5,14 @@ import com.example.lonua.category.model.request.PostRegisterCategoryReq;
 import com.example.lonua.category.model.entity.Category;
 import com.example.lonua.category.repository.CategoryRepository;
 import com.example.lonua.common.BaseRes;
-import com.example.lonua.exception.ErrorCode;
+
+
 import com.example.lonua.exception.exception.CategoryException;
 import lombok.RequiredArgsConstructor;
+
+import com.example.lonua.exception.errorCode.ErrorCode;
+import com.example.lonua.exception.exception.CategoryException;
+
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

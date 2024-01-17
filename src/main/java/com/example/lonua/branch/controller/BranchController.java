@@ -15,7 +15,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
-
 import javax.validation.Valid;
 
 @RestController
@@ -24,7 +23,6 @@ import javax.validation.Valid;
 @Api(value="지점 컨트롤러 v1", tags="지점 API")
 public class BranchController {
     private final BranchService branchService;
-
 
     @ApiOperation(value = "지점 등록", response = BaseRes.class, notes = "판매자가 지점을 등록한다.")
     @ApiResponses(value = {
@@ -38,10 +36,12 @@ public class BranchController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "지점 모두 조회 성공", content = @Content(mediaType = "application/json",schema = @Schema(implementation = BaseRes.class)))}
     )
+
     @RequestMapping(method = RequestMethod.GET, value = "/list")
     ResponseEntity listBranch(@RequestBody @Valid GetBranchListReq request) {
         return ResponseEntity.ok().body(branchService.list(request));
     }
+
 
     @ApiOperation(value = "지점 단일 조회", response = BaseRes.class, notes = "판매자가 지점을 단일 조회한다.")
     @ApiResponses(value = {
@@ -69,6 +69,5 @@ public class BranchController {
     ResponseEntity deleteBranch(@RequestBody @Valid DeleteBranchRemoveReq request) {
         return ResponseEntity.ok().body(branchService.delete(request));
     }
-
 
 }
