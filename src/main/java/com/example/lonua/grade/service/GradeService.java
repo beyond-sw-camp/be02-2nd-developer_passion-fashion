@@ -30,6 +30,7 @@ import com.example.lonua.grade.model.response.PostGradeCreateRes;
 import com.example.lonua.grade.repository.GradeRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -41,6 +42,7 @@ public class GradeService {
 
     private final GradeRepository gradeRepository;
 
+    @Transactional(readOnly = false)
     public BaseRes create(PostGradeCreateReq postGradeCreateReq) {
 
         Grade grade = gradeRepository.save(Grade.builder()
@@ -60,6 +62,7 @@ public class GradeService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public BaseRes list() {
         List<Grade> all = gradeRepository.findAll();
         List<GetGradeListRes> getListResGradeList = new ArrayList<>();
@@ -97,6 +100,8 @@ public class GradeService {
 //        }
 //        return null;
 //    }
+
+    @Transactional(readOnly = false)
     public BaseRes update(PatchGradeUpdateReq request) {
         Optional<Grade> byId = gradeRepository.findById(request.getGradeIdx());
 

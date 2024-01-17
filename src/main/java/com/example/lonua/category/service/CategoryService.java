@@ -26,6 +26,8 @@ public class CategoryService {
 
     private final CategoryRepository categoryRepository;
 
+
+    @Transactional(readOnly = false)
     public BaseRes register(PostRegisterCategoryReq postRegReqCategoryReq) {
         Optional<Category> result = categoryRepository.findByCategoryName(postRegReqCategoryReq.getCategoryName());
         if(result.isPresent()) {
@@ -47,6 +49,7 @@ public class CategoryService {
                 .build();
     }
 
+    @Transactional(readOnly = false)
     public BaseRes update(PatchUpdateCategoryReq patchUpdateCategoryReq) {
         Optional<Category> reuslt = categoryRepository.findByCategoryIdx(patchUpdateCategoryReq.getCategoryIdx());
 
@@ -72,7 +75,7 @@ public class CategoryService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes delete(Integer idx) {
         Integer result = categoryRepository.deleteByCategoryIdx(idx);
 

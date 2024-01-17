@@ -35,8 +35,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.transaction.annotation.Transactional;
 
-import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -60,6 +60,7 @@ public class UserService {
 
 
     // 회원가입
+    @Transactional(readOnly = false)
     public BaseRes signup(PostSignUpReq postSignUpReq) {
         // 중복된 ID에 대한 예외처리 추가
         Optional<User> result = userRepository.findByUserEmail(postSignUpReq.getUserEmail());
@@ -104,6 +105,7 @@ public class UserService {
         return baseRes;
     }
 
+    @Transactional(readOnly = true)
     public BaseRes list(Integer page, Integer size) {
 
         Pageable pageable = PageRequest.of(page-1, size);
@@ -138,6 +140,7 @@ public class UserService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public BaseRes read(String email) {
         Optional<User> result = userRepository.findUser(email);
         if (result.isPresent()) {
@@ -174,6 +177,7 @@ public class UserService {
     }
 
     // 회원 로그인
+    @Transactional(readOnly = false)
     public BaseRes login(PostUserLoginReq postUserLoginReq) {
         Optional<User> result = userRepository.findByUserEmail(postUserLoginReq.getEmail());
         if (result.isPresent()) {
@@ -207,6 +211,7 @@ public class UserService {
     }
 
     // 인증메일 발송
+    @Transactional(readOnly = false)
     public void sendEmail(PostSignUpReq postSignUpReq) {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setTo(postSignUpReq.getUserEmail());
@@ -220,6 +225,7 @@ public class UserService {
     }
 
     // 메일 인증 완료 후 회원 상태 수정
+    @Transactional(readOnly = false)
     public BaseRes updateStatus(String email) {
         Optional<User> result = userRepository.findByUserEmail(email);
         if (result.isPresent()) {
@@ -242,6 +248,7 @@ public class UserService {
     }
 
     // 카카오 회원가입
+    @Transactional(readOnly = false)
     public void kakaoSignup(String nickName) {
 
         User user = User.builder()
@@ -278,6 +285,7 @@ public class UserService {
     }
 
     // 회원정보 수정
+    @Transactional(readOnly = false)
     public BaseRes update(String userEmail, PatchUserUpdateReq patchUserUpdateReq) {
         Optional<User> result = userRepository.findByUserEmail(userEmail);
 
@@ -307,7 +315,7 @@ public class UserService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes delete(Integer idx) {
 
         Integer result = userRepository.deleteByUserIdx(idx);
@@ -329,7 +337,7 @@ public class UserService {
         }
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes cancle(Integer userIdx) {
         Optional<User> byUserIdx = userRepository.findByUserIdx(userIdx);
 

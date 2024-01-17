@@ -11,6 +11,7 @@ import com.example.lonua.coupon.repository.CouponRepository;
 import com.example.lonua.user.model.entity.User;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
@@ -23,7 +24,8 @@ public class CouponService {
 
     private final CouponRepository couponRepository;
 
-    public BaseRes create(PostCouponRegisterReq request) {
+    @Transactional(readOnly = false)
+    public BaseRes create(User user, PostCouponRegisterReq request) {
         Coupon coupon = couponRepository.save(Coupon.builder()
                 .couponName(request.getCouponName())
                 .couponDiscountRate(request.getCouponDiscountRate())
@@ -33,7 +35,7 @@ public class CouponService {
                 // TODO 만료일을 어떻게 집어 넣을지 고민해봐야한다 일단 1년으로 간다
                 .couponExpirationDate(LocalDateTime.now().plusYears(1L).format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
                 .user(User.builder()
-                        .userIdx(request.getUserIdx())
+                        .userIdx(user.getUserIdx())
                         .build())
                 .build());
 
@@ -77,6 +79,7 @@ public class CouponService {
 //
 //    }
 
+    @Transactional(readOnly = true)
     public BaseRes list(User user) {
         List<Coupon> all = couponRepository.findAllByUserUserIdx(user.getUserIdx());
         List<GetCouponListRes> getListResCouponList = new ArrayList<>();
@@ -101,6 +104,7 @@ public class CouponService {
                 .build();
     }
 
+    @Transactional(readOnly = false)
     public BaseRes delete(DeleteCouponRemoveReq request) {
         Coupon coupon = Coupon.builder()
                 .couponIdx(request.getCouponIdx())

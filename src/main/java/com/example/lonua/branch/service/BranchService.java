@@ -11,6 +11,7 @@ import com.example.lonua.brand.model.entity.Brand;
 import com.example.lonua.common.BaseRes;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,6 +23,7 @@ public class BranchService {
 
     private final BranchRepository branchRepository;
 
+    @Transactional(readOnly = false)
     public BaseRes create(PostBranchRegisterReq request) {
         Branch branch = branchRepository.save(Branch.builder()
                 .brand(Brand.builder()
@@ -44,6 +46,7 @@ public class BranchService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public BaseRes read(GetBranchReadReq request) {
         Optional<Branch> bybranchName = branchRepository.findByBranchNameAndBrandBrandIdx(request.getBranchName(), request.getBrandIdx());
         if (bybranchName.isPresent()) {
@@ -68,6 +71,7 @@ public class BranchService {
                 .build();
     }
 
+    @Transactional(readOnly = true)
     public BaseRes list(GetBranchListReq request) {
         List<Branch> all = branchRepository.findAllByBrandBrandIdx(request.getBrandIdx());
         List<GetBranchListRes> getListResBranchList = new ArrayList<>();
@@ -89,6 +93,7 @@ public class BranchService {
                 .build();
     }
 
+    @Transactional(readOnly = false)
     public BaseRes delete(DeleteBranchRemoveReq request) {
 
         Branch branch = Branch.builder()
@@ -105,6 +110,7 @@ public class BranchService {
                 .build();
     }
 
+    @Transactional(readOnly = false)
     public BaseRes update(PatchBranchUpdateReq request) {
         Optional<Branch> bybranchName = branchRepository.findById(request.getBranchIdx());
 

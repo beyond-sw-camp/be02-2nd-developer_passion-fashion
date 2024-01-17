@@ -76,6 +76,7 @@ public class ReviewService {
         }
     }
 
+    @Transactional(readOnly = false)
     public void deleteFile(String reviewPhoto) {
         try {
             reviewPhoto = "https://lonua-brand.s3.ap-northeast-2.amazonaws.com/2024/01/14/085f8c96-a78f-4c0f-a220-83c89672f17c_new+satur.png";
@@ -86,7 +87,8 @@ public class ReviewService {
     }
 
 
-    @Transactional
+
+    @Transactional(readOnly = false)
     public BaseRes registerReview(User user, PostRegisterReviewReq postRegisterReviewReq, MultipartFile file) {
 
         String reviewPhoto = saveFile(file);
@@ -127,6 +129,7 @@ public class ReviewService {
 
     }
 
+    @Transactional(readOnly = true)
     public BaseRes readReview(Integer reviewIdx) {
 
         Optional<Review> result = reviewRepository.findByReviewIdx(reviewIdx);
@@ -173,6 +176,7 @@ public class ReviewService {
     }
 
 
+    @Transactional(readOnly = true)
     public BaseRes listReview(Integer productIdx) {
 
         List<Review> reviewList = reviewRepository.findByProduct_ProductIdx(productIdx);
@@ -203,6 +207,7 @@ public class ReviewService {
     }
 
 
+    @Transactional(readOnly = false)
     public BaseRes updateReview(PatchUpdateReviewReq request, MultipartFile reviewFile, User user) {
 
         Optional<Review> result = reviewRepository.findByReviewIdx(request.getReviewIdx());
@@ -247,7 +252,7 @@ public class ReviewService {
         return null;
     }
 
-    @Transactional
+    @Transactional(readOnly = false)
     public BaseRes deleteReview(Integer reviewIdx, User user) {
         Integer result = reviewRepository.deleteByReviewIdxAndUser_userIdx(reviewIdx, user.getUserIdx());
 
