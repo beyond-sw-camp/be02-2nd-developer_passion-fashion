@@ -15,9 +15,6 @@ import org.hibernate.validator.constraints.Range;
 public class GetCouponListRes {
     private Integer couponIdx;
     private String couponName;
-
-    @Range(min = 5,max= 100)
-    @ApiModelProperty(value = "발급할 쿠폰의 할인율", example = "50", required = true)
     private Integer couponDiscountRate;
     private String receivedDate;
     private String couponExpirationDate;

@@ -1,15 +1,9 @@
 package com.example.lonua.grade.service;
 
-
-import com.example.lonua.branch.model.entity.Branch;
-import com.example.lonua.config.BaseRes;
-
-
-import com.example.lonua.exception.errorCode.ErrorCode;
-
-import com.example.lonua.exception.exception.GradeException;
-
+import com.example.lonua.common.BaseRes;
 import com.example.lonua.grade.model.entity.Grade;
+import com.example.lonua.grade.model.request.PatchGradeUpdateReq;
+import com.example.lonua.grade.model.request.PostGradeCreateReq;
 import com.example.lonua.grade.model.response.GetGradeListRes;
 import com.example.lonua.grade.model.response.PatchGradeUpdateRes;
 import com.example.lonua.grade.model.response.PostGradeCreateRes;
@@ -18,6 +12,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import javax.validation.Valid;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
@@ -29,7 +24,7 @@ public class GradeService {
     private final GradeRepository gradeRepository;
 
     @Transactional(readOnly = false)
-    public BaseRes create(PostGradeCreateReq postGradeCreateReq) {
+    public BaseRes create(@Valid PostGradeCreateReq postGradeCreateReq) {
 
         Grade grade = gradeRepository.save(Grade.builder()
                 .gradeType(postGradeCreateReq.getGradeType())
@@ -88,7 +83,7 @@ public class GradeService {
 //    }
 
     @Transactional(readOnly = false)
-    public BaseRes update(PatchGradeUpdateReq request) {
+    public BaseRes update(@Valid PatchGradeUpdateReq request) {
         Optional<Grade> byId = gradeRepository.findById(request.getGradeIdx());
 
         if (byId.isPresent()) {

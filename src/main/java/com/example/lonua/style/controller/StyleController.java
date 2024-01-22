@@ -15,11 +15,8 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-<<<<<<< HEAD
-=======
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
->>>>>>> develop
 
 @RestController
 @RequiredArgsConstructor
@@ -33,16 +30,7 @@ public class StyleController {
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200", description = "OK ( 요청 성공 )", content = { @Content(mediaType = "application/json", schema = @Schema(implementation = BaseRes.class)) }) })
     @RequestMapping(method = RequestMethod.POST, value = "/register")
-<<<<<<< HEAD
-<<<<<<< HEAD
-    public ResponseEntity register(@RequestBody PostRegisterStyleReq postRegisterStyleReq) {
-=======
-    public ResponseEntity register(@RequestBody @Valid PostRegReq postRegReq) {
-        styleService.register(postRegReq);
->>>>>>> feature/swagger
-=======
     public ResponseEntity register(@RequestBody @Valid PostRegisterStyleReq postRegisterStyleReq) {
->>>>>>> develop
 
         BaseRes baseRes = styleService.register(postRegisterStyleReq);
 

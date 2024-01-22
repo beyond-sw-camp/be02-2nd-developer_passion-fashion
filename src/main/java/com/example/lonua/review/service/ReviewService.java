@@ -47,7 +47,6 @@ public class ReviewService {
         return folderPath;
     }
 
-<<<<<<< HEAD
     public String saveFile(MultipartFile file) {
         String originalName = file.getOriginalFilename();
 
@@ -99,14 +98,6 @@ public class ReviewService {
                 .reviewContent(postRegisterReviewReq.getReviewContent())
                 .reviewPhoto(reviewPhoto.replace(File.separator, "/"))
                 .evaluation(postRegisterReviewReq.getEvaluation())
-=======
-         reviewRepository.save(Review.builder()
-                .user(User.builder().userIdx(1).build())
-                .product(Product.builder().productIdx(request.getProductIdx()).build())
-                .reviewContent(request.getReviewContent())
-                .reviewPhoto(request.getReviewPhoto())
-                .evaluation(request.getEvaluation())
->>>>>>> feature/swagger
                 .createdAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
                 .updatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
                 .status(true)
@@ -136,29 +127,11 @@ public class ReviewService {
         if (result.isPresent()) {
             Review review = result.get();
 
-<<<<<<< HEAD
             GetReadReviewRes getReadReviewRes = GetReadReviewRes.builder()
-<<<<<<< HEAD
-                .reviewContent(review.getReviewContent())
-                .reviewPhoto(review.getReviewPhoto())
-                .evaluation(review.getEvaluation())
-                .build();
-=======
-//             PostReviewReq.builder()
-//                .reviewIdx(review.getReviewIdx())
-//                .reviewContent(review.getReviewContent())
-//                .reviewPhoto(review.getReviewPhoto())
-//                .evaluation(review.getEvaluation())
-//                .createdAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
-//                .updatedAt(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy/MM/dd HH:mm:ss")))
-//                .build();
->>>>>>> feature/swagger
-=======
                     .reviewContent(review.getReviewContent())
                     .reviewPhoto(review.getReviewPhoto())
                     .evaluation(review.getEvaluation())
                     .build();
->>>>>>> develop
 
             BaseRes baseRes = BaseRes.builder()
                     .code(200)
@@ -258,11 +231,11 @@ public class ReviewService {
 
         if(!result.equals(0)) {
             return BaseRes.builder()
-                .code(200)
-                .isSuccess(true)
-                .message("리뷰 삭제 성공")
-                .result(reviewIdx)
-                .build();
+                    .code(200)
+                    .isSuccess(true)
+                    .message("리뷰 삭제 성공")
+                    .result(reviewIdx)
+                    .build();
         }
         return BaseRes.builder()
                 .code(400)

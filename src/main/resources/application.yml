@@ -8,7 +8,7 @@ spring:
       client:
         registration:
           kakao:
-            client-id: ${CLIENT_ID}
+            client-id: ${CLIENT_ID}  # 카카오 개발자 - 내 애플리케이션 - REST API 키
             scope:
               - profile_nickname
               - profile_image
@@ -26,8 +26,8 @@ spring:
   mail:
     host: smtp.gmail.com
     port: 587
-    username: ${MAIL_SENDER}
-    password: ${MAIL_PASSWORD}
+    username: ${MAIL_SENDER}   # 구글 계정명
+    password: ${MAIL_PASSWORD} # 구글 계정 앱 비밀번호
     properties:
       mail:
         smtp:
@@ -42,16 +42,16 @@ spring:
   datasource:
     master:
       hikari:
-        username: kty
-        password: qwer1234
+        username: ${MASTER}     # 마스터 서버 사용자명
+        password: ${MASTER_PW}  # 마스터 서버 사용자 패스워드
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://192.168.72.30/shop
+        jdbc-url: ${MASTER_URL} # 마스터 서버 주소
     slave:
       hikari:
-        username: kty
-        password: qwer1234
+        username: ${SLAVE}      # 슬레이브 서버 사용자명
+        password: ${SLAVE_PW}   # 슬레이브 서버 사용자 패스워드
         driver-class-name: com.mysql.cj.jdbc.Driver
-        jdbc-url: jdbc:mysql://192.168.72.30/shop
+        jdbc-url: ${SLAVE_URL}  # 슬레이브 서버 주소
 
 
   servlet:
@@ -76,35 +76,28 @@ logging:
     org.springframework.security: DEBUG
 
 jwt:
-  secret-key: abcdefghijklmnopqrstuvwxyz0123456789
+  secret-key: ${JWT_SECRET_KEY}       # jwt 토큰 시크릿 키
   token:
-    expired-time-ms: 3000000000
+    expired-time-ms: ${EXPIRED_TIME}  # 토큰 만료 시간
 
 cloud:
   aws:
     s3:
-<<<<<<< HEAD
-      bucket: ${AWS_S3_NAME}
-      brand-bucket: ${AWS_S3_NAME}
-      product-bucket: ${AWS_S3_NAME}
-      productIntrod-bucket: ${AWS_S3_NAME}
-=======
-      product-bucket: lonua-product
-      productIntrod-bucket: lonua-productintrod
-      brand-bucket: lonua-brand
-      review-bucket: lonua-review
->>>>>>> develop
+      product-bucket: ${PRODUCT_BUCKET}    # 상품 S3 커킷 이름
+      productIntrod-bucket: ${PRODUCT_INTROD_BUCKET}   # 상품소개 S3 커킷 이름
+      brand-bucket: ${BRAND_BUCKET}  # 브랜드 S3 버킷 이름
+      review-bucket: ${REVIEW_BUCKET}  # 리뷰 S3 버킷 이름
     credentials:
-      access-key: ${AWS_S3_ACCESS_KEY}
-      secret-key: ${AWS_S3_SECRET_KEY}
+      access-key: ${AWS_S3_ACCESS_KEY}  # AWS ACCESS 키
+      secret-key: ${AWS_S3_SECRET_KEY}  # AWS SECRET 키
     region:
-      static: ap-northeast-2
+      static: ${REGION}  # AWS 지역
       auto: false
     stack:
       auto: false
 
 imp:
-  imp-key: ${MY_IMP_KEY}
-  imp-secret: ${MY_IMP_SECRET}
+  imp-key: ${MY_IMP_KEY}  # 포트원 REST API 키
+  imp-secret: ${MY_IMP_SECRET}  # 포트원 REST API 시크릿 키
 
 

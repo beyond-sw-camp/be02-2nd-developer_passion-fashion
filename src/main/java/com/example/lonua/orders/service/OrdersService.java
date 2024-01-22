@@ -234,12 +234,12 @@ public class OrdersService {
                     .result("잘못된 요청입니다.")
                     .build();
         }
-            return BaseRes.builder()
-                    .code(400)
-                    .isSuccess(false)
-                    .message("요청 실패")
-                    .result("잘못된 요청입니다.")
-                    .build();
+        return BaseRes.builder()
+                .code(400)
+                .isSuccess(false)
+                .message("요청 실패")
+                .result("잘못된 요청입니다.")
+                .build();
     }
 
 

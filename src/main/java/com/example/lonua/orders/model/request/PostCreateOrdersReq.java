@@ -5,7 +5,6 @@ import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 import javax.validation.constraints.Min;
-
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
 import java.util.List;
@@ -44,7 +43,6 @@ public class PostCreateOrdersReq {
 
     @NotNull
     @ApiModelProperty(value = "주문 상품 리스트", example = "[1, 2, 3]", required = true)
-
     private List<Integer> productIdxList;
 
 }

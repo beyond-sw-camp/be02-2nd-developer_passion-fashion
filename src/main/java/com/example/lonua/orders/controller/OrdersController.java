@@ -6,41 +6,21 @@ import com.example.lonua.orders.model.request.PatchUpdateOrdersReq;
 import com.example.lonua.orders.model.request.PostCreateOrdersReq;
 import com.example.lonua.orders.service.OrdersService;
 import com.example.lonua.user.model.entity.User;
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import com.siot.IamportRestClient.exception.IamportResponseException;
-import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
->>>>>>> feature/swagger
-=======
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
->>>>>>> develop
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-import javax.validation.Valid;
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
-import java.io.IOException;
-
->>>>>>> feature/swagger
-=======
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Positive;
 
->>>>>>> develop
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/orders")
@@ -68,6 +48,7 @@ public class OrdersController {
     public ResponseEntity list(@PathVariable @NotNull @Positive Integer page, @PathVariable @NotNull @Positive Integer size){
         User user = ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal());
         BaseRes baseRes = ordersService.list(user, page, size);
+
         return ResponseEntity.ok().body(baseRes);
     }
 
