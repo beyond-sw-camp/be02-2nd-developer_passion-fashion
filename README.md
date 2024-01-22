@@ -30,6 +30,7 @@
 &nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Spring Boot-6DB33F?style=flat&logo=springBoot&logoColor=white&color=green"/></a></a>
 
 &nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Spring Cloud-6DB33F?style=flat&logo=spring&logoColor=white&color=dargreen"/></a></a>
+&nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Spring Security-6DB33F?style=flat&logo=springsecurity&logoColor=white&color=darkgreen"/></a></a>
 &nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Apache kafka-231F20F?style=flat&logo=ApacheKafka&logoColor=black&color=white"/></a></a>
 &nbsp;&nbsp;&nbsp;<img src="https://img.shields.io/badge/Amazon AWS-232F3E?style=flat&logo=AmazonAWS&logoColor=black&color=orange"/></a></a>
 
